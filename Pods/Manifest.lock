@@ -1,0 +1,24 @@
+PODS:
+  - CocoaLumberjack/Core (2.2.0)
+  - CocoaLumberjack/Default (2.2.0):
+    - CocoaLumberjack/Core
+  - CocoaLumberjack/Extensions (2.2.0):
+    - CocoaLumberjack/Default
+  - CocoaLumberjack/Swift (2.2.0):
+    - CocoaLumberjack/Extensions
+  - FLEX (2.3.0)
+  - Operations (2.7.1):
+    - Operations/Standard (= 2.7.1)
+  - Operations/Standard (2.7.1)
+
+DEPENDENCIES:
+  - CocoaLumberjack/Swift (~> 2.2.0)
+  - FLEX (~> 2.3.0)
+  - Operations (~> 2.7.0)
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
+  FLEX: ba80ea13d2c784e85e616137fd4eff164781e364
+  Operations: d6a9f6670ae307b2860057ab0ce143bf61424ce7
+
+COCOAPODS: 0.39.0
