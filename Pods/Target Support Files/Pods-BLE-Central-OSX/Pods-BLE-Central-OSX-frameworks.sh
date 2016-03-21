@@ -84,12 +84,8 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-iOS/CocoaLumberjack.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Operations/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-OSX/CocoaLumberjack.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-iOS/CocoaLumberjack.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
-  install_framework "$BUILT_PRODUCTS_DIR/Operations/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-OSX/CocoaLumberjack.framework"
 fi

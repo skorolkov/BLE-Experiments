@@ -348,12 +348,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A60F0CDA1C9C55770025E3E2 /* Build configuration list for PBXNativeTarget "BLE-Experiments" */;
 			buildPhases = (
-				38719475F603F93FB036F253 /* Check Pods Manifest.lock */,
+				38719475F603F93FB036F253 /* 📦 Check Pods Manifest.lock */,
 				A60F0CA21C9C55770025E3E2 /* Sources */,
 				A60F0CA31C9C55770025E3E2 /* Frameworks */,
 				A60F0CA41C9C55770025E3E2 /* Resources */,
-				96F7B9E37436C456A10468F2 /* Embed Pods Frameworks */,
-				B99D15ADB3884D56FF2C7FF9 /* Copy Pods Resources */,
+				96F7B9E37436C456A10468F2 /* 📦 Embed Pods Frameworks */,
+				B99D15ADB3884D56FF2C7FF9 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -440,14 +440,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		38719475F603F93FB036F253 /* Check Pods Manifest.lock */ = {
+		38719475F603F93FB036F253 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Check Pods Manifest.lock";
+			name = "📦 Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,14 +455,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		96F7B9E37436C456A10468F2 /* Embed Pods Frameworks */ = {
+		96F7B9E37436C456A10468F2 /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "📦 Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,14 +470,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Experiments/Pods-BLE-Experiments-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B99D15ADB3884D56FF2C7FF9 /* Copy Pods Resources */ = {
+		B99D15ADB3884D56FF2C7FF9 /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Copy Pods Resources";
+			name = "📦 Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;

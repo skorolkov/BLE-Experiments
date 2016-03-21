@@ -16,7 +16,7 @@ install_framework()
     local source="$1"
   fi
 
-  local destination="${CONFIGURATION_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
+  local destination="${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}"
 
   if [ -L "${source}" ]; then
       echo "Symlinked..."
@@ -84,12 +84,12 @@ strip_invalid_archs() {
 
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
-  install_framework "Pods-BLE-Peripheral/CocoaLumberjack.framework"
-  install_framework "Pods-BLE-Peripheral/FLEX.framework"
-  install_framework "Pods-BLE-Peripheral/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-iOS/CocoaLumberjack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Operations/Operations.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
-  install_framework "Pods-BLE-Peripheral/CocoaLumberjack.framework"
-  install_framework "Pods-BLE-Peripheral/FLEX.framework"
-  install_framework "Pods-BLE-Peripheral/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-iOS/CocoaLumberjack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/FLEX/FLEX.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Operations/Operations.framework"
 fi
