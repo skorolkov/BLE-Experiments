@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import CocoaLumberjack
+//import CocoaLumberjack
 
 class BTCentralManagerLoggingHandler: BTCentalManagerBlockHandler {
     

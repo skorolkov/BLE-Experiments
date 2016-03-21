@@ -12,6 +12,9 @@
 		A60F0D421C9C617E0025E3E2 /* CustomLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60F0D411C9C617E0025E3E2 /* CustomLogFormatter.swift */; };
 		A60F0D441C9C617E0025E3E2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60F0D431C9C617E0025E3E2 /* Config.swift */; };
 		A60F0D5A1C9C617E0025E3E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60F0D581C9C617E0025E3E2 /* LaunchScreen.storyboard */; };
+		A6913EBB1CA0314800316658 /* BTPeripheralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6913EBA1CA0314800316658 /* BTPeripheralManager.swift */; };
+		A6913EBE1CA0319400316658 /* PeripheralViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6913EBC1CA0319400316658 /* PeripheralViewController.swift */; };
+		A6913EBF1CA0319400316658 /* PeripheralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6913EBD1CA0319400316658 /* PeripheralViewController.xib */; };
 		CC7887120CF479825D00F2E4 /* Pods_BLE_Peripheral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */; };
 /* End PBXBuildFile section */
 
@@ -37,6 +40,9 @@
 		A60F0D5B1C9C617E0025E3E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A60F0D601C9C617E0025E3E2 /* BLE-PeripheralTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BLE-PeripheralTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60F0D661C9C617F0025E3E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A6913EBA1CA0314800316658 /* BTPeripheralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManager.swift; sourceTree = "<group>"; };
+		A6913EBC1CA0319400316658 /* PeripheralViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeripheralViewController.swift; sourceTree = "<group>"; };
+		A6913EBD1CA0319400316658 /* PeripheralViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PeripheralViewController.xib; sourceTree = "<group>"; };
 		B6BBA2B2011C9354FAF62089 /* Pods-BLE-Peripheral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Peripheral.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral.release.xcconfig"; sourceTree = "<group>"; };
 		EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Peripheral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -126,6 +132,7 @@
 		A60F0D401C9C617E0025E3E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A6913EBA1CA0314800316658 /* BTPeripheralManager.swift */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -133,6 +140,7 @@
 		A60F0D491C9C617E0025E3E2 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				A6913EC01CA0319700316658 /* PeripheralViewController */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -173,6 +181,15 @@
 				A60F0D411C9C617E0025E3E2 /* CustomLogFormatter.swift */,
 			);
 			name = CustomLogFormatter;
+			sourceTree = "<group>";
+		};
+		A6913EC01CA0319700316658 /* PeripheralViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A6913EBC1CA0319400316658 /* PeripheralViewController.swift */,
+				A6913EBD1CA0319400316658 /* PeripheralViewController.xib */,
+			);
+			name = PeripheralViewController;
 			sourceTree = "<group>";
 		};
 		C78E0ECD3290FE3575CDA99C /* Frameworks */ = {
@@ -269,6 +286,7 @@
 			files = (
 				A60F0D5A1C9C617E0025E3E2 /* LaunchScreen.storyboard in Resources */,
 				A60F0D3A1C9C617E0025E3E2 /* Assets.xcassets in Resources */,
+				A6913EBF1CA0319400316658 /* PeripheralViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +352,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6913EBE1CA0319400316658 /* PeripheralViewController.swift in Sources */,
 				A60F0D421C9C617E0025E3E2 /* CustomLogFormatter.swift in Sources */,
+				A6913EBB1CA0314800316658 /* BTPeripheralManager.swift in Sources */,
 				A60F0D3C1C9C617E0025E3E2 /* AppDelegate.swift in Sources */,
 				A60F0D441C9C617E0025E3E2 /* Config.swift in Sources */,
 			);

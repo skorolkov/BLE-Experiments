@@ -26,8 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.backgroundColor = UIColor.whiteColor()
         self.window?.makeKeyAndVisible()
         
-        // FIXME: replace this line with corrent controller
-        self.window?.rootViewController = UIViewController();
+        self.window?.rootViewController = PeripheralViewController()
         
         return true
     }
@@ -59,18 +58,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Methods overriden for FLEX
     
     override func motionBegan(motion: UIEventSubtype, withEvent event: UIEvent?) {
-    if (motion == UIEventSubtype.MotionShake) {
-    if (FLEXManager.sharedManager().isHidden) {
-    FLEXManager.sharedManager().showExplorer()
-    }
-    }
-    else {
-    FLEXManager.sharedManager().hideExplorer()
-    }
+        if (motion == UIEventSubtype.MotionShake) {
+            if (FLEXManager.sharedManager().isHidden) {
+                FLEXManager.sharedManager().showExplorer()
+            }
+        }
+        else {
+            FLEXManager.sharedManager().hideExplorer()
+        }
     }
     
     override func canBecomeFirstResponder() -> Bool {
-    return true
+        return true
     }
     
     #endif

@@ -21,7 +21,7 @@ target 'BLE-Experiments' do
     
     pod 'FLEX', '~> 2.3.0'
     pod 'Operations', '~> 2.7.0'
-    import_pods
+    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
 end
 
 target 'BLE-Peripheral' do
@@ -31,7 +31,7 @@ target 'BLE-Peripheral' do
     
     pod 'FLEX', '~> 2.3.0'
     pod 'Operations', '~> 2.7.0'
-    import_pods
+    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
 end
 
 target 'BLE-Central-OSX' do
@@ -39,6 +39,6 @@ target 'BLE-Central-OSX' do
     
     project 'BLE-Central-OSX/BLE-Central-OSX.xcodeproj'
     
-    import_pods
+    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
 end
 
