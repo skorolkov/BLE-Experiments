@@ -8,7 +8,12 @@
 
 import CoreBluetooth
 
-@objc protocol BTCentralManagerHandlerProtocol: class {
+/**
+ * BTCentralManagerHandlerProtocol inherits from NSObjectProtocol
+ * because we need isEqual method
+ */
+
+@objc protocol BTCentralManagerHandlerProtocol: NSObjectProtocol {
     
     // MARK: Monitoring Changes to the Central Manager’s State
     

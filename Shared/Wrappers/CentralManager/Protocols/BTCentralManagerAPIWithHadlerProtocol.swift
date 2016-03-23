@@ -12,5 +12,7 @@ import Foundation
     
     // MARK: Add handler
     
-    func addHandler(handler: BTCentralManagerHandlerProtocol)
+    func addHandler(handlerToAdd: BTCentralManagerHandlerProtocol)
+    
+    func removeHandler(handlerToRemove: BTCentralManagerHandlerProtocol)
 }

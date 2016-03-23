@@ -89,8 +89,26 @@ extension BTCentralManagerProxy: BTCentralManagerAPIProtocol {
 
 extension BTCentralManagerProxy: BTCentralManagerAPIWithHadlerProtocol {
     
-    func addHandler(handler: BTCentralManagerHandlerProtocol) {
-        handlers.append(handler)
+    func addHandler(handlerToAdd: BTCentralManagerHandlerProtocol) {
+        guard indexOfHandler(handlerToAdd) == nil else {
+            return
+        }
+        
+        handlers.append(handlerToAdd)
+    }
+    
+    func removeHandler(handlerToRemove: BTCentralManagerHandlerProtocol) {
+        guard let index = indexOfHandler(handlerToRemove) else {
+            return
+        }
+        
+        handlers.removeAtIndex(index)
+    }
+    
+    private func indexOfHandler(handlerToFind: BTCentralManagerHandlerProtocol) -> Int? {
+        return handlers.indexOf { (handler: BTCentralManagerHandlerProtocol) -> Bool in
+            return handler.isEqual(handlerToFind)
+        }
     }
 }
 

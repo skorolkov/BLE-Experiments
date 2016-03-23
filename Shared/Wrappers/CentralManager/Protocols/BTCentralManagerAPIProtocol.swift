@@ -8,8 +8,6 @@
 
 import CoreBluetooth
 
-typealias BTCentralManagerInitializibleType = BTCentralManagerInitializibleProtocol
-
 @objc protocol BTCentralManagerAPIProtocol: class {
     
     // MARK: State

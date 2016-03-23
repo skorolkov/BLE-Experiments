@@ -7,3 +7,8 @@
 //
 
 import Foundation
+import CocoaLumberjack
+
+struct Config {
+    static let ddLogLevel = DDLogLevel.Verbose
+}

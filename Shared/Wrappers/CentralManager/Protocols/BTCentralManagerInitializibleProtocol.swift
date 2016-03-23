@@ -8,6 +8,8 @@
 
 import CoreBluetooth
 
+typealias BTCentralManagerInitializibleType = BTCentralManagerInitializibleProtocol
+
 @objc protocol BTCentralManagerInitializibleProtocol: BTCentralManagerAPIProtocol {
     
     // MARK: Delegate

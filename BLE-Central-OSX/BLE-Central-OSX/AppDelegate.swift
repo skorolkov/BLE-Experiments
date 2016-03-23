@@ -33,7 +33,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         let formatter = CustomLogFormatter()
             
         DDTTYLogger.sharedInstance().logFormatter = formatter
-            
+        
+        defaultDebugLevel = Config.ddLogLevel
+        
         DDLogInfo("\n\n\n\t\t\t\t\t\t***** Application started *****\n\n\n")
     }
 
