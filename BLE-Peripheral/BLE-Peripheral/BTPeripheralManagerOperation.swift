@@ -12,11 +12,11 @@ class BTPeripheralManagerOperation: Operation {
     
     // MARK: Private Properties
     
-    private(set) weak var peripheralManager: BTPeripheralManagerProxy?
+    private(set) weak var peripheralManager: BTPeripheralManagerAPIType?
     
     // MARK: Initializers
     
-    init(withPeripheralManager peripheralManager: BTPeripheralManagerProxy) {
+    init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
         self.peripheralManager = peripheralManager
     }
 

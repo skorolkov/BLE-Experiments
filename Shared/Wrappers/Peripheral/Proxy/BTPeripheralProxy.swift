@@ -15,7 +15,7 @@ import CoreBluetooth
     
     private var peripheral: PeriphralFullAPIProtocol
     
-    private var handlers: [BTPeripheralHandlerProtocol] = []
+    private var handlerContainer = BTHandlersContainer<BTPeripheralHandlerProtocol>()
     
     // MARK: Initializers
     
@@ -74,8 +74,12 @@ extension BTPeripheralProxy: BTPeripheralAPIProtocol {
 
 extension BTPeripheralProxy: BTPeripheralAPIWithHandlerProtocol {
     
-    func addHandler(handler: BTPeripheralHandlerProtocol) {
-        handlers.append(handler)
+    func addHandler(handlerToAdd: BTPeripheralHandlerProtocol) {
+        handlerContainer.addHandler(handlerToAdd)
+    }
+    
+    func removeHandler(handlerToRemove: BTPeripheralHandlerProtocol) {
+        handlerContainer.removeHandler(handlerToRemove)
     }
 }
 
@@ -86,7 +90,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     // MARK: Peripheral's name updated
     
     func peripheralDidUpdateName(peripheral: CBPeripheral) {
-        handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
             handler.peripheralDidUpdateName?(wrappedPeripheral(peripheral))
         }
     }
@@ -94,7 +98,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     // MARK: Services and characteristics discovered
     
     func peripheral(peripheral: CBPeripheral, didDiscoverServices error: NSError?) {
-        handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
             handler.peripheral?(wrappedPeripheral(peripheral), didDiscoverServices: error)
         }
     }
@@ -102,7 +106,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     func peripheral(peripheral: CBPeripheral,
         didDiscoverCharacteristicsForService service: CBService,
         error: NSError?) {
-            handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+            handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
                 handler.peripheral?(wrappedPeripheral(peripheral),
                     didDiscoverCharacteristicsForService: service,
                     error: error)
@@ -114,7 +118,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     func peripheral(peripheral: CBPeripheral,
         didUpdateValueForCharacteristic characteristic: CBCharacteristic,
         error: NSError?) {
-            handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+            handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
                 handler.peripheral?(wrappedPeripheral(peripheral),
                     didUpdateValueForCharacteristic: characteristic,
                     error: error)
@@ -124,7 +128,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     func peripheral(peripheral: CBPeripheral,
         didWriteValueForCharacteristic characteristic: CBCharacteristic,
         error: NSError?) {
-            handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+            handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
                 handler.peripheral?(wrappedPeripheral(peripheral),
                     didWriteValueForCharacteristic: characteristic,
                     error: error)
@@ -136,7 +140,7 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     func peripheral(peripheral: CBPeripheral,
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
         error: NSError?) {
-            handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
+            handlerContainer.handlers.forEach { (handler: BTPeripheralHandlerProtocol) -> () in
                 handler.peripheral?(wrappedPeripheral(peripheral),
                     didUpdateNotificationStateForCharacteristic: characteristic,
                     error: error)

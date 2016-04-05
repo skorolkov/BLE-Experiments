@@ -19,7 +19,7 @@ import CoreBluetooth
     
     private var centralManager: BTCentralManagerInitializibleType
     
-    private var handlers: [BTCentralManagerHandlerProtocol] = []
+    private var handlersContainer = BTHandlersContainer<BTCentralManagerHandlerProtocol>()
     
     // MARK: Initializers
     
@@ -90,25 +90,11 @@ extension BTCentralManagerProxy: BTCentralManagerAPIProtocol {
 extension BTCentralManagerProxy: BTCentralManagerAPIWithHadlerProtocol {
     
     func addHandler(handlerToAdd: BTCentralManagerHandlerProtocol) {
-        guard indexOfHandler(handlerToAdd) == nil else {
-            return
-        }
-        
-        handlers.append(handlerToAdd)
+        handlersContainer.addHandler(handlerToAdd)
     }
     
     func removeHandler(handlerToRemove: BTCentralManagerHandlerProtocol) {
-        guard let index = indexOfHandler(handlerToRemove) else {
-            return
-        }
-        
-        handlers.removeAtIndex(index)
-    }
-    
-    private func indexOfHandler(handlerToFind: BTCentralManagerHandlerProtocol) -> Int? {
-        return handlers.indexOf { (handler: BTCentralManagerHandlerProtocol) -> Bool in
-            return handler.isEqual(handlerToFind)
-        }
+        handlersContainer.removeHandler(handlerToRemove)
     }
 }
 
@@ -119,14 +105,14 @@ extension BTCentralManagerProxy: CBCentralManagerDelegate {
     // MARK: Monitoring Changes to the Central Manager’s State
     
     func centralManagerDidUpdateState(central: CBCentralManager) {
-        handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+        handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
             handler.centralManagerDidUpdateState(wrappedCentralManager(central))
         }
     }
     
     func centralManager(central: CBCentralManager,
         willRestoreState dict: [String : AnyObject]) {
-            handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+            handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
                 handler.centralManager?(wrappedCentralManager(central), willRestoreState: dict)
             }
     }
@@ -135,7 +121,7 @@ extension BTCentralManagerProxy: CBCentralManagerDelegate {
     
     func centralManager(central: CBCentralManager,
         didConnectPeripheral peripheral: CBPeripheral) {
-            handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+            handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
                 handler.centralManager?(wrappedCentralManager(central),
                     didConnectPeripheral: wrappedPeripheral(peripheral))
             }
@@ -144,7 +130,7 @@ extension BTCentralManagerProxy: CBCentralManagerDelegate {
     func centralManager(central: CBCentralManager,
         didDisconnectPeripheral peripheral: CBPeripheral,
         error: NSError?) {
-            handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+            handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
                 handler.centralManager?(wrappedCentralManager(central),
                     didDisconnectPeripheral: wrappedPeripheral(peripheral),
                     error: error)
@@ -154,7 +140,7 @@ extension BTCentralManagerProxy: CBCentralManagerDelegate {
     func centralManager(central: CBCentralManager,
         didFailToConnectPeripheral peripheral: CBPeripheral,
         error: NSError?) {
-            handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+            handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
                 handler.centralManager?(wrappedCentralManager(central),
                     didFailToConnectPeripheral: wrappedPeripheral(peripheral),
                     error: error)
@@ -167,7 +153,7 @@ extension BTCentralManagerProxy: CBCentralManagerDelegate {
         didDiscoverPeripheral peripheral: CBPeripheral,
         advertisementData: [String : AnyObject],
         RSSI: NSNumber) {
-            handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
+            handlersContainer.handlers.forEach { (handler: BTCentralManagerHandlerProtocol) -> () in
                 handler.centralManager?(wrappedCentralManager(central),
                     didDiscoverPeripheral: wrappedPeripheral(peripheral),
                     advertisementData: advertisementData,

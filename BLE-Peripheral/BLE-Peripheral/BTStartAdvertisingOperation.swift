@@ -10,12 +10,27 @@ import Operations
 
 class BTStartAdvertisingOperation: BTPeripheralManagerOperation {
     
+    // MARK: Internal Properties
+    
     var advertisingData: [String : AnyObject]?
     
-    override init(withPeripheralManager peripheralManager: BTPeripheralManagerProxy) {
+    // MARK: Initializers
+    
+    init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
+        peripheralRolePerformer: BTPeripheralRolePerformer) {
+            
         super.init(withPeripheralManager: peripheralManager)
         
-        addCondition(BTBluetoothPoweredOnCondition(withPeripheralManager: peripheralManager))
+        addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
+        addCondition(BTBluetoothPoweredOnWaitingCondition(withPeripheralManager: peripheralManager))
+        addCondition(NegatedCondition(
+            BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer)))
+        addCondition(BTPeripheralNotAdvertisingCondition(withPeripheralManager: peripheralManager))
+    }
+    
+    private override init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
+        super.init(withPeripheralManager: peripheralManager)
+        fatalError()
     }
     
     override func execute() {

@@ -17,14 +17,20 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
     
     // MARK: Initializers
     
-    init(withPeripheralManager peripheralManager: BTPeripheralManagerProxy,
+    init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
         peripheralRolePerformer: BTPeripheralRolePerformer,
         services: [BTService]) {
-        self.services = services
+            self.services = services
+            super.init(withPeripheralManager: peripheralManager)
+            
+            addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
+            addCondition(BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer))
+    }
+    
+    private override init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
+        services = []
         super.init(withPeripheralManager: peripheralManager)
-        
-        addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
-        addCondition(BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer))
+        fatalError()
     }
     
     override func execute() {

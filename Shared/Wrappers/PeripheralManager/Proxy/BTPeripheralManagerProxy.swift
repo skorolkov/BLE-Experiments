@@ -15,7 +15,7 @@ import CoreBluetooth
     
     private var peripheralManager: BTPeripheralManagerInitializibleType
     
-    private var handlers: [BTPeripheralManagerHandlerProtocol] = []
+    private var handlerContainer = BTHandlersContainer<BTPeripheralManagerHandlerProtocol>()
     
     // MARK: Initializers
     
@@ -37,6 +37,12 @@ extension BTPeripheralManagerProxy: BTPeripheralManagerAPIProtocol {
         return peripheralManager.state
     }
     
+    // MARK: Advertising state
+    
+    var isAdvertising: Bool {
+        return peripheralManager.isAdvertising
+    }
+
     // MARK: Start/Stop Advertising
     
     func startAdvertising(advertisementData: [String : AnyObject]?) {
@@ -83,44 +89,30 @@ extension BTPeripheralManagerProxy: BTPeripheralManagerAPIProtocol {
 extension BTPeripheralManagerProxy: BTPeripheralManagerAPIWithHadlerProtocol {
     
     func addHandler(handlerToAdd: BTPeripheralManagerHandlerProtocol) {
-        guard indexOfHandler(handlerToAdd) == nil else {
-            return
-        }
-        
-        handlers.append(handlerToAdd)
+        handlerContainer.addHandler(handlerToAdd)
     }
     
     func removeHandler(handlerToRemove: BTPeripheralManagerHandlerProtocol) {
-        guard let index = indexOfHandler(handlerToRemove) else {
-            return
-        }
-        
-        handlers.removeAtIndex(index)
-    }
-    
-    private func indexOfHandler(handlerToFind: BTPeripheralManagerHandlerProtocol) -> Int? {
-        return handlers.indexOf { (handler: BTPeripheralManagerHandlerProtocol) -> Bool in
-            return handler.isEqual(handlerToFind)
-        }
+        handlerContainer.removeHandler(handlerToRemove)
     }
 }
 
 extension BTPeripheralManagerProxy: CBPeripheralManagerDelegate {
     
     func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager) {
-        handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
             handler.peripheralManagerDidUpdateState(wrappedPeripheralManager(peripheral))
         }
     }
     
     func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager, error: NSError?) {
-        handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
             handler.peripheralManagerDidStartAdvertising?(wrappedPeripheralManager(peripheral), error: error)
         }
     }
     
     func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
-        handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
             handler.peripheralManager?(wrappedPeripheralManager(peripheral),
                 didAddService: service,
                 error: error)
@@ -128,14 +120,14 @@ extension BTPeripheralManagerProxy: CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(peripheral: CBPeripheralManager, didReceiveReadRequest request: CBATTRequest) {
-        handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
             handler.peripheralManager?(wrappedPeripheralManager(peripheral),
                 didReceiveReadRequest: request)
         }
     }
     
     func peripheralManager(peripheral: CBPeripheralManager, didReceiveWriteRequests requests: [CBATTRequest]) {
-        handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
+        handlerContainer.handlers.forEach { (handler: BTPeripheralManagerHandlerProtocol) -> () in
             handler.peripheralManager?(wrappedPeripheralManager(peripheral),
                 didReceiveWriteRequests: requests)
         }

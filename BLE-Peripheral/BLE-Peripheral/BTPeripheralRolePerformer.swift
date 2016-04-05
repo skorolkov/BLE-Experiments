@@ -11,10 +11,35 @@ import CoreBluetooth
 import CocoaLumberjack
 import Operations
 
-private let UUID: String = "336453FB-183F-4277-923C-7C1F45CD13F8"
-
+enum MessageResult {
+    case None
+    case Succeed
+    case Cancelled([ErrorType])
+    case Finished([ErrorType])
+    
+    init(operation: Operation, errors: [ErrorType]) {
+        if operation.finished {
+            if errors.isEmpty {
+                self = .Succeed
+            }
+            else {
+                self = .Finished(errors)
+            }
+        }
+        else if operation.cancelled {
+            self = .Cancelled(errors)
+        }
+        
+        self = .None
+    }
+}
 
 class BTPeripheralRolePerformer: NSObject {
+    
+    // MARK: Types Definitions
+    
+    typealias BTPeripheralRoleBlock =
+        (rolePerformer: BTPeripheralRolePerformer, result: MessageResult) -> Void
     
     // MARK: Private Properties
 
@@ -69,9 +94,18 @@ class BTPeripheralRolePerformer: NSObject {
     // MARK: Internal Methods
 
     
-    func startAdevertising() {
+    func startAdevertisingWithCompletion(completion: BTPeripheralRoleBlock?) {
         
+        let startAdvertisingOperation = BTStartAdvertisingOperation(withPeripheralManager: peripheralManager,
+            peripheralRolePerformer: self)
         
+        startAdvertisingOperation.addObserver(DidFinishObserver { result in
+            
+            completion?(rolePerformer: self,
+                result: MessageResult(operation: result.operation, errors: result.errors))
+            })
+        
+        operationQueue.addOperation(startAdvertisingOperation)
     }
 }
 
@@ -114,9 +148,6 @@ private extension BTPeripheralRolePerformer {
             
             if result.operation.finished && result.errors.isEmpty {
                 weakSelf?.servicesAdded = true
-            }
-            else {
-                weakSelf?.servicesAdded = false
             }
             
             })

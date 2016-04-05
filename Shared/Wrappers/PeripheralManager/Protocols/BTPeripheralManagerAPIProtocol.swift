@@ -15,6 +15,10 @@ import CoreBluetooth
     
     var state: CBPeripheralManagerState { get }
     
+    // MARK: Advertising state
+    
+    var isAdvertising: Bool { get }
+    
     // MARK: Start/Stop Advertising
     
     func startAdvertising(advertisementData: [String : AnyObject]?)

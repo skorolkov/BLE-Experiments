@@ -1,12 +1,11 @@
 //
-//  BTOperations.swift
+//  BTBluetoothPoweredOnWaitingCondition.swift
 //  BLE-Peripheral
 //
 //  Created by d503 on 3/22/16.
 //  Copyright © 2016 d503. All rights reserved.
 //
 
-import Foundation
 import Operations
 import CoreBluetooth
 
@@ -25,19 +24,19 @@ class BTBluetoothPoweredOnCondition: BTBaseCondition, OperationCondition {
     
     // MARK: Private Properties
     
-    private unowned var peripheralManager: BTPeripheralManagerProxy
+    private unowned var peripheralManager: BTPeripheralManagerAPIType
     
     // MARK: Initializers
     
-    init(withPeripheralManager peripheralManager: BTPeripheralManagerProxy) {
+    init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
         self.peripheralManager = peripheralManager
         super.init(mutuallyExclusive: false)
     }
-    
+
     // MARK: OperationCondition protocol
     
     func dependencyForOperation(operation: Operation) -> NSOperation? {
-        return BTBluetoothPowerOnWaitingOperation(withPeripheralManager: peripheralManager)
+        return .None
     }
     
     func evaluateForOperation(operation: Operation, completion: OperationConditionResult -> Void) {
@@ -52,9 +51,23 @@ class BTBluetoothPoweredOnCondition: BTBaseCondition, OperationCondition {
     }
 }
 
+class BTBluetoothPoweredOnWaitingCondition: BTBluetoothPoweredOnCondition {
+    
+    // MARK: OperationCondition protocol
+    
+    override func dependencyForOperation(operation: Operation) -> NSOperation? {
+        return BTBluetoothPowerOnWaitingOperation(withPeripheralManager: peripheralManager)
+    }
+}
+
 class BTBluetoothPowerOnWaitingOperation: BTPeripheralManagerOperation {
     
     override func execute() {
+        guard peripheralManager?.state != .PoweredOn else {
+            finish()
+            return
+        }
+        
         peripheralManager?.addHandler(self)
     }
 }
