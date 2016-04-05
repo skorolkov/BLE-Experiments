@@ -85,7 +85,13 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-OSX/CocoaLumberjack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Operations-OSX/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa-OSX/ReactiveCocoa.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-OSX/CocoaLumberjack.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Operations-OSX/Operations.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa-OSX/ReactiveCocoa.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/Result-OSX/Result.framework"
 fi

@@ -10,8 +10,10 @@ project 'BLE-Central-OSX/BLE-Central-OSX.xcodeproj'
 use_frameworks!
 inhibit_all_warnings!
 
-def import_pods
+def testing_pods
+    pod 'Operations', '~> 2.7.0'
     pod 'CocoaLumberjack/Swift', '~> 2.2.0'
+    pod 'ReactiveCocoa', '~> 4.0.1'
 end
 
 target 'BLE-Experiments' do
@@ -20,8 +22,8 @@ target 'BLE-Experiments' do
     project 'BLE-Experiments/BLE-Experiments.xcodeproj'
     
     pod 'FLEX', '~> 2.3.0'
-    pod 'Operations', '~> 2.7.0'
-    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
+    
+    testing_pods
 end
 
 target 'BLE-Peripheral' do
@@ -30,8 +32,16 @@ target 'BLE-Peripheral' do
     project 'BLE-Peripheral/BLE-Peripheral.xcodeproj'
     
     pod 'FLEX', '~> 2.3.0'
-    pod 'Operations', '~> 2.7.0'
-    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
+    
+    testing_pods
+end
+
+target 'BLE-PeripheralTests' do
+    platform :ios, '8.0'
+
+    project 'BLE-Peripheral/BLE-Peripheral.xcodeproj'
+
+    testing_pods
 end
 
 target 'BLE-Central-OSX' do
@@ -39,6 +49,8 @@ target 'BLE-Central-OSX' do
     
     project 'BLE-Central-OSX/BLE-Central-OSX.xcodeproj'
     
-    pod 'CocoaLumberjack/Swift', '~> 2.2.0'
+    testing_pods
 end
+
+
 

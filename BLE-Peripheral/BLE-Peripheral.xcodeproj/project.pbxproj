@@ -54,6 +54,7 @@
 		A6FCE7B11CA3396400A45992 /* BTTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FCE7B01CA3396400A45992 /* BTTypes.swift */; };
 		A6FCE7B51CA33DAB00A45992 /* BTServiceNotAddedCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FCE7B41CA33DAB00A45992 /* BTServiceNotAddedCondition.swift */; };
 		A6FCE7B71CA342D300A45992 /* BTBaseCondition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6FCE7B61CA342D300A45992 /* BTBaseCondition.swift */; };
+		BAB184674DC6C5EB1B2520B7 /* Pods_BLE_PeripheralTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */; };
 		CC7887120CF479825D00F2E4 /* Pods_BLE_Peripheral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +70,7 @@
 
 /* Begin PBXFileReference section */
 		162E591DF0DE7D8F562606AC /* Pods-BLE-Peripheral.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Peripheral.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral.debug.xcconfig"; sourceTree = "<group>"; };
+		7CC69ADB8E65DC41B0235676 /* Pods-BLE-PeripheralTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-PeripheralTests.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests.release.xcconfig"; sourceTree = "<group>"; };
 		A60AC01A1CA1D9E100E6AE8E /* BTCentralManagerHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralManagerHandlerProtocol.swift; sourceTree = "<group>"; };
 		A60AC01C1CA1D9E100E6AE8E /* BTCentalManagerBlockHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentalManagerBlockHandler.swift; sourceTree = "<group>"; };
 		A60AC01D1CA1D9E100E6AE8E /* BTCentralManagerLoggingHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralManagerLoggingHandler.swift; sourceTree = "<group>"; };
@@ -123,7 +125,9 @@
 		A6FCE7B41CA33DAB00A45992 /* BTServiceNotAddedCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTServiceNotAddedCondition.swift; sourceTree = "<group>"; };
 		A6FCE7B61CA342D300A45992 /* BTBaseCondition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTBaseCondition.swift; sourceTree = "<group>"; };
 		B6BBA2B2011C9354FAF62089 /* Pods-BLE-Peripheral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Peripheral.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral.release.xcconfig"; sourceTree = "<group>"; };
+		CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_PeripheralTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Peripheral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F64767FA37CEB82970A330D8 /* Pods-BLE-PeripheralTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-PeripheralTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BAB184674DC6C5EB1B2520B7 /* Pods_BLE_PeripheralTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +156,8 @@
 			children = (
 				162E591DF0DE7D8F562606AC /* Pods-BLE-Peripheral.debug.xcconfig */,
 				B6BBA2B2011C9354FAF62089 /* Pods-BLE-Peripheral.release.xcconfig */,
+				F64767FA37CEB82970A330D8 /* Pods-BLE-PeripheralTests.debug.xcconfig */,
+				7CC69ADB8E65DC41B0235676 /* Pods-BLE-PeripheralTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -541,6 +548,7 @@
 			children = (
 				A634E61A1CA062AB00994A10 /* CoreBluetooth.framework */,
 				EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */,
+				CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -572,9 +580,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A60F0D6C1C9C617F0025E3E2 /* Build configuration list for PBXNativeTarget "BLE-PeripheralTests" */;
 			buildPhases = (
+				1BA757302202B629AA37CF01 /* 📦 Check Pods Manifest.lock */,
 				A60F0D5C1C9C617E0025E3E2 /* Sources */,
 				A60F0D5D1C9C617E0025E3E2 /* Frameworks */,
 				A60F0D5E1C9C617E0025E3E2 /* Resources */,
+				6094A5B4963780545B5D9B63 /* 📦 Embed Pods Frameworks */,
+				EBC26D458CDBD10FDAC35859 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -645,6 +656,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		1BA757302202B629AA37CF01 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		58F296D75CDE5413EEE2B6CC /* 📦 Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -660,6 +686,21 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6094A5B4963780545B5D9B63 /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		AAF95C5859CB03BC85A00C0C /* 📦 Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -673,6 +714,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		EBC26D458CDBD10FDAC35859 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F17CA485FB570B2D561B9273 /* 📦 Check Pods Manifest.lock */ = {
@@ -889,6 +945,7 @@
 		};
 		A60F0D6D1C9C617F0025E3E2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F64767FA37CEB82970A330D8 /* Pods-BLE-PeripheralTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -904,6 +961,7 @@
 		};
 		A60F0D6E1C9C617F0025E3E2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7CC69ADB8E65DC41B0235676 /* Pods-BLE-PeripheralTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;

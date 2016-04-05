@@ -1,0 +1,6 @@
+framework module Pods_BLE_PeripheralTests {
+  umbrella header "Pods-BLE-PeripheralTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

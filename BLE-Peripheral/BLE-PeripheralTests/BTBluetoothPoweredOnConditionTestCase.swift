@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Operations
 @testable import BLE_Peripheral
 
 class BTBluetoothPoweredOnConditionTestCase: XCTestCase {
@@ -27,5 +28,12 @@ class BTBluetoothPoweredOnConditionTestCase: XCTestCase {
         
         let poweredOfExpectation = expectationWithDescription("")
         
+        condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
+            if case OperationConditionResult.Failed(_) = result {
+                poweredOfExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
     }
 }
