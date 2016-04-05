@@ -11,7 +11,7 @@ import CoreBluetooth
 import CocoaLumberjack
 import Operations
 
-enum MessageResult {
+enum BTResult {
     case None
     case Succeed
     case Cancelled([ErrorType])
@@ -39,7 +39,7 @@ class BTPeripheralRolePerformer: NSObject {
     // MARK: Types Definitions
     
     typealias BTPeripheralRoleBlock =
-        (rolePerformer: BTPeripheralRolePerformer, result: MessageResult) -> Void
+        (rolePerformer: BTPeripheralRolePerformer, result: BTResult) -> Void
     
     // MARK: Private Properties
 
@@ -102,7 +102,7 @@ class BTPeripheralRolePerformer: NSObject {
         startAdvertisingOperation.addObserver(DidFinishObserver { result in
             
             completion?(rolePerformer: self,
-                result: MessageResult(operation: result.operation, errors: result.errors))
+                result: BTResult(operation: result.operation, errors: result.errors))
             })
         
         operationQueue.addOperation(startAdvertisingOperation)
