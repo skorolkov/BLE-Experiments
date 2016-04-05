@@ -57,12 +57,14 @@ class BTPeripheralRolePerformer: NSObject {
     init(services: [BTService]) {
         
         operationQueue = OperationQueue()
+        operationQueue.name = "\(self.dynamicType).queue"
         
-        let periphralManager = CBPeripheralManager(delegate: nil,
+        let bluetoothPeripheralManager = CBPeripheralManager(
+            delegate: nil,
             queue: nil,
             options: [CBPeripheralManagerOptionShowPowerAlertKey : true])
         
-        peripheralManager = BTPeripheralManagerProxy(peripheralManager: periphralManager)
+        peripheralManager = BTPeripheralManagerProxy(peripheralManager: bluetoothPeripheralManager)
         
         self.services = services
         

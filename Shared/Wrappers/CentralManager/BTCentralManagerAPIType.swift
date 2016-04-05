@@ -6,6 +6,4 @@
 //
 //
 
-//typealias BTCentralManagerAPIType = BTCentralManagerAPIProtocol
-
 typealias BTCentralManagerAPIType = BTCentralManagerAPIWithHadlerProtocol

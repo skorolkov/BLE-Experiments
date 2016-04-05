@@ -238,9 +238,9 @@
 				A60F0D381C9C617E0025E3E2 /* Resources */,
 				A60F0D401C9C617E0025E3E2 /* Classes */,
 				A60F0D491C9C617E0025E3E2 /* Controllers */,
+				A60F0D551C9C617E0025E3E2 /* Views */,
 				A60F0D4F1C9C617E0025E3E2 /* Utilities */,
 				A60F0D521C9C617E0025E3E2 /* Extensions */,
-				A60F0D551C9C617E0025E3E2 /* Views */,
 				A60F0D3D1C9C617E0025E3E2 /* Supporting Files */,
 				A667C02D1CA158720034D0EB /* Shared */,
 			);
@@ -268,7 +268,7 @@
 		A60F0D401C9C617E0025E3E2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A6FCE7AC1CA32C9500A45992 /* PeripheralManager */,
+				A6FCE7AC1CA32C9500A45992 /* PeripheralRole */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -524,7 +524,7 @@
 			path = Proxy;
 			sourceTree = "<group>";
 		};
-		A6FCE7AC1CA32C9500A45992 /* PeripheralManager */ = {
+		A6FCE7AC1CA32C9500A45992 /* PeripheralRole */ = {
 			isa = PBXGroup;
 			children = (
 				A6FCE7AD1CA32CA500A45992 /* Conditions */,
@@ -532,7 +532,7 @@
 				A6913EBA1CA0314800316658 /* BTPeripheralRolePerformer.swift */,
 				A6FCE7B01CA3396400A45992 /* BTTypes.swift */,
 			);
-			name = PeripheralManager;
+			name = PeripheralRole;
 			sourceTree = "<group>";
 		};
 		A6FCE7AD1CA32CA500A45992 /* Conditions */ = {
