@@ -1,5 +1,5 @@
 //
-//  BTBluetoothPoweredOnConditionTestCase.swift
+//  BTPeripheralManagerPoweredOnConditionTestCase.swift
 //  BLE-Peripheral
 //
 //  Created by d503 on 4/5/16.
@@ -10,7 +10,7 @@ import XCTest
 import Operations
 @testable import BLE_Peripheral
 
-class BTBluetoothPoweredOnConditionTestCase: BTBaseOperationTestCase {
+class BTPeripheralManagerPoweredOnConditionTestCase: BTBaseOperationTestCase {
 
     override func setUp() {
         super.setUp()
@@ -22,9 +22,9 @@ class BTBluetoothPoweredOnConditionTestCase: BTBaseOperationTestCase {
 
     func testConditionEvaluation() {
         
-        let peripheralManager = BTStubPoweredOffPeripheralManagers()
+        let peripheralManager = BTStubPoweredOffPeripheralManager()
         
-        let condition = BTBluetoothPoweredOnWaitingCondition(withPeripheralManager: peripheralManager)
+        let condition = BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager)
         
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is PoweredOn")
         
@@ -38,9 +38,9 @@ class BTBluetoothPoweredOnConditionTestCase: BTBaseOperationTestCase {
     }
     
     func testConditionDependencyOperation() {
-        let peripheralManager = BTStubPoweredOffPeripheralManagers()
+        let peripheralManager = BTStubPoweredOffPeripheralManager()
         
-        let condition = BTBluetoothPoweredOnWaitingCondition(withPeripheralManager: peripheralManager)
+        let condition = BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager)
         
         let operation = Operation()
         

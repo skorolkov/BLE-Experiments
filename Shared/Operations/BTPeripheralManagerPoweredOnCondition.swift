@@ -1,5 +1,5 @@
 //
-//  BTBluetoothPoweredOnWaitingCondition.swift
+//  BTPeripheralManagerPoweredOnCondition.swift
 //  BLE-Peripheral
 //
 //  Created by d503 on 3/22/16.
@@ -9,7 +9,7 @@
 import Operations
 import CoreBluetooth
 
-struct BTBluetoothStateMismatch: ErrorType {
+struct BTPeripheralManagerStateMismatch: ErrorType {
     
     let expectedState: CBPeripheralManagerState
     let realState: CBPeripheralManagerState
@@ -20,7 +20,7 @@ struct BTBluetoothStateMismatch: ErrorType {
     }
 }
 
-class BTBluetoothPoweredOnCondition: BTBaseCondition, OperationCondition {
+class BTPeripheralManagerPoweredOnCondition: BTBaseCondition, OperationCondition {
     
     // MARK: Private Properties
     
@@ -44,23 +44,23 @@ class BTBluetoothPoweredOnCondition: BTBaseCondition, OperationCondition {
             completion(.Satisfied)
         }
         else {
-            let error = BTBluetoothStateMismatch(withExpectedState: .PoweredOn,
+            let error = BTPeripheralManagerStateMismatch(withExpectedState: .PoweredOn,
                 realState: peripheralManager.state)
             completion(.Failed(error))
         }
     }
 }
 
-class BTBluetoothPoweredOnWaitingCondition: BTBluetoothPoweredOnCondition {
+class BTPeripheralManagerPoweredOnWaitingCondition: BTPeripheralManagerPoweredOnCondition {
     
     // MARK: OperationCondition protocol
     
     override func dependencyForOperation(operation: Operation) -> NSOperation? {
-        return BTBluetoothPowerOnWaitingOperation(withPeripheralManager: peripheralManager)
+        return BTPeripheralManagerPoweredOnWaitingOperation(withPeripheralManager: peripheralManager)
     }
 }
 
-class BTBluetoothPowerOnWaitingOperation: BTPeripheralManagerOperation {
+class BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerOperation {
     
     override func execute() {
         guard peripheralManager?.state != .PoweredOn else {
@@ -72,7 +72,7 @@ class BTBluetoothPowerOnWaitingOperation: BTPeripheralManagerOperation {
     }
 }
 
-extension BTBluetoothPowerOnWaitingOperation: BTPeripheralManagerHandlerProtocol {
+extension BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerHandlerProtocol {
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
         if peripheral.state == .PoweredOn {

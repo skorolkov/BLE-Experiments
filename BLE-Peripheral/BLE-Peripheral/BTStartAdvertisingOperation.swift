@@ -22,7 +22,7 @@ class BTStartAdvertisingOperation: BTPeripheralManagerOperation {
         super.init(withPeripheralManager: peripheralManager)
         
         addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
-        addCondition(BTBluetoothPoweredOnWaitingCondition(withPeripheralManager: peripheralManager))
+        addCondition(BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager))
         addCondition(NegatedCondition(
             BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer)))
         addCondition(BTPeripheralNotAdvertisingCondition(withPeripheralManager: peripheralManager))

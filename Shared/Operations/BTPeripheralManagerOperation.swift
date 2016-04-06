@@ -19,5 +19,4 @@ class BTPeripheralManagerOperation: Operation {
     init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
         self.peripheralManager = peripheralManager
     }
-
 }

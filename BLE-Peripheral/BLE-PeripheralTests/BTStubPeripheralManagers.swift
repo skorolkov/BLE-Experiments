@@ -77,7 +77,7 @@ import CoreBluetooth
     }
 }
 
-class BTStubPoweredOffPeripheralManagers: BTBaseStubPeripheralManager {
+class BTStubPoweredOffPeripheralManager: BTBaseStubPeripheralManager {
     
     override init() {
         super.init()
