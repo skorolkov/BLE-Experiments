@@ -1,0 +1,6 @@
+framework module Pods_BLE_Central_OSXTests {
+  umbrella header "Pods-BLE-Central-OSXTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -52,5 +52,13 @@ target 'BLE-Central-OSX' do
     testing_pods
 end
 
+target 'BLE-Central-OSXTests' do
+    platform :osx, '10.10'
+    
+    project 'BLE-Central-OSX/BLE-Central-OSX.xcodeproj'
+    
+    testing_pods
+end
+
 
 

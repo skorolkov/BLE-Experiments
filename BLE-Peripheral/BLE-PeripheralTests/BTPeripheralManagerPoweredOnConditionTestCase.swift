@@ -20,16 +20,34 @@ class BTPeripheralManagerPoweredOnConditionTestCase: BTBaseOperationTestCase {
         super.tearDown()
     }
 
-    func testConditionEvaluation() {
+    func testConditionEvaluationFailure() {
         
         let peripheralManager = BTStubPoweredOffPeripheralManager()
+        
+        let condition = BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager)
+        
+        let poweredOfExpectation = expectationWithDescription("Bluetooth state is not PoweredOn")
+        
+        condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
+            if case OperationConditionResult.Failed(let error) = result where error is BTPeripheralManagerStateMismatch {
+                poweredOfExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+    func testConditionEvaluationSuccess() {
+        
+        let peripheralManager = BTStubPoweredOffPeripheralManager()
+        peripheralManager.state = .PoweredOn
         
         let condition = BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager)
         
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is PoweredOn")
         
         condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
-            if case OperationConditionResult.Failed(_) = result {
+            if case OperationConditionResult.Satisfied = result {
                 poweredOfExpectation.fulfill()
             }
         }
@@ -40,7 +58,7 @@ class BTPeripheralManagerPoweredOnConditionTestCase: BTBaseOperationTestCase {
     func testConditionDependencyOperation() {
         let peripheralManager = BTStubPoweredOffPeripheralManager()
         
-        let condition = BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager)
+        let condition = BTPeripheralManagerPoweredOnWaitingCondition(withPeripheralManager: peripheralManager)
         
         let operation = Operation()
         

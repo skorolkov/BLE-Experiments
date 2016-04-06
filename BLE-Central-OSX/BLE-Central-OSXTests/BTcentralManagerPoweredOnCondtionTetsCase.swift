@@ -20,16 +20,35 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
         super.tearDown()
     }
 
-    func testConditionEvaluation() {
+    func testConditionEvaluationFailure() {
         
         let centralManager = BTStubPoweredOffCentralManager()
+        
+        let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
+        
+        let poweredOfExpectation = expectationWithDescription("Bluetooth state is not PoweredOn")
+        
+        condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
+            if case OperationConditionResult.Failed(let error) = result
+                where error is BTCentralManagerStateMismatch {
+                poweredOfExpectation.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(1, handler: nil)
+    }
+    
+    func testConditionEvaluationSuccess() {
+        
+        let centralManager = BTStubPoweredOffCentralManager()
+        centralManager.state = .PoweredOn
         
         let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
         
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is PoweredOn")
         
         condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
-            if case OperationConditionResult.Failed(_) = result {
+            if case OperationConditionResult.Satisfied = result {
                 poweredOfExpectation.fulfill()
             }
         }
@@ -40,7 +59,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
     func testConditionDependencyOperation() {
         let centralManager = BTStubPoweredOffCentralManager()
         
-        let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
+        let condition = BTCentralManagerPoweredOnWaitingCondition(withCentralManager: centralManager)
         
         let operation = Operation()
         
