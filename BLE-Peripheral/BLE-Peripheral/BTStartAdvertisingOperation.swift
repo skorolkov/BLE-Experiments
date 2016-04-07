@@ -34,6 +34,8 @@ class BTStartAdvertisingOperation: BTPeripheralManagerOperation {
     }
     
     override func execute() {
+        guard !cancelled else { return }
+        
         peripheralManager?.addHandler(self)
         
         peripheralManager?.startAdvertising(advertisingData)

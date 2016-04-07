@@ -10,17 +10,6 @@ import Foundation
 import CoreBluetooth
 import Operations
 
-struct BTCentralManagerStateMismatch: ErrorType {
-    
-    let expectedState: CBCentralManagerState
-    let realState: CBCentralManagerState
-    
-    init(withExpectedState expectedState: CBCentralManagerState, realState: CBCentralManagerState) {
-        self.expectedState = expectedState
-        self.realState = realState
-    }
-}
-
 class BTCentralManagerPoweredOnCondition: BTBaseCondition, OperationCondition {
     
     // MARK: Private Properties
@@ -45,7 +34,7 @@ class BTCentralManagerPoweredOnCondition: BTBaseCondition, OperationCondition {
             completion(.Satisfied)
         }
         else {
-            let error = BTCentralManagerStateMismatch(withExpectedState: .PoweredOn,
+            let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
                                                       realState: centralManager.state)
             completion(.Failed(error))
         }
@@ -64,6 +53,8 @@ class BTCentralManagerPoweredOnWaitingCondition: BTCentralManagerPoweredOnCondit
 class BTCentralManagerPoweredOnWaitingOperation: BTCentralManagerOperation {
     
     override func execute() {
+        guard !cancelled else { return }
+        
         guard centralManager?.state != .PoweredOn else {
             finish()
             return

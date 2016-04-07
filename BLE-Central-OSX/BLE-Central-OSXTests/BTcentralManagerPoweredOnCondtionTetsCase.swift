@@ -30,7 +30,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
         
         condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
             if case OperationConditionResult.Failed(let error) = result
-                where error is BTCentralManagerStateMismatch {
+                where error is BTCentralManagerStateInvalidError {
                 poweredOfExpectation.fulfill()
             }
         }

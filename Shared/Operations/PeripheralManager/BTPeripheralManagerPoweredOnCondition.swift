@@ -9,17 +9,6 @@
 import Operations
 import CoreBluetooth
 
-struct BTPeripheralManagerStateMismatch: ErrorType {
-    
-    let expectedState: CBPeripheralManagerState
-    let realState: CBPeripheralManagerState
-    
-    init(withExpectedState expectedState: CBPeripheralManagerState, realState: CBPeripheralManagerState) {
-        self.expectedState = expectedState
-        self.realState = realState
-    }
-}
-
 class BTPeripheralManagerPoweredOnCondition: BTBaseCondition, OperationCondition {
     
     // MARK: Private Properties
@@ -44,7 +33,7 @@ class BTPeripheralManagerPoweredOnCondition: BTBaseCondition, OperationCondition
             completion(.Satisfied)
         }
         else {
-            let error = BTPeripheralManagerStateMismatch(withExpectedState: .PoweredOn,
+            let error = BTPeripheralManagerStateInvalidError(withExpectedState: .PoweredOn,
                 realState: peripheralManager.state)
             completion(.Failed(error))
         }
@@ -63,6 +52,8 @@ class BTPeripheralManagerPoweredOnWaitingCondition: BTPeripheralManagerPoweredOn
 class BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerOperation {
     
     override func execute() {
+        guard !cancelled else { return }
+        
         guard peripheralManager?.state != .PoweredOn else {
             finish()
             return

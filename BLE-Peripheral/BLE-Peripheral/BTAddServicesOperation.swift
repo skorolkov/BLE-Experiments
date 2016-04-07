@@ -34,6 +34,8 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
     }
     
     override func execute() {
+        guard !cancelled else { return }
+        
         peripheralManager?.addHandler(self)
         
         services.map { $0.coreBluetoothService() }.forEach { (service: CBMutableService) -> () in

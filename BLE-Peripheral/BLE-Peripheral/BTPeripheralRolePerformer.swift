@@ -11,35 +11,12 @@ import CoreBluetooth
 import CocoaLumberjack
 import Operations
 
-enum BTResult {
-    case None
-    case Succeed
-    case Cancelled([ErrorType])
-    case Finished([ErrorType])
-    
-    init(operation: Operation, errors: [ErrorType]) {
-        if operation.finished {
-            if errors.isEmpty {
-                self = .Succeed
-            }
-            else {
-                self = .Finished(errors)
-            }
-        }
-        else if operation.cancelled {
-            self = .Cancelled(errors)
-        }
-        
-        self = .None
-    }
-}
-
 class BTPeripheralRolePerformer: NSObject {
     
     // MARK: Types Definitions
     
     typealias BTPeripheralRoleBlock =
-        (rolePerformer: BTPeripheralRolePerformer, result: BTResult) -> Void
+        (rolePerformer: BTPeripheralRolePerformer, result: BTOperationResult) -> Void
     
     // MARK: Private Properties
 
@@ -104,7 +81,7 @@ class BTPeripheralRolePerformer: NSObject {
         startAdvertisingOperation.addObserver(DidFinishObserver { result in
             
             completion?(rolePerformer: self,
-                result: BTResult(operation: result.operation, errors: result.errors))
+                result: BTOperationResult(operation: result.operation, errors: result.errors))
             })
         
         operationQueue.addOperation(startAdvertisingOperation)

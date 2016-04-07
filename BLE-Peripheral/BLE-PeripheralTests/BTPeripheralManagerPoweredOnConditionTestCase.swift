@@ -29,7 +29,7 @@ class BTPeripheralManagerPoweredOnConditionTestCase: BTBaseOperationTestCase {
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is not PoweredOn")
         
         condition.evaluateForOperation(Operation()) { (result: OperationConditionResult) in
-            if case OperationConditionResult.Failed(let error) = result where error is BTPeripheralManagerStateMismatch {
+            if case OperationConditionResult.Failed(let error) = result where error is BTPeripheralManagerStateInvalidError {
                 poweredOfExpectation.fulfill()
             }
         }
