@@ -19,7 +19,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     private var options: [String : AnyObject]? = nil
     private var stopScanningCondition: BTStopScanningBlock
     
-    private var discoveredPeripherals: [BTPeripheralAPIType] = []
+    private(set) var discoveredPeripherals: [BTPeripheralAPIType] = []
     
     // MARK: Initializers
     
@@ -33,6 +33,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
         
         super.init(withCentralManager: centralManager)
         
+        addCondition(BTCentralManagerPoweredOnCondition(withCentralManager: centralManager))
         addCondition(MutuallyExclusive<BTCentralManagerScanningOperation>())
     }
     
@@ -49,7 +50,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
 extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
-        if central.state !=  .PoweredOn {
+        if central.state != .PoweredOn {
             let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
                                                           realState: central.state)
             removeHandlerAndFinish(error)

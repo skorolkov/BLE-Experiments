@@ -10,11 +10,11 @@ import Foundation
 import CoreBluetooth
 @testable import BLE_Central_OSX
 
-class BTBaseStubCentralManager: NSObject, BTCentralManagerAPIWithHadlerProtocol {
+@objc class BTBaseStubCentralManager: NSObject, BTCentralManagerAPIWithHadlerProtocol {
     
     // MARK: Private Properties
     
-    private var handlerContainer = BTHandlersContainer<BTCentralManagerHandlerProtocol>()
+    private(set) var handlerContainer = BTHandlersContainer<BTCentralManagerHandlerProtocol>()
     
     // MARK Initializers
     
@@ -66,13 +66,5 @@ class BTBaseStubCentralManager: NSObject, BTCentralManagerAPIWithHadlerProtocol 
     
     func removeHandler(handlerToRemove: BTCentralManagerHandlerProtocol) {
         handlerContainer.removeHandler(handlerToRemove)
-    }
-}
-
-class BTStubPoweredOffCentralManager: BTBaseStubCentralManager {
-    
-    override init() {
-        super.init()
-        state = .PoweredOff
     }
 }

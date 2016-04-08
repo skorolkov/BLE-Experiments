@@ -25,7 +25,7 @@ class PeripheralViewController: UIViewController {
 
 extension PeripheralViewController {
     
-    @IBAction func addServiceButtonPressed(sender: UIButton) {
+    @IBAction func startAdvertisiongButtonPressed(sender: UIButton) {
         peripheralRole.startAdevertisingWithCompletion(nil)
     }
 }

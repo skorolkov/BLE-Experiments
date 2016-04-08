@@ -15,11 +15,11 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eq-JG-caW" userLabel="Add Services Button">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Eq-JG-caW" userLabel="Start Advertising Button">
                     <rect key="frame" x="20" y="20" width="560" height="30"/>
-                    <state key="normal" title="Add Serives"/>
+                    <state key="normal" title="Start Advertising"/>
                     <connections>
-                        <action selector="addServiceButtonPressed:" destination="-1" eventType="touchUpInside" id="FC0-d1-hol"/>
+                        <action selector="startAdvertisiongButtonPressed:" destination="-1" eventType="touchUpInside" id="Bv9-d4-4a8"/>
                     </connections>
                 </button>
             </subviews>

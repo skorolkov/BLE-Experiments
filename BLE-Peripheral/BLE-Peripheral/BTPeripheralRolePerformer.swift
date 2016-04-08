@@ -72,8 +72,7 @@ class BTPeripheralRolePerformer: NSObject {
     
     // MARK: Internal Methods
 
-    
-    func startAdevertisingWithCompletion(completion: BTPeripheralRoleBlock?) {
+    func startAdevertisingWithCompletion(completion: BTPeripheralRoleBlock?) -> BTPeripheralManagerOperation {
         
         let startAdvertisingOperation = BTStartAdvertisingOperation(withPeripheralManager: peripheralManager,
             peripheralRolePerformer: self)
@@ -85,6 +84,8 @@ class BTPeripheralRolePerformer: NSObject {
             })
         
         operationQueue.addOperation(startAdvertisingOperation)
+        
+        return startAdvertisingOperation
     }
 }
 

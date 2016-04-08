@@ -1,5 +1,5 @@
 //
-//  CBPeripheralState+Printable.swift
+//  CBPeripheralManagerState+StringConvertible.swift
 //  BLE-Peripheral
 //
 //  Created by d503 on 3/22/16.

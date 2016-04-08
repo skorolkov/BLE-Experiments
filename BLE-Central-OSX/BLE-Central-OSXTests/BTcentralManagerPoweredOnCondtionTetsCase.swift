@@ -22,7 +22,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
 
     func testConditionEvaluationFailure() {
         
-        let centralManager = BTStubPoweredOffCentralManager()
+        let centralManager = BTStubPoweredSwitchCentralManager()
         
         let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
         
@@ -40,7 +40,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
     
     func testConditionEvaluationSuccess() {
         
-        let centralManager = BTStubPoweredOffCentralManager()
+        let centralManager = BTStubPoweredSwitchCentralManager()
         centralManager.state = .PoweredOn
         
         let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
@@ -57,7 +57,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
     }
     
     func testConditionDependencyOperation() {
-        let centralManager = BTStubPoweredOffCentralManager()
+        let centralManager = BTStubPoweredSwitchCentralManager()
         
         let condition = BTCentralManagerPoweredOnWaitingCondition(withCentralManager: centralManager)
         
