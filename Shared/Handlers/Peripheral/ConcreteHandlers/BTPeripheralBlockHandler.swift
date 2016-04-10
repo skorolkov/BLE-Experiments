@@ -18,7 +18,7 @@ import CoreBluetooth
     
     // MARK: Typenames
     
-    typealias BTPeripheralNameBlock = (peripheral: BTPeripheralAPIType) -> Void
+    typealias BTPeripheralUpdateNameBlock = (peripheral: BTPeripheralAPIType) -> Void
     
     typealias BTPeripheralServicesDiscoveryBlock = (peripheral: BTPeripheralAPIType, error: NSError?) -> Void
     
@@ -32,7 +32,7 @@ import CoreBluetooth
     
     // MARK: Internal Properties
     
-    var didUpdateNameBlock: BTPeripheralNameBlock? = nil
+    var didUpdateNameBlock: BTPeripheralUpdateNameBlock? = nil
     var didDiscoverServicesBlock: BTPeripheralServicesDiscoveryBlock? = nil
     var didDiscoverCharacteristicsBlock: BTPeripheralCharactDicoveryBlock? = nil
     var didUpdateValueForCharacteristicBlock: BTPeripheralCharactUpdateWriteBlock? = nil

@@ -44,6 +44,8 @@ class BTCentralRolePerformer: NSObject {
         super.init()
         
         centralManager.addHandler(self)
+        
+        centralManager.addHandler(BTCentralManagerLoggingHandler())
     }
     
     // MARK: Internal Methods
@@ -86,38 +88,32 @@ class BTCentralRolePerformer: NSObject {
 extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
-        DDLogVerbose("CentralManager: did update state = \(central.state)")
     }
     
     func centralManager(central: BTCentralManagerAPIType,
                                  willRestoreState dict: [String : AnyObject]) {
-        DDLogVerbose("CentralManager: will restire state = \(central.state)")
     }
     
     func centralManager(central: BTCentralManagerAPIType,
                                  didConnectPeripheral peripheral: BTPeripheralAPIType) {
-        DDLogVerbose("CentralManager: did connect peripheral = \(peripheral)")
-        
         peripheral.addHandler(self)
+        peripheral.addHandler(BTPeripheralLoggingHandler())
     }
     
     func centralManager(central: BTCentralManagerAPIType,
                                  didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                          error: NSError?) {
-        DDLogVerbose("CentralManager: did disconnect peripheral = \(peripheral) with error = \(error)")
     }
     
     func centralManager(central: BTCentralManagerAPIType,
                                  didFailToConnectPeripheral peripheral: BTPeripheralAPIType,
                                                             error: NSError?) {
-        DDLogVerbose("CentralManager: did fail to connect peripheral = \(peripheral) with error = \(error)")
     }
     
     func centralManager(central: BTCentralManagerAPIType,
                                  didDiscoverPeripheral peripheral: BTPeripheralAPIType,
                                                        advertisementData: [String : AnyObject],
                                                        RSSI: NSNumber) {
-        DDLogVerbose("CentralManager: did discover peripheral = \(peripheral)")
     }
 }
 
@@ -126,35 +122,30 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
 extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
     
     func peripheralDidUpdateName(peripheral: BTPeripheralAPIType) {
-        
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
                              didDiscoverServices error: NSError?) {
-        
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
                              didDiscoverCharacteristicsForService service: CBService,
                                                                   error: NSError?) {
-        
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
                              didUpdateValueForCharacteristic characteristic: CBCharacteristic,
                                                              error: NSError?) {
-        
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
                              didWriteValueForCharacteristic characteristic: CBCharacteristic,
                                                             error: NSError?) {
-        
     }
     
-    func peripheral(peripheral: BTPeripheralAPIType,
-                             didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
-                                                                         error: NSError?) {
-        
+    func peripheral(
+        peripheral: BTPeripheralAPIType,
+        didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
+                                                    error: NSError?) {
     }
 }

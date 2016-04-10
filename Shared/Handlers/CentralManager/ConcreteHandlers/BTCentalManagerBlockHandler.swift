@@ -17,7 +17,7 @@ import Foundation
     
     // MARK: Typenames
     
-    typealias BTCentralBlock = (central: BTCentralManagerAPIType) -> Void
+    typealias BTCentralUpdateStateBlock = (central: BTCentralManagerAPIType) -> Void
     
     typealias BTCentalRestoreStateBlock = (central: BTCentralManagerAPIType,
         willRestoreStateWithDict: [String : AnyObject]) -> Void
@@ -36,21 +36,21 @@ import Foundation
     
     // MARK: Internal Properties
     
-    var didUpdateStateBlock: BTCentralBlock
+    var didUpdateStateBlock: BTCentralUpdateStateBlock
     var willRestoreStateBlock: BTCentalRestoreStateBlock? = nil
-    var connectPeripheralBlock: BTPeripheralConnectBlock? = nil
-    var disconnectPeripheralBlock: BTPeripheraDisconnectOrFailBlock? = nil
+    var didConnectPeripheralBlock: BTPeripheralConnectBlock? = nil
+    var didDisconnectPeripheralBlock: BTPeripheraDisconnectOrFailBlock? = nil
     var failToConnectToPeripheralBlock: BTPeripheraDisconnectOrFailBlock? = nil
-    var discoverPeripheralBlock: BTDiscoverPeripheralBlock? = nil
+    var didDiscoverPeripheralBlock: BTDiscoverPeripheralBlock? = nil
     
     // MARK: Initializers
     
-    init(withDidUpdateStateBlock didUpdateStateBlock: BTCentralBlock) {
+    init(withDidUpdateStateBlock didUpdateStateBlock: BTCentralUpdateStateBlock) {
         self.didUpdateStateBlock = didUpdateStateBlock
         super.init()
     }
 
-    init(withDidUpdateStateBlock didUpdateStateBlock: BTCentralBlock,
+    init(withDidUpdateStateBlock didUpdateStateBlock: BTCentralUpdateStateBlock,
         handlerQueue: dispatch_queue_t) {
             self.didUpdateStateBlock = didUpdateStateBlock
             super.init(withHandlerQueue: handlerQueue)
@@ -90,7 +90,7 @@ extension BTCentalManagerBlockHandler: BTCentralManagerHandlerProtocol {
     func centralManager(central: BTCentralManagerAPIType,
         didConnectPeripheral peripheral: BTPeripheralAPIType) {
             dispatch_async(queue) { [unowned self] () -> Void in
-                self.connectPeripheralBlock?(central: central, peripheral: peripheral)
+                self.didConnectPeripheralBlock?(central: central, peripheral: peripheral)
             }
     }
     
@@ -98,7 +98,7 @@ extension BTCentalManagerBlockHandler: BTCentralManagerHandlerProtocol {
         didDisconnectPeripheral peripheral: BTPeripheralAPIType,
         error: NSError?) {
             dispatch_async(queue) { [unowned self] () -> Void in
-                self.disconnectPeripheralBlock?(central: central, peripheral: peripheral, error: error)
+                self.didDisconnectPeripheralBlock?(central: central, peripheral: peripheral, error: error)
             }
     }
     
@@ -117,7 +117,7 @@ extension BTCentalManagerBlockHandler: BTCentralManagerHandlerProtocol {
         advertisementData: [String : AnyObject],
         RSSI: NSNumber) {
             dispatch_async(queue) { [unowned self] () -> Void in
-                self.discoverPeripheralBlock?(central: central,
+                self.didDiscoverPeripheralBlock?(central: central,
                     discoveredPeripheral: peripheral,
                     advertisementData: advertisementData,
                     RSSI: RSSI)

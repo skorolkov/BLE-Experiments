@@ -14,17 +14,17 @@ import CoreBluetooth
     // MARK: Typenames
     
     typealias BTPeripheralManagerBlock = (peripheral: BTPeripheralManagerAPIType) -> Void
-    typealias BTPeripheralManagerAdvertisingBlock = (peripheral: BTPeripheralManagerAPIType, error: NSError?) -> Void
     typealias BTPeripheralManagerServiceBlock = (peripheral: BTPeripheralManagerAPIType, addedService: CBService,
         error: NSError?) -> Void
+    typealias BTPeripheralManagerAdvertisingBlock = (peripheral: BTPeripheralManagerAPIType, error: NSError?) -> Void
     typealias BTPeripheralManagerReadBlock = (peripheral: BTPeripheralManagerAPIType, receivedReadRequest: CBATTRequest) -> Void
-    typealias BTPeripheralManagerWriteBlock = (peripheral: BTPeripheralManagerAPIType, receivedWiteRequests: [CBATTRequest]) -> Void
+    typealias BTPeripheralManagerWriteBlock = (peripheral: BTPeripheralManagerAPIType, receivedWriteRequests: [CBATTRequest]) -> Void
 
     // MARK: Internal Properties
     
     var didUpdateStateBlock: BTPeripheralManagerBlock
-    var didStartAdvertisingBlock: BTPeripheralManagerAdvertisingBlock?
     var didAddServiceBlock: BTPeripheralManagerServiceBlock?
+    var didStartAdvertisingBlock: BTPeripheralManagerAdvertisingBlock?
     var didReceiveReadRequestBlock: BTPeripheralManagerReadBlock?
     var didReceiveWriteRequestsBlock : BTPeripheralManagerWriteBlock?
     
@@ -32,6 +32,22 @@ import CoreBluetooth
     
     init(withDidUpdateStateBlock didUpdateStateBlock: BTPeripheralManagerBlock) {
         self.didUpdateStateBlock = didUpdateStateBlock
+        super.init()
+    }
+    
+    init(withDidUpdateStateBlock didUpdateStateBlock: BTPeripheralManagerBlock,
+                                 handlerQueue: dispatch_queue_t) {
+        self.didUpdateStateBlock = didUpdateStateBlock
+        super.init(withHandlerQueue: handlerQueue)
+    }
+    
+    override init(withHandlerQueue queue: dispatch_queue_t) {
+        self.didUpdateStateBlock = { _ in }
+        super.init(withHandlerQueue: queue)
+    }
+    
+    override init() {
+        self.didUpdateStateBlock = { _ in }
         super.init()
     }
 }
@@ -80,7 +96,7 @@ extension BTPeripheralManagerBlockHandler: BTPeripheralManagerHandlerProtocol {
     func peripheralManager(peripheral: BTPeripheralManagerAPIType,
         didReceiveWriteRequests requests: [CBATTRequest]) {
             dispatch_async(queue) { [unowned self] () -> Void in
-                self.didReceiveWriteRequestsBlock?(peripheral: peripheral, receivedWiteRequests: requests)
+                self.didReceiveWriteRequestsBlock?(peripheral: peripheral, receivedWriteRequests: requests)
             }
     }
 }
