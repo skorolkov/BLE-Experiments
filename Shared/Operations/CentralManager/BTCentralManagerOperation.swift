@@ -20,4 +20,13 @@ class BTCentralManagerOperation: Operation {
     init(withCentralManager centralManager: BTCentralManagerAPIType) {
         self.centralManager = centralManager
     }
+    
+    // MARK: Internal Methods
+    
+    func removeHandlerAndFinish(error: ErrorType? = nil) {
+        if let handler = self as? BTCentralManagerHandlerProtocol {
+            centralManager?.removeHandler(handler)
+        }
+        finish(error)
+    }
 }

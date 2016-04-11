@@ -21,4 +21,13 @@ typealias BTCentralManagerInitializibleType = BTCentralManagerInitializibleProto
     init(delegate: CBCentralManagerDelegate?, queue: dispatch_queue_t?, options: [String : AnyObject]?)
 }
 
-extension CBCentralManager: BTCentralManagerInitializibleProtocol {}
+extension CBCentralManager: BTCentralManagerInitializibleProtocol {
+    
+    func connectPeripheralWithObject(peripheral: BTPeripheralAPIType, options: [String : AnyObject]?) {
+        connectPeripheral(peripheral.coreBluetoothPeripheral(), options: options)
+    }
+    
+    func cancelPeripheralConnectionWithObject(peripheral: BTPeripheralAPIType) {
+        cancelPeripheralConnection(peripheral.coreBluetoothPeripheral())
+    }
+}

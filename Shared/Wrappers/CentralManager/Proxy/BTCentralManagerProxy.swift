@@ -74,14 +74,14 @@ extension BTCentralManagerProxy: BTCentralManagerAPIProtocol {
     
     // MARK: Connecting to peripherals
     
-    func connectPeripheral(peripheral: CBPeripheral, options: [String : AnyObject]?) {
-        centralManager.connectPeripheral(peripheral, options: options)
+    func connectPeripheralWithObject(peripheral: BTPeripheralAPIType, options: [String : AnyObject]?) {
+        centralManager.connectPeripheralWithObject(peripheral, options: options)
     }
     
     // MARK: Disconnecting from peripherals
     
-    func cancelPeripheralConnection(peripheral: CBPeripheral) {
-        centralManager.cancelPeripheralConnection(peripheral)
+    func cancelPeripheralConnectionWithObject(peripheral: BTPeripheralAPIType) {
+        centralManager.cancelPeripheralConnectionWithObject(peripheral)
     }
 }
 

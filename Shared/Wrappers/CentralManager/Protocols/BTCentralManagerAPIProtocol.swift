@@ -28,10 +28,9 @@ import CoreBluetooth
     
     // MARK: Connecting to peripherals
     
-    func connectPeripheral(peripheral: CBPeripheral, options: [String : AnyObject]?)
+    func connectPeripheralWithObject(peripheral: BTPeripheralAPIType, options: [String : AnyObject]?)
     
     // MARK: Disconnecting from peripherals
     
-    func cancelPeripheralConnection(peripheral: CBPeripheral)
+    func cancelPeripheralConnectionWithObject(peripheral: BTPeripheralAPIType)
 }
-

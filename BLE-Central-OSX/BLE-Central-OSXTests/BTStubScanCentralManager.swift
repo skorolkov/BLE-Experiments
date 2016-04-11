@@ -12,12 +12,6 @@ import CoreBluetooth
 
 class BTStubScanCentralManager: BTBaseStubCentralManager {
     
-    // MARK: Initializers
-    
-    override init() {
-        super.init()
-    }
-    
     // MARK: Scan for peripherals
     
     override func scanForPeripheralsWithServices(serviceUUIDs: [CBUUID]?, options: [String : AnyObject]?) {

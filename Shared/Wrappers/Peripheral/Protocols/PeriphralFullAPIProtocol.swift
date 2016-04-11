@@ -13,4 +13,8 @@ import CoreBluetooth
     weak var delegate: CBPeripheralDelegate? { get set }
 }
 
-extension CBPeripheral: PeriphralFullAPIProtocol {}
+extension CBPeripheral: PeriphralFullAPIProtocol {
+    func coreBluetoothPeripheral() -> CBPeripheral {
+        return self
+    }
+}

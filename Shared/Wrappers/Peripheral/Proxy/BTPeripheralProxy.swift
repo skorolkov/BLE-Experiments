@@ -70,6 +70,10 @@ extension BTPeripheralProxy: BTPeripheralAPIProtocol {
     func setNotifyValue(enabled: Bool, forCharacteristic characteristic: CBCharacteristic) {
         peripheral.setNotifyValue(enabled, forCharacteristic: characteristic)
     }
+    
+    func coreBluetoothPeripheral() -> CBPeripheral {
+        return peripheral.coreBluetoothPeripheral()
+    }
 }
 
 extension BTPeripheralProxy: BTPeripheralAPIWithHandlerProtocol {

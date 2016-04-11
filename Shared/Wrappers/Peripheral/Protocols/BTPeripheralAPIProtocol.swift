@@ -31,6 +31,8 @@ import CoreBluetooth
     // MARK: subscribe on value update notifications for characteristic
     
     func setNotifyValue(enabled: Bool, forCharacteristic characteristic: CBCharacteristic)
+    
+    func coreBluetoothPeripheral() -> CBPeripheral
 }
 
 

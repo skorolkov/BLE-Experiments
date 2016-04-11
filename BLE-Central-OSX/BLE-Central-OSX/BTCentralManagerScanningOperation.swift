@@ -69,10 +69,3 @@ extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
         }        
     }
 }
-
-private extension BTCentralManagerScanningOperation {
-    func removeHandlerAndFinish(error: ErrorType? = nil) {
-        centralManager?.removeHandler(self)
-        finish(error)
-    }
-}

@@ -45,6 +45,10 @@ import CoreBluetooth
     func setNotifyValue(enabled: Bool, forCharacteristic characteristic: CBCharacteristic) {
         
     }
+    
+    func coreBluetoothPeripheral() -> CBPeripheral {
+        return CBPeripheral()
+    }
 
     // MARK: Add handler
     
