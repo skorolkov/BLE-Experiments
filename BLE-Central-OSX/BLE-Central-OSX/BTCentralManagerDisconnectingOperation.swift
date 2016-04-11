@@ -9,14 +9,6 @@
 import CoreBluetooth
 import Operations
 
-struct BTCentralManagerFailToDisconnectPeripheral: ErrorType {
-    let originalError: NSError?
-    
-    init(originalError: NSError?) {
-        self.originalError = originalError
-    }
-}
-
 class BTCentralManagerDisconnectingOperation: BTCentralManagerOperation {
     
     // MARK: Private Properties
@@ -59,7 +51,7 @@ extension BTCentralManagerDisconnectingOperation: BTCentralManagerHandlerProtoco
                         didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                 error: NSError?) {
         let btError: ErrorType? = (error != nil) ?
-            BTCentralManagerFailToDisconnectPeripheral(originalError: error) : nil
+            BTCentralManagerDisconnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
     }
 }

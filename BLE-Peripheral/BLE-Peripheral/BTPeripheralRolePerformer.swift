@@ -22,7 +22,7 @@ class BTPeripheralRolePerformer: NSObject {
 
     private var peripheralManager: BTPeripheralManagerProxy
 
-    private(set) var services: [BTService] = []
+    private(set) var services: [BTPrimacyService] = []
     private(set) var servicesAdded: Bool = false
     
     // MARK: Operations
@@ -31,7 +31,7 @@ class BTPeripheralRolePerformer: NSObject {
     
     // MARK: Initializers
     
-    init(services: [BTService]) {
+    init(services: [BTPrimacyService]) {
         
         operationQueue = OperationQueue()
         operationQueue.name = "\(self.dynamicType).queue"
@@ -63,7 +63,7 @@ class BTPeripheralRolePerformer: NSObject {
                 permissions: .Readable)
         ]
         
-        let mainService = BTService(UUIDString: "C14D2C0A-401F-B7A9-841F-E2E93B80F631",
+        let mainService = BTPrimacyService(UUIDString: "C14D2C0A-401F-B7A9-841F-E2E93B80F631",
             primary: false,
             characteristics: characteristics)
     

@@ -13,13 +13,13 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
     
     // MARK: Properties
     
-    private var services: [BTService]
+    private var services: [BTPrimacyService]
     
     // MARK: Initializers
     
     init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
         peripheralRolePerformer: BTPeripheralRolePerformer,
-        services: [BTService]) {
+        services: [BTPrimacyService]) {
             self.services = services
             super.init(withPeripheralManager: peripheralManager)
             

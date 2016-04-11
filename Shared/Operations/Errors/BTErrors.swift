@@ -31,3 +31,11 @@ struct BTPeripheralManagerStateInvalidError: ErrorType {
     }
 }
 
+struct BTCentralManagerDisconnectPeripheralError: ErrorType {
+    let originalError: NSError?
+    
+    init(originalError: NSError?) {
+        self.originalError = originalError
+    }
+}
+

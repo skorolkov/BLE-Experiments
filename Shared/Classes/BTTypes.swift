@@ -8,7 +8,7 @@
 
 import CoreBluetooth
 
-struct BTCharacteristic {
+class BTCharacteristic {
     let UUID: CBUUID
     let propeties: CBCharacteristicProperties
     let initialValue: NSData?
@@ -25,15 +25,22 @@ struct BTCharacteristic {
     }
 }
 
-struct BTService {
+class BTService {
     let UUID: CBUUID
-    let primary: Bool
     let characteristics: [BTCharacteristic]
     
-    init(UUIDString: String, primary: Bool, characteristics: [BTCharacteristic]) {
+    init(UUIDString: String, characteristics: [BTCharacteristic]) {
         self.UUID = CBUUID(string: UUIDString)
-        self.primary = primary
         self.characteristics = characteristics
+    }
+}
+
+class BTPrimacyService: BTService {
+    let primary: Bool
+
+    init(UUIDString: String, primary: Bool, characteristics: [BTCharacteristic]) {
+        self.primary = primary
+        super.init(UUIDString: UUIDString, characteristics: characteristics)
     }
 }
 
@@ -46,7 +53,7 @@ extension BTCharacteristic {
     }
 }
 
-extension BTService {
+extension BTPrimacyService {
     func coreBluetoothService() -> CBMutableService {
         let service = CBMutableService(type: UUID, primary: primary)
         service.characteristics = characteristics.map { $0.coreBluetoothCharacteristic() }
