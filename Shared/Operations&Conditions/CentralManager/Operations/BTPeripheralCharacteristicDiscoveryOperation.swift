@@ -11,12 +11,18 @@ import Operations
 
 class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
     
-    //private var services: [BTService]
+    private var servicesToDiscover: [BTService]? = nil
     
-    override init(centralManager: BTCentralManagerAPIType,
-                  peripheral: BTPeripheralAPIType) {
+    init(centralManager: BTCentralManagerAPIType,
+         peripheral: BTPeripheralAPIType,
+         servicesToDiscover: [BTService]? = nil) {
+        
         super.init(centralManager: centralManager,
                    peripheral: peripheral)
+        
+        self.servicesToDiscover = nil
+        
+        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
     }
     
     override func execute() {
@@ -24,6 +30,10 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
         
         centralManager?.addHandler(self)
         peripheral?.addHandler(self)
+        
+        let serviceUUIDs = servicesToDiscover?.map { $0.UUID }
+        
+        peripheral?.discoverServices(serviceUUIDs)
     }
 }
 
@@ -46,9 +56,9 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTCentralManagerHandlerP
                                 error: NSError?) {
         
         let btError: ErrorType? = (error != nil) ?
-            BTCentralManagerDisconnectPeripheralError(originalError: error) : nil
+            BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
-
+        
     }
 }
 
@@ -57,7 +67,7 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTCentralManagerHandlerP
 extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProtocol {
     
     func peripheral(peripheral: BTPeripheralAPIType,
-                             didDiscoverServices error: NSError?) {
+                    didDiscoverServices error: NSError?) {
         
     }
     

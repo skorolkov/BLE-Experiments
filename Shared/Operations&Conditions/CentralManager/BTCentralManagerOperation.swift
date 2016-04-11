@@ -17,7 +17,7 @@ class BTCentralManagerOperation: Operation {
     
     // MARK: Initializers
     
-    init(withCentralManager centralManager: BTCentralManagerAPIType) {
+    init(centralManager: BTCentralManagerAPIType) {
         self.centralManager = centralManager
     }
     

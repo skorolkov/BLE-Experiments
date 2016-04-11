@@ -17,13 +17,14 @@ class BTCentralManagerDisconnectingOperation: BTCentralManagerOperation {
     
     // MARK: Initializers
     
-    init(withCentralManager centralManager: BTCentralManagerAPIType,
-                            peripheral: BTPeripheralAPIType) {
+    init(centralManager: BTCentralManagerAPIType,
+         peripheral: BTPeripheralAPIType) {
+        
         self.peripheral = peripheral
         
-        super.init(withCentralManager: centralManager)
+        super.init(centralManager: centralManager)
         
-        addCondition(BTCentralManagerPoweredOnCondition(withCentralManager: centralManager))
+        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
     }
     
     override func execute() {
@@ -51,7 +52,7 @@ extension BTCentralManagerDisconnectingOperation: BTCentralManagerHandlerProtoco
                         didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                 error: NSError?) {
         let btError: ErrorType? = (error != nil) ?
-            BTCentralManagerDisconnectPeripheralError(originalError: error) : nil
+            BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
     }
 }

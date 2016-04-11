@@ -47,7 +47,7 @@ import CoreBluetooth
     }
     
     func coreBluetoothPeripheral() -> CBPeripheral {
-        return CBPeripheral()
+        return BTStubCBPeriheral(name: "")
     }
 
     // MARK: Add handler
@@ -59,4 +59,8 @@ import CoreBluetooth
     func removeHandler(handlerToRemove: BTPeripheralHandlerProtocol) {
         handlerContainer.removeHandler(handlerToRemove)
     }
+}
+
+class BTStubCBPeriheral: CBPeripheral {
+    init(name: String) {}
 }

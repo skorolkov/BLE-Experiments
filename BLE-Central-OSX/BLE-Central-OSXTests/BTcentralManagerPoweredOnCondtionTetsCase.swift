@@ -24,7 +24,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
         
         let centralManager = BTStubPoweredSwitchCentralManager()
         
-        let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
+        let condition = BTCentralManagerPoweredOnCondition(centralManager: centralManager)
         
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is not PoweredOn")
         
@@ -43,7 +43,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
         let centralManager = BTStubPoweredSwitchCentralManager()
         centralManager.state = .PoweredOn
         
-        let condition = BTCentralManagerPoweredOnCondition(withCentralManager: centralManager)
+        let condition = BTCentralManagerPoweredOnCondition(centralManager: centralManager)
         
         let poweredOfExpectation = expectationWithDescription("Bluetooth state is PoweredOn")
         
@@ -59,7 +59,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
     func testConditionDependencyOperation() {
         let centralManager = BTStubPoweredSwitchCentralManager()
         
-        let condition = BTCentralManagerPoweredOnWaitingCondition(withCentralManager: centralManager)
+        let condition = BTCentralManagerPoweredOnWaitingCondition(centralManager: centralManager)
         
         let operation = Operation()
         

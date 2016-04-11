@@ -29,7 +29,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOff
         
         let operation = BTCentralManagerScanningOperation(
-            withCentralManager: centralManager) { (discoveredPeripherals) -> Bool in
+            centralManager: centralManager) { (discoveredPeripherals) -> Bool in
                 return discoveredPeripherals.count >= 2
         }
         
@@ -53,7 +53,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
-        withCentralManager: centralManager) { (discoveredPeripherals) -> Bool in
+        centralManager: centralManager) { (discoveredPeripherals) -> Bool in
             return discoveredPeripherals.count >= 2
         }
         
@@ -85,7 +85,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
-        withCentralManager: centralManager) { (discoveredPeripherals) -> Bool in
+        centralManager: centralManager) { (discoveredPeripherals) -> Bool in
             return discoveredPeripherals.count >= 2
         }
         

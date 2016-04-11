@@ -31,7 +31,7 @@ struct BTPeripheralManagerStateInvalidError: ErrorType {
     }
 }
 
-struct BTCentralManagerDisconnectPeripheralError: ErrorType {
+struct BTCentralManagerFailToConnectPeripheralError: ErrorType {
     let originalError: NSError?
     
     init(originalError: NSError?) {

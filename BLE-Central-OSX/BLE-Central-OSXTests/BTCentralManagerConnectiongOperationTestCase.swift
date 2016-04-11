@@ -29,7 +29,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let peripheral = BTBaseStubPeripheral()
 
         let operation = BTCentralManagerConnectingOperation(
-        withCentralManager: centralManager,
+        centralManager: centralManager,
         peripheral: peripheral)
         
         let connectionFinishedExpectation = expectationWithDescription("connection to peripherals finished")
@@ -55,7 +55,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let peripheral = BTBaseStubPeripheral()
         
         let operation = BTCentralManagerConnectingOperation(
-            withCentralManager: centralManager,
+            centralManager: centralManager,
             peripheral: peripheral)
         
         let connectionFinishedExpectation = expectationWithDescription("connection to peripherals finished")
@@ -89,7 +89,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let peripheral = BTBaseStubPeripheral()
         
         let operation = BTCentralManagerConnectingOperation(
-            withCentralManager: centralManager,
+            centralManager: centralManager,
             peripheral: peripheral)
         
         let connectionFinishedExpectation = expectationWithDescription("connection to peripherals finished")
@@ -123,7 +123,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let peripheral = BTBaseStubPeripheral()
         
         let operation = BTCentralManagerConnectingOperation(
-            withCentralManager: centralManager,
+            centralManager: centralManager,
             peripheral: peripheral)
         
         let connectionCancelledExpectation = expectationWithDescription("connection to peripherals finished")

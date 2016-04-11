@@ -18,7 +18,7 @@ class BTCentralManagerPoweredOnCondition: BTBaseCondition, OperationCondition {
     
     // MARK: Initializers
     
-    init(withCentralManager centralManager: BTCentralManagerAPIType) {
+    init(centralManager: BTCentralManagerAPIType) {
         self.centralManager = centralManager
         super.init(mutuallyExclusive: false)
     }
@@ -46,7 +46,7 @@ class BTCentralManagerPoweredOnWaitingCondition: BTCentralManagerPoweredOnCondit
     // MARK: OperationCondition protocol
     
     override func dependencyForOperation(operation: Operation) -> NSOperation? {
-        return BTCentralManagerPoweredOnWaitingOperation(withCentralManager: centralManager)
+        return BTCentralManagerPoweredOnWaitingOperation(centralManager: centralManager)
     }
 }
 

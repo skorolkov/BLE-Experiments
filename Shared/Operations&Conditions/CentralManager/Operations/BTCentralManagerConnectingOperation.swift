@@ -9,14 +9,6 @@
 import CoreBluetooth
 import Operations
 
-struct BTCentralManagerFailToConnectPeripheral: ErrorType {
-    let originalError: NSError?
-    
-    init(originalError: NSError?) {
-        self.originalError = originalError
-    }
-}
-
 class BTCentralManagerConnectingOperation: BTCentralManagerOperation {
     
     // MARK: Internal Properties
@@ -30,14 +22,14 @@ class BTCentralManagerConnectingOperation: BTCentralManagerOperation {
     
     // MARK: Initializers
     
-    init(withCentralManager centralManager: BTCentralManagerAPIType,
-                            peripheral: BTPeripheralAPIType,
-                            options: [String : AnyObject]? = nil) {
+    init(centralManager: BTCentralManagerAPIType,
+         peripheral: BTPeripheralAPIType,
+         options: [String : AnyObject]? = nil) {
         self.peripheral = peripheral
         
-        super.init(withCentralManager: centralManager)
+        super.init(centralManager: centralManager)
         
-        addCondition(BTCentralManagerPoweredOnCondition(withCentralManager: centralManager))
+        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
     }
     
     override func execute() {
@@ -72,7 +64,7 @@ extension BTCentralManagerConnectingOperation: BTCentralManagerHandlerProtocol {
     func centralManager(central: BTCentralManagerAPIType,
                         didFailToConnectPeripheral peripheral: BTPeripheralAPIType,
                                                    error: NSError?) {
-        let btError = BTCentralManagerFailToConnectPeripheral(originalError: error)
+        let btError = BTCentralManagerFailToConnectPeripheralError(originalError: error)
         removeHandlerAndFinish(btError)
     }
 }

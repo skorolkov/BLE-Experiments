@@ -23,17 +23,17 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     
     // MARK: Initializers
     
-    init(withCentralManager centralManager: BTCentralManagerAPIType,
-                            serviceUUIDs: [CBUUID]? = nil,
-                            options: [String : AnyObject]? = nil,
-                            stopScanningCondition: BTStopScanningBlock) {
+    init(centralManager: BTCentralManagerAPIType,
+         serviceUUIDs: [CBUUID]? = nil,
+         options: [String : AnyObject]? = nil,
+         stopScanningCondition: BTStopScanningBlock) {
         self.serviceUUIDs = serviceUUIDs
         self.options = options
         self.stopScanningCondition = stopScanningCondition
         
-        super.init(withCentralManager: centralManager)
+        super.init(centralManager: centralManager)
         
-        addCondition(BTCentralManagerPoweredOnCondition(withCentralManager: centralManager))
+        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
         addCondition(MutuallyExclusive<BTCentralManagerScanningOperation>())
     }
     

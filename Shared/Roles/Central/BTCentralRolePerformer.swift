@@ -53,7 +53,7 @@ class BTCentralRolePerformer: NSObject {
     func startScanningWithCompletion(completion: BTCentralRoleBlock?) -> BTCentralManagerOperation {
         
         let startScanningOperation = BTCentralManagerScanningOperation(
-            withCentralManager: centralManager,
+            centralManager: centralManager,
             serviceUUIDs: nil,
             options: nil) { (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool in
                 // FIXME: temp condition
