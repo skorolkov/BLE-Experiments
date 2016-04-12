@@ -38,7 +38,7 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
         
         peripheralManager?.addHandler(self)
         
-        services.map { $0.coreBluetoothService() }.forEach { (service: CBMutableService) -> () in
+        services.map { $0.coreBluetoothMUtableService() }.forEach { (service: CBMutableService) -> () in
             peripheralManager?.addService(service)
         }
     }

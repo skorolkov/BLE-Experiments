@@ -9,7 +9,9 @@
 import Foundation
 import CoreBluetooth
 
-struct BTCentralManagerStateInvalidError: ErrorType {
+class BTError: ErrorType {}
+
+final class BTCentralManagerStateInvalidError: BTError {
     
     let expectedState: CBCentralManagerState
     let realState: CBCentralManagerState
@@ -20,7 +22,7 @@ struct BTCentralManagerStateInvalidError: ErrorType {
     }
 }
 
-struct BTPeripheralManagerStateInvalidError: ErrorType {
+final class BTPeripheralManagerStateInvalidError: BTError {
     
     let expectedState: CBPeripheralManagerState
     let realState: CBPeripheralManagerState
@@ -31,7 +33,15 @@ struct BTPeripheralManagerStateInvalidError: ErrorType {
     }
 }
 
-struct BTCentralManagerFailToConnectPeripheralError: ErrorType {
+final class BTCentralManagerFailToConnectPeripheralError: BTError {
+    let originalError: NSError?
+    
+    init(originalError: NSError?) {
+        self.originalError = originalError
+    }
+}
+
+final class BTPeriphalServiceDiscoveryError: BTError {
     let originalError: NSError?
     
     init(originalError: NSError?) {

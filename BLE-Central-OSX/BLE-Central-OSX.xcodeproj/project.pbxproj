@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		14C1CA867891E281A44E5467 /* Pods_BLE_Central_OSX.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94E7EE42DD2B92243AC17F03 /* Pods_BLE_Central_OSX.framework */; };
+		A61D05901CBC05EF003E11D6 /* BTDiscoveryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61D058F1CBC05EF003E11D6 /* BTDiscoveryResult.swift */; };
 		A62C493E1CBAE90D00389535 /* BTCentralManagerConnectiongOperationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62C493D1CBAE90D00389535 /* BTCentralManagerConnectiongOperationTestCase.swift */; };
 		A62C49401CBAE95500389535 /* BTStubConnectCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62C493F1CBAE95500389535 /* BTStubConnectCentralManager.swift */; };
 		A6331CAA1CBBBE12007CE746 /* BTTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6331C591CBBBE12007CE746 /* BTTypes.swift */; };
@@ -91,6 +92,7 @@
 		376EC27616AEBB87E7AB7C62 /* Pods-BLE-Central-OSX.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSX.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX.release.xcconfig"; sourceTree = "<group>"; };
 		94E7EE42DD2B92243AC17F03 /* Pods_BLE_Central_OSX.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Central_OSX.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A1E7BFF8BDFC7417F49D0F63 /* Pods-BLE-Central-OSXTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSXTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSXTests/Pods-BLE-Central-OSXTests.debug.xcconfig"; sourceTree = "<group>"; };
+		A61D058F1CBC05EF003E11D6 /* BTDiscoveryResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDiscoveryResult.swift; sourceTree = "<group>"; };
 		A62C493D1CBAE90D00389535 /* BTCentralManagerConnectiongOperationTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralManagerConnectiongOperationTestCase.swift; sourceTree = "<group>"; };
 		A62C493F1CBAE95500389535 /* BTStubConnectCentralManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTStubConnectCentralManager.swift; sourceTree = "<group>"; };
 		A6331C591CBBBE12007CE746 /* BTTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTTypes.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 			isa = PBXGroup;
 			children = (
 				A6331C591CBBBE12007CE746 /* BTTypes.swift */,
+				A61D058F1CBC05EF003E11D6 /* BTDiscoveryResult.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -893,6 +896,7 @@
 				A6331CD11CBBBE12007CE746 /* BTPeripheralAPIType.swift in Sources */,
 				A6913E371C9FFC7100316658 /* CustomLogFormatter.swift in Sources */,
 				A6331CB81CBBBE12007CE746 /* BTBaseCondition.swift in Sources */,
+				A61D05901CBC05EF003E11D6 /* BTDiscoveryResult.swift in Sources */,
 				A6331CB11CBBBE12007CE746 /* BTCentralManagerLoggingHandler.swift in Sources */,
 				A6331CC71CBBBE12007CE746 /* BTStartAdvertisingOperation.swift in Sources */,
 				A6331CD41CBBBE12007CE746 /* PeriphralFullAPIProtocol.swift in Sources */,

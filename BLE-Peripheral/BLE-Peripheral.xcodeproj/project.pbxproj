@@ -12,6 +12,7 @@
 		A60F0D421C9C617E0025E3E2 /* CustomLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60F0D411C9C617E0025E3E2 /* CustomLogFormatter.swift */; };
 		A60F0D441C9C617E0025E3E2 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60F0D431C9C617E0025E3E2 /* Config.swift */; };
 		A60F0D5A1C9C617E0025E3E2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A60F0D581C9C617E0025E3E2 /* LaunchScreen.storyboard */; };
+		A61D05921CBC11FB003E11D6 /* BTDiscoveryResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61D05911CBC11FB003E11D6 /* BTDiscoveryResult.swift */; };
 		A63302951CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302941CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift */; };
 		A63302991CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302981CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift */; };
 		A63302A61CB44F6C0037DA4C /* BTBaseOperationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302A51CB44F6C0037DA4C /* BTBaseOperationTestCase.swift */; };
@@ -94,6 +95,7 @@
 		A60F0D5B1C9C617E0025E3E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A60F0D601C9C617E0025E3E2 /* BLE-PeripheralTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "BLE-PeripheralTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A60F0D661C9C617F0025E3E2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A61D05911CBC11FB003E11D6 /* BTDiscoveryResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTDiscoveryResult.swift; sourceTree = "<group>"; };
 		A63302931CB3C6C60037DA4C /* BLE-PeripheralTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLE-PeripheralTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A63302941CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerPoweredOnConditionTestCase.swift; sourceTree = "<group>"; };
 		A63302981CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTStubPeripheralManagers.swift; sourceTree = "<group>"; };
@@ -342,6 +344,7 @@
 		A6331CDC1CBBC06B007CE746 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				A61D05911CBC11FB003E11D6 /* BTDiscoveryResult.swift */,
 				A6331CDD1CBBC06B007CE746 /* BTTypes.swift */,
 			);
 			path = Classes;
@@ -873,6 +876,7 @@
 				A6331D551CBBC06B007CE746 /* BTPeripheralAPIType.swift in Sources */,
 				A60F0D421C9C617E0025E3E2 /* CustomLogFormatter.swift in Sources */,
 				A6331D3C1CBBC06B007CE746 /* BTBaseCondition.swift in Sources */,
+				A61D05921CBC11FB003E11D6 /* BTDiscoveryResult.swift in Sources */,
 				A6331D351CBBC06B007CE746 /* BTCentralManagerLoggingHandler.swift in Sources */,
 				A6331D4B1CBBC06B007CE746 /* BTStartAdvertisingOperation.swift in Sources */,
 				A6331D581CBBC06B007CE746 /* PeriphralFullAPIProtocol.swift in Sources */,
