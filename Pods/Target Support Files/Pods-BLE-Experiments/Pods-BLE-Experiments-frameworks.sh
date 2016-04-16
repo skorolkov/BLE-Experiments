@@ -89,6 +89,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Operations-iOS/Operations.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa-iOS/ReactiveCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-iOS/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-iOS/XCGLogger.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/CocoaLumberjack-iOS/CocoaLumberjack.framework"
@@ -96,4 +97,5 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "$BUILT_PRODUCTS_DIR/Operations-iOS/Operations.framework"
   install_framework "$BUILT_PRODUCTS_DIR/ReactiveCocoa-iOS/ReactiveCocoa.framework"
   install_framework "$BUILT_PRODUCTS_DIR/Result-iOS/Result.framework"
+  install_framework "$BUILT_PRODUCTS_DIR/XCGLogger-iOS/XCGLogger.framework"
 fi

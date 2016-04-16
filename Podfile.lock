@@ -22,12 +22,14 @@ PODS:
     - ReactiveCocoa/Core
     - Result (~> 1.0.2)
   - Result (1.0.2)
+  - XCGLogger (3.3)
 
 DEPENDENCIES:
   - CocoaLumberjack/Swift (~> 2.2.0)
   - FLEX (~> 2.3.0)
   - Operations (~> 2.7.0)
   - ReactiveCocoa (~> 4.0.1)
+  - XCGLogger (~> 3.2)
 
 SPEC CHECKSUMS:
   CocoaLumberjack: 17fe8581f84914d5d7e6360f7c70022b173c3ae0
@@ -35,7 +37,8 @@ SPEC CHECKSUMS:
   Operations: d6a9f6670ae307b2860057ab0ce143bf61424ce7
   ReactiveCocoa: f7011630aee4deeb16352fcb1b50d6bde9db4f90
   Result: dd3dd71af3fa2e262f1a999e14fba2c25ec14f16
+  XCGLogger: d6e196e78940ff6daab17d6917107876f973fa31
 
-PODFILE CHECKSUM: 7a11ea795b27ee220d52f28a031f6f9baf8e04ed
+PODFILE CHECKSUM: c40375b407d7a6a857fcd5ef82c62d392cfc0ba7
 
 COCOAPODS: 1.0.0.beta.6

@@ -16,6 +16,10 @@ def testing_pods
     pod 'ReactiveCocoa', '~> 4.0.1'
 end
 
+def shared_pods
+    pod 'XCGLogger', '~> 3.2'
+end
+
 target 'BLE-Experiments' do
     platform :ios, '8.0'
 
@@ -24,6 +28,7 @@ target 'BLE-Experiments' do
     pod 'FLEX', '~> 2.3.0'
     
     testing_pods
+    shared_pods
 end
 
 target 'BLE-Peripheral' do
@@ -34,6 +39,7 @@ target 'BLE-Peripheral' do
     pod 'FLEX', '~> 2.3.0'
     
     testing_pods
+    shared_pods
 end
 
 target 'BLE-PeripheralTests' do
@@ -50,6 +56,7 @@ target 'BLE-Central-OSX' do
     project 'BLE-Central-OSX/BLE-Central-OSX.xcodeproj'
     
     testing_pods
+    shared_pods
 end
 
 target 'BLE-Central-OSXTests' do
