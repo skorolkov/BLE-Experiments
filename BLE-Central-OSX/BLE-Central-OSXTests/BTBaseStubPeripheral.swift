@@ -61,6 +61,6 @@ import CoreBluetooth
     }
 }
 
-class BTStubCBPeriheral: CBPeripheral {
+private class BTStubCBPeriheral: CBPeripheral {
     init(name: String) {}
 }
