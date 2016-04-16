@@ -7,18 +7,6 @@
 //
 
 import Foundation
-import CoreBluetooth
-
-//struct BTDiscoveryResult<Attribute, Error: ErrorType> {
-//    
-//    let discoveredAttribute: Attribute?
-//    let error: Error?
-//
-//    init(discoveredAttribute: Attribute? = nil, error: Error? = nil) {
-//        self.discoveredAttribute = discoveredAttribute
-//        self.error = error
-//    }
-//}
 
 enum BTDiscoveryResult<Attribute, Error: ErrorType> {
     case Success(value: Attribute)

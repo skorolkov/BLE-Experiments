@@ -722,6 +722,7 @@
 				A6913E1A1C9FFC7100316658 /* Resources */,
 				DF3354F89C6345870CFD2096 /* 📦 Embed Pods Frameworks */,
 				5825C26087B9C3BFC5294611 /* 📦 Copy Pods Resources */,
+				A62DCCB71CC2DF2C00BB624B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -856,6 +857,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Central-OSXTests/Pods-BLE-Central-OSXTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		A62DCCB71CC2DF2C00BB624B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\"/../ \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
 		BD372AC17B863C782D150498 /* 📦 Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;

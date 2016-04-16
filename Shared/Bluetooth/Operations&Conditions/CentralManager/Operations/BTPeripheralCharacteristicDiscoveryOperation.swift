@@ -138,7 +138,7 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
         didDiscoverCharacteristicsForService service: CBService,
                                              error: NSError?) {
         
-        
+        // TODO: add code
     }
 }
 
