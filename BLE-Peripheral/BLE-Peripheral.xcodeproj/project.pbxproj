@@ -62,6 +62,8 @@
 		A62DCCA91CC2D5A600BB624B /* BTPeripheralManagerAPIWithHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62DCC751CC2D5A600BB624B /* BTPeripheralManagerAPIWithHandlerProtocol.swift */; };
 		A62DCCAA1CC2D5A600BB624B /* BTPeripheralManagerInitializableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62DCC761CC2D5A600BB624B /* BTPeripheralManagerInitializableProtocol.swift */; };
 		A62DCCAB1CC2D5A600BB624B /* BTPeripheralManagerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62DCC781CC2D5A600BB624B /* BTPeripheralManagerProxy.swift */; };
+		A62DCCAF1CC2D7AE00BB624B /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62DCCAE1CC2D7AE00BB624B /* Log.swift */; };
+		A62DCCB31CC2DA2800BB624B /* Config+Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62DCCB21CC2DA2800BB624B /* Config+Logging.swift */; };
 		A63302951CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302941CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift */; };
 		A63302991CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302981CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift */; };
 		A63302A61CB44F6C0037DA4C /* BTBaseOperationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63302A51CB44F6C0037DA4C /* BTBaseOperationTestCase.swift */; };
@@ -145,6 +147,8 @@
 		A62DCC751CC2D5A600BB624B /* BTPeripheralManagerAPIWithHandlerProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerAPIWithHandlerProtocol.swift; sourceTree = "<group>"; };
 		A62DCC761CC2D5A600BB624B /* BTPeripheralManagerInitializableProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerInitializableProtocol.swift; sourceTree = "<group>"; };
 		A62DCC781CC2D5A600BB624B /* BTPeripheralManagerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerProxy.swift; sourceTree = "<group>"; };
+		A62DCCAE1CC2D7AE00BB624B /* Log.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		A62DCCB21CC2DA2800BB624B /* Config+Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Config+Logging.swift"; sourceTree = "<group>"; };
 		A63302931CB3C6C60037DA4C /* BLE-PeripheralTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLE-PeripheralTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		A63302941CB3C6C70037DA4C /* BTPeripheralManagerPoweredOnConditionTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerPoweredOnConditionTestCase.swift; sourceTree = "<group>"; };
 		A63302981CB3CCAF0037DA4C /* BTStubPeripheralManagers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTStubPeripheralManagers.swift; sourceTree = "<group>"; };
@@ -635,6 +639,8 @@
 		A62DCC791CC2D5A600BB624B /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				A62DCCB21CC2DA2800BB624B /* Config+Logging.swift */,
+				A62DCCAE1CC2D7AE00BB624B /* Log.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -885,6 +891,7 @@
 			files = (
 				A62DCC911CC2D5A600BB624B /* BTErrors.swift in Sources */,
 				A62DCC971CC2D5A600BB624B /* BTAddServicesOperation.swift in Sources */,
+				A62DCCAF1CC2D7AE00BB624B /* Log.swift in Sources */,
 				A62DCCA61CC2D5A600BB624B /* BTPeripheralProxy.swift in Sources */,
 				A62DCCA21CC2D5A600BB624B /* BTPeripheralAPIType.swift in Sources */,
 				A62DCC9E1CC2D5A600BB624B /* BTCentralManagerAPIProtocol.swift in Sources */,
@@ -929,6 +936,7 @@
 				A62DCC841CC2D5A600BB624B /* BTPeripheralBlockHandler.swift in Sources */,
 				A62DCC9F1CC2D5A600BB624B /* BTCentralManagerAPIWithHadlerProtocol.swift in Sources */,
 				A62DCC901CC2D5A600BB624B /* BTPeripheralCharacteristicDiscoveryOperation.swift in Sources */,
+				A62DCCB31CC2DA2800BB624B /* Config+Logging.swift in Sources */,
 				A62DCC9C1CC2D5A600BB624B /* BTHandlersContainer.swift in Sources */,
 				A62DCC8E1CC2D5A600BB624B /* BTCentralManagerDisconnectingOperation.swift in Sources */,
 				A62DCC7F1CC2D5A600BB624B /* BTCustomQueueHandler.swift in Sources */,
