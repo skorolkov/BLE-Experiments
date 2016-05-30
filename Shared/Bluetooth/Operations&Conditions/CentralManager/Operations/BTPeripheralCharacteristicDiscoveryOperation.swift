@@ -9,59 +9,36 @@
 import CoreBluetooth
 import Operations
 
-struct BTCharacteristicDiscovery {
-    
-    typealias BTCharactericticDiscoveryType = BTDiscoveryResult<CBCharacteristic, BTError>
-    
-    let characteristicPrototype: BTCharacteristic
-    let discoveryResult: BTCharactericticDiscoveryType
-    
-    init(characteristic: BTCharacteristic,
-         discoveryResult: BTCharactericticDiscoveryType) {
-        self.characteristicPrototype = characteristic
-        self.discoveryResult = discoveryResult
-    }
-}
-
-struct BTServiceDiscovery {
-    
-    typealias BTServiceDiscoveryResult = BTDiscoveryResult<CBService, BTError>
-    
-    let UUID: CBUUID
-    let discoveryResult: BTServiceDiscoveryResult
-    
-    private(set) var characteristicDiscoveries: [BTCharacteristicDiscovery] = []
-    
-    init(UUID: CBUUID, discoveryResult: BTServiceDiscoveryResult) {
-        self.UUID = UUID
-        self.discoveryResult = discoveryResult
-    }
-    
-    mutating func addCharacteristicDiscovery(characteristicDiscovery: BTCharacteristicDiscovery) {
-        characteristicDiscoveries.append(characteristicDiscovery)
-    }
-}
-
 class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
     
     // MARK: Internal Properties
     
-    private(set) var discoveredServices: [BTServiceDiscovery]? = nil
-    
     // MARK: Private Properties
-    
-    private var servicePrototypes: [BTService]? = nil
+
+    private var core: BTCharacteristicDiscoveryCore
     
     // MARK: Initializers
     
     init(centralManager: BTCentralManagerAPIType,
          peripheral: BTPeripheralAPIType,
-         servicesPrototypes: [BTService]? = nil) {
+         servicePrototypes: [BTService] = []) {
+        
+        self.core = BTCharacteristicDiscoveryCore(servicePrototypes: servicePrototypes)
         
         super.init(centralManager: centralManager,
                    peripheral: peripheral)
         
-        self.servicePrototypes = servicesPrototypes
+        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
+    }
+    
+    init(centralManager: BTCentralManagerAPIType,
+         peripheral: BTPeripheralAPIType,
+         characteristicPrototypes: [BTCharacteristic] = []) {
+        
+        self.core = BTCharacteristicDiscoveryCore(characteristicPrototypes: characteristicPrototypes)
+
+        super.init(centralManager: centralManager,
+                   peripheral: peripheral)
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
     }
@@ -72,9 +49,7 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
         centralManager?.addHandler(self)
         peripheral?.addHandler(self)
         
-        let serviceUUIDs = servicePrototypes?.map { $0.UUID }
-        
-        peripheral?.discoverServices(serviceUUIDs)
+        peripheral?.discoverServices(core.serviceUUIDs)
     }
 }
 
@@ -116,12 +91,12 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
             return
         }
         
-        discoveredServices = BTPeripheralCharacteristicDiscoveryOperation.serviceDiscoveriesWithServices(
-            peripheral.services,
-            servicePrototypes: servicePrototypes)
+        guard let services = peripheral.services else {
+            removeHandlerAndFinish()
+            return
+        }
         
-        let itemsToDiscover = BTPeripheralCharacteristicDiscoveryOperation.serviceAndCharacteristicToDiscover(
-            discoveredServices, servicePrototypes: servicePrototypes)
+        let itemsToDiscover = core.discoveredServices(services)
         
         guard !itemsToDiscover.isEmpty else {
             removeHandlerAndFinish()
@@ -138,77 +113,11 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
         didDiscoverCharacteristicsForService service: CBService,
                                              error: NSError?) {
         
-        // TODO: add code
-    }
-}
-
-
-// MARK: Private Methods
-
-private extension BTPeripheralCharacteristicDiscoveryOperation {
-    
-    static func serviceDiscoveriesWithServices(
-        services: [CBService]?,
-        servicePrototypes: [BTService]?) -> [BTServiceDiscovery] {
         
-        let serviceUUIDs = servicePrototypes?.map({ $0.UUID })
+        let discoveryFinished = core.discoveredCharacteristicsForService(service, error: error)
         
-        guard services == nil && serviceUUIDs == nil else {
-            return []
+        if discoveryFinished {
+            removeHandlerAndFinish()
         }
-        
-        if let cbServices = services where serviceUUIDs == nil {
-            return cbServices.map { service in
-                BTServiceDiscovery(UUID: service.UUID, discoveryResult: .Success(value: service))
-            }
-        }
-        else if let UUIDs = serviceUUIDs where services == nil {
-            return UUIDs.map { UUID in
-                BTServiceDiscovery(UUID: UUID, discoveryResult: .NotFound)
-            }
-        }
-        else if let cbServices = services, let UUIDs = serviceUUIDs {
-            
-            return UUIDs.map { UUID in
-                guard let index = cbServices.indexOf({ (s: CBService) in return s.UUID.isEqual(UUID) }) else {
-                    return BTServiceDiscovery(UUID: UUID, discoveryResult: .NotFound)
-                }
-                
-                return BTServiceDiscovery(UUID: UUID, discoveryResult: .Success(value: cbServices[index]))
-            }
-        }
-        
-        return []
-    }
-    
-    static func serviceAndCharacteristicToDiscover(serviceDiscoveries: [BTServiceDiscovery]?,
-                                                   servicePrototypes: [BTService]?)
-        -> [(CBService, [CBUUID]?)] {
-            
-            guard let discoveries = serviceDiscoveries else {
-                return []
-            }
-            
-            let services = discoveries.flatMap { (discovery: BTServiceDiscovery) -> CBService?  in
-                if case .Success(let value) = discovery.discoveryResult {
-                    return value
-                }
-                else {
-                    return nil
-                }
-            }
-            
-            if let prototypes = servicePrototypes {
-                return prototypes.flatMap { (prototype: BTService) -> (CBService, [CBUUID]?)? in
-                    guard let index = services.indexOf({ (s: CBService) in return s.UUID.isEqual(prototype.UUID) }) else {
-                        return nil
-                    }
-                    
-                    return (services[index], prototype.characteristics.map({ $0.UUID }) )
-                }
-            }
-            else {
-                return services.map { service in return (service, nil) }
-            }
     }
 }

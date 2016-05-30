@@ -10,22 +10,27 @@ import CoreBluetooth
 
 class BTCharacteristic {
     let UUID: CBUUID
-    let propeties: CBCharacteristicProperties
+    let properties: CBCharacteristicProperties
     let value: NSData?
     
     init(UUIDString: String,
-         propeties: CBCharacteristicProperties,
+         properties: CBCharacteristicProperties,
          value: NSData?) {
         self.UUID = CBUUID(string: UUIDString)
-        self.propeties = propeties
+        self.properties = properties
         self.value = value
     }
     
     init(characteristic: BTCharacteristic) {
         self.UUID = characteristic.UUID
-        self.propeties = characteristic.propeties
+        self.properties = characteristic.properties
         self.value = characteristic.value
     }
+}
+
+func ==(left: BTCharacteristic, right: BTCharacteristic) -> Bool {
+    return (left.UUID == right.UUID &&
+        left.properties == right.properties)
 }
 
 class BTService {
@@ -47,14 +52,20 @@ class BTPermissionsCharacteristic: BTCharacteristic {
     let permissions: CBAttributePermissions
 
     init(UUIDString: String,
-         propeties: CBCharacteristicProperties,
+         properties: CBCharacteristicProperties,
          value: NSData?,
          permissions: CBAttributePermissions) {
         self.permissions = permissions
         super.init(UUIDString: UUIDString,
-                   propeties: propeties,
+                   properties: properties,
                    value: value)
     }
+}
+
+func ==(left: BTPermissionsCharacteristic, right: BTPermissionsCharacteristic) -> Bool {
+    return (left.UUID == right.UUID &&
+        left.properties == right.properties &&
+        left.permissions == right.permissions)
 }
 
 class BTPrimacyService: BTService {
@@ -73,7 +84,7 @@ class BTPrimacyService: BTService {
 extension BTPermissionsCharacteristic {
     func coreBluetoothMutableCharacteristic() -> CBMutableCharacteristic {
         return CBMutableCharacteristic(type: UUID,
-            properties: propeties,
+            properties: properties,
             value: value,
             permissions: permissions)
     }
@@ -90,7 +101,7 @@ extension BTPrimacyService {
 extension BTCharacteristic {
     convenience init(coreBluetoothCharacteristic: CBCharacteristic) {
         self.init(UUIDString: coreBluetoothCharacteristic.UUID.UUIDString,
-                  propeties: coreBluetoothCharacteristic.properties,
+                  properties: coreBluetoothCharacteristic.properties,
                   value: coreBluetoothCharacteristic.value)
     }
 }

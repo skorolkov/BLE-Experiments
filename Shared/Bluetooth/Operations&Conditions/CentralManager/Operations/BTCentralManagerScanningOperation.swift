@@ -45,6 +45,11 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
         centralManager?.scanForPeripheralsWithServices(serviceUUIDs,
                                                        options: options)
     }
+
+    override func cancel() {
+        centralManager?.stopScan()
+        super.cancel()
+    }
 }
 
 extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {

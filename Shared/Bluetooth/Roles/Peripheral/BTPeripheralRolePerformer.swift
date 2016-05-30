@@ -54,11 +54,11 @@ class BTPeripheralRolePerformer: NSObject {
         
         let characteristics = [
             BTPermissionsCharacteristic(UUIDString: "2A4D",
-                propeties: [.WriteWithoutResponse, .Write],
+                properties: [.WriteWithoutResponse, .Write],
                 value: nil,
                 permissions: .Writeable),
             BTPermissionsCharacteristic(UUIDString: "2A4D",
-                propeties: .Notify,
+                properties: .Notify,
                 value: nil,
                 permissions: .Readable)
         ]

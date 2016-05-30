@@ -49,3 +49,11 @@ final class BTPeriphalServiceDiscoveryError: BTError {
     }
 }
 
+final class BTPeriphalCharacteristicDiscoveryError: BTError {
+    let originalError: NSError?
+    
+    init(originalError: NSError?) {
+        self.originalError = originalError
+    }
+}
+
