@@ -57,7 +57,13 @@ extension BTPeripheralProxy: BTPeripheralAPIProtocol {
         peripheral.discoverCharacteristics(characteristicUUIDs, forService: service)
     }
     
-    // MARK: write value for characteristic
+    // MARK: Read value for characteristic
+
+    func readValueForCharacteristic(characteristic: CBCharacteristic) {
+        peripheral.readValueForCharacteristic(characteristic)
+    }
+    
+    // MARK: Write value for characteristic
     
     func writeValue(data: NSData, forCharacteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType) {
         peripheral.writeValue(data,

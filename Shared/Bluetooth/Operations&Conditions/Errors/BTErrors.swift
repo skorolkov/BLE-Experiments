@@ -57,3 +57,22 @@ final class BTPeriphalCharacteristicDiscoveryError: BTError {
     }
 }
 
+final class BTPeripheralUpdateValueForCharacteristicError: BTError {
+    let characteristicUUID: CBUUID
+    let originalError: NSError?
+    
+    init(characteristicUUID: CBUUID, originalError: NSError?) {
+        self.characteristicUUID = characteristicUUID
+        self.originalError = originalError
+    }
+}
+
+final class BTPeripheralWriteValueForCharacteristicError: BTError {
+    let characteristicUUID: CBUUID
+    let originalError: NSError?
+    
+    init(characteristicUUID: CBUUID, originalError: NSError?) {
+        self.characteristicUUID = characteristicUUID
+        self.originalError = originalError
+    }
+}

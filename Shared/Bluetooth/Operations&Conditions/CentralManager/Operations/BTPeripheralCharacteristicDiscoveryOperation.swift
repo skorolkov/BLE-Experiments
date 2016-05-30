@@ -10,9 +10,7 @@ import CoreBluetooth
 import Operations
 
 class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
-    
-    // MARK: Internal Properties
-    
+        
     // MARK: Private Properties
 
     private var core: BTCharacteristicDiscoveryCore
@@ -74,7 +72,6 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTCentralManagerHandlerP
         let btError: ErrorType? = (error != nil) ?
             BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
-        
     }
 }
 

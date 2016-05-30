@@ -24,11 +24,15 @@ import CoreBluetooth
     
     func discoverCharacteristics(characteristicUUIDs: [CBUUID]?, forService service: CBService)
     
-    // MARK: write value for characteristic
+    // MARK: Read value for characteristic
+    
+    func readValueForCharacteristic(characteristic: CBCharacteristic)
+    
+    // MARK: Write value for characteristic
     
     func writeValue(data: NSData, forCharacteristic characteristic: CBCharacteristic, type: CBCharacteristicWriteType)
     
-    // MARK: subscribe on value update notifications for characteristic
+    // MARK: Subscribe on value update notifications for characteristic
     
     func setNotifyValue(enabled: Bool, forCharacteristic characteristic: CBCharacteristic)
     
