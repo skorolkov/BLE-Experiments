@@ -76,3 +76,13 @@ final class BTPeripheralWriteValueForCharacteristicError: BTError {
         self.originalError = originalError
     }
 }
+
+final class BTPeripheralUpdateNotificationStateForCharacteristicError: BTError {
+    let characteristicUUID: CBUUID
+    let originalError: NSError?
+    
+    init(characteristicUUID: CBUUID, originalError: NSError?) {
+        self.characteristicUUID = characteristicUUID
+        self.originalError = originalError
+    }
+}
