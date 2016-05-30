@@ -33,6 +33,17 @@ final class BTPeripheralManagerStateInvalidError: BTError {
     }
 }
 
+final class BTPeripheralStateInvalidError: BTError {
+    
+    let expectedState: CBPeripheralState
+    let realState: CBPeripheralState
+    
+    init(withExpectedState expectedState: CBPeripheralState, realState: CBPeripheralState) {
+        self.expectedState = expectedState
+        self.realState = realState
+    }
+}
+
 final class BTCentralManagerFailToConnectPeripheralError: BTError {
     let originalError: NSError?
     

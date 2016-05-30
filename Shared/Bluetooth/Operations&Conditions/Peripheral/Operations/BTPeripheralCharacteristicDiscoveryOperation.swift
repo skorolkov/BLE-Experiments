@@ -27,6 +27,7 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
                    peripheral: peripheral)
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
+        addCondition(BTPeripheralConnectedCondition(peripheral: peripheral))
     }
     
     init(centralManager: BTCentralManagerAPIType,
@@ -39,6 +40,7 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
                    peripheral: peripheral)
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
+        addCondition(BTPeripheralConnectedCondition(peripheral: peripheral))
     }
     
     override func execute() {

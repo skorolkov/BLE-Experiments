@@ -30,8 +30,8 @@ class BTPeripheralReadValueOperation: BTPeripheralOperation {
         super.init(centralManager: centralManager,
                    peripheral: peripheral)
         
-        // FIXME: add CBPeripheral's state condition
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
+        addCondition(BTPeripheralConnectedCondition(peripheral: peripheral))
     }
 
     override func execute() {
