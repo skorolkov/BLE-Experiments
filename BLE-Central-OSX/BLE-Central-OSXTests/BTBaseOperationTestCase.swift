@@ -18,7 +18,7 @@ class BTBaseOperationTestCase: XCTestCase {
         
         operationQueue = OperationQueue()
         
-        let queueName = "\(self.name)/.queue"
+        let queueName = "\(self.name).queue"
         operationQueue.name = queueName
         operationQueue.underlyingQueue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT)
     }
