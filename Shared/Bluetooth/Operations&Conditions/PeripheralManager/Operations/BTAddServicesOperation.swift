@@ -18,13 +18,15 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
     // MARK: Initializers
     
     init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
-        peripheralRolePerformer: BTPeripheralRolePerformer,
-        services: [BTPrimacyService]) {
-            self.services = services
-            super.init(withPeripheralManager: peripheralManager)
-            
-            addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
-            addCondition(BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer))
+                               peripheralRolePerformer: BTPeripheralRolePerformer,
+                               services: [BTPrimacyService],
+                               mutuallyExclusiveCondition: OperationCondition =
+        MutuallyExclusive<BTPeripheralManagerProxy>()) {
+        self.services = services
+        super.init(withPeripheralManager: peripheralManager)
+        
+        addCondition(mutuallyExclusiveCondition)
+        addCondition(BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer))
     }
     
     private override init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {

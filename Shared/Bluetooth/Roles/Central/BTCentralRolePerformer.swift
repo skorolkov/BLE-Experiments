@@ -13,17 +13,27 @@ import CocoaLumberjack
 
 class BTCentralRolePerformer: NSObject {
     
+    // MARK: Singleton
+
+    static let sharedInstance = BTCentralRolePerformer()
+
     // MARK: Types Definitions
     
     typealias BTCentralRoleBlock =
         (rolePerformer: BTCentralRolePerformer, result: BTOperationResult) -> Void
     
+    // MARK: Signals
+    
+    typealias BTPeripheralNotifier = protocol<BTPeripheralUpdating, NSObjectProtocol>
+    
+    private(set) var peripheralDataProvider: BTPeripheralNotifier = BTPeripheralDataProvider()
+    
     // MARK: Private Properties
     
     private var centralManager: BTCentralManagerAPIWithHadlerProtocol
     
-    private var discoveredPeripherals: [BTPeripheralAPIType] = []
-    
+    private var managedPeripherals: [BTPeripheralAPIType] = []
+
     // MARK: Operations
     
     private var operationQueue: OperationQueue
@@ -55,10 +65,11 @@ class BTCentralRolePerformer: NSObject {
         let startScanningOperation = BTCentralManagerScanningOperation(
             centralManager: centralManager,
             serviceUUIDs: nil,
-            options: nil) { (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool in
+            options: nil,
+            stopScanningCondition: { (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool in
                 // FIXME: temp condition
                 return discoveredPeripherals.count >= 1
-        }
+        })
         
         startScanningOperation.addObserver(DidFinishObserver { [weak self] result in
             
@@ -67,9 +78,10 @@ class BTCentralRolePerformer: NSObject {
             }
             
             if let scanningOperation = result.operation as? BTCentralManagerScanningOperation {
-                strongSelf.discoveredPeripherals = scanningOperation.discoveredPeripherals
+                strongSelf.managedPeripherals = scanningOperation.discoveredPeripherals
                 
-                print(strongSelf.discoveredPeripherals)
+                //FIXME: debug print
+                print(strongSelf.managedPeripherals)
             }
             
             completion?(rolePerformer: strongSelf,

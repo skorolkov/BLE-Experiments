@@ -29,9 +29,10 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOff
         
         let operation = BTCentralManagerScanningOperation(
-            centralManager: centralManager) { (discoveredPeripherals) -> Bool in
+            centralManager: centralManager,
+            stopScanningCondition: { (discoveredPeripherals) -> Bool in
                 return discoveredPeripherals.count >= 2
-        }
+        })
         
         let scanningFinishedExpectation = expectationWithDescription("scan for peripherals finished")
         
@@ -53,9 +54,10 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
-        centralManager: centralManager) { (discoveredPeripherals) -> Bool in
-            return discoveredPeripherals.count >= 2
-        }
+            centralManager: centralManager,
+            stopScanningCondition: { (discoveredPeripherals) -> Bool in
+                return discoveredPeripherals.count >= 2
+        })
         
         let scanningFinishedExpectation = expectationWithDescription("scan for peripherals finished")
         
@@ -85,9 +87,10 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
         centralManager.state = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
-        centralManager: centralManager) { (discoveredPeripherals) -> Bool in
-            return discoveredPeripherals.count >= 2
-        }
+            centralManager: centralManager,
+            stopScanningCondition: { (discoveredPeripherals) -> Bool in
+                return discoveredPeripherals.count >= 2
+        })
         
         let scanningCancelledExpectation = expectationWithDescription("scan for peripherals cancelled")
         

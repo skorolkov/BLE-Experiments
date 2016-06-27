@@ -17,11 +17,13 @@ class BTStartAdvertisingOperation: BTPeripheralManagerOperation {
     // MARK: Initializers
     
     init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
-        peripheralRolePerformer: BTPeripheralRolePerformer) {
-            
+                               peripheralRolePerformer: BTPeripheralRolePerformer,
+                               mutuallyExclusiveCondition: OperationCondition =
+        MutuallyExclusive<BTPeripheralManagerProxy>()) {
+        
         super.init(withPeripheralManager: peripheralManager)
         
-        addCondition(MutuallyExclusive<BTPeripheralManagerProxy>())
+        addCondition(mutuallyExclusiveCondition)
         addCondition(BTPeripheralManagerPoweredOnCondition(withPeripheralManager: peripheralManager))
         addCondition(NegatedCondition(
             BTServiceNotAddedCondition(withPeripheralRolePerformer: peripheralRolePerformer)))

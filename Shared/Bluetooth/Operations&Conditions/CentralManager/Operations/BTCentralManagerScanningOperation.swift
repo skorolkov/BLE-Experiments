@@ -26,7 +26,8 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     init(centralManager: BTCentralManagerAPIType,
          serviceUUIDs: [CBUUID]? = nil,
          options: [String : AnyObject]? = nil,
-         stopScanningCondition: BTStopScanningBlock) {
+         stopScanningCondition: BTStopScanningBlock,
+         mutuallyExclusiveCondition: OperationCondition = MutuallyExclusive<BTCentralManagerScanningOperation>()) {
         self.serviceUUIDs = serviceUUIDs
         self.options = options
         self.stopScanningCondition = stopScanningCondition
@@ -34,7 +35,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
         super.init(centralManager: centralManager)
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
-        addCondition(MutuallyExclusive<BTCentralManagerScanningOperation>())
+        addCondition(mutuallyExclusiveCondition)
     }
     
     override func execute() {
