@@ -34,19 +34,17 @@ class BTCentralRolePerformer: NSObject {
     
     private var scannedPeripherals: [BTPeripheralAPIType] = [] {
         didSet {
-            
+            let modelPeripherals = BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(scannedPeripherals)
+            peripheralNotifier.scannedPeripheralsToUpdate.value = modelPeripherals
         }
     }
     
-    private var connectedPeripherals: [BTPeripheralAPIType] = [] {
-        didSet {
-            
-        }
-    }
+    private var managedPeripherals: [BTPeripheralAPIType] = []
     
     // MARK: Operations
     
     private var operationQueue: OperationQueue
+    private var scanOperation: BTCentralManagerScanningOperation? = nil
 
     // MARK: Initializers
     
@@ -147,8 +145,15 @@ class BTCentralRolePerformer: NSObject {
                     observer.sendCompleted()
                 })
                 
+                self.scanOperation = startScanningOperation
+                
                 self.operationQueue.addOperation(startScanningOperation)
             }
+    }
+    
+    func stopScan() {
+        scanOperation?.cancel()
+        scanOperation = nil
     }
 }
 

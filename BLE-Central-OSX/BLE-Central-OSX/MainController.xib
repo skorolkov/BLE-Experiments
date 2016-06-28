@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10116"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="10117"/>
     </dependencies>
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainController" customModule="BLE_Central_OSX" customModuleProvider="target">
@@ -26,9 +26,21 @@
                         <action selector="startScanningButtonPressed:" target="-2" id="GsP-9m-Xbs"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OaJ-eS-TQO">
+                    <rect key="frame" x="176" y="193" width="128" height="32"/>
+                    <buttonCell key="cell" type="push" title="Stop Scanning" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3p2-G1-Wm0">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="stopScanningButtonPressed:" target="-2" id="dhS-XZ-4GF"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="3e2-cm-tRk"/>
+                <constraint firstItem="OaJ-eS-TQO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Gk9-ig-gx9"/>
+                <constraint firstItem="OaJ-eS-TQO" firstAttribute="top" secondItem="phE-tJ-jyZ" secondAttribute="bottom" constant="10" id="eCo-9J-p5t"/>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="ki2-2T-YzR"/>
             </constraints>
         </customView>

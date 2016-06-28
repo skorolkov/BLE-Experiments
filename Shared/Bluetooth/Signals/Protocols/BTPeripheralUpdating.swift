@@ -9,11 +9,9 @@
 import ReactiveCocoa
 import Result
 
-typealias BTPeripheralSignalObserver = Observer<[BTPeripheral], NoError>
-
 protocol BTPeripheralUpdating {
    
+    var scannedPeripheralsToUpdate: MutableProperty<[BTPeripheral]> { get set }
+
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> { get set }
-    
-    func peripheralsUpdatedSignalObserver() -> BTPeripheralSignalObserver
 }

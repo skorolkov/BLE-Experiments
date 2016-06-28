@@ -9,11 +9,9 @@
 import ReactiveCocoa
 import Result
 
-typealias BTPeripheralSignal = Signal<[BTPeripheral], NoError>
-
 protocol BTPeripheralProviding {
     
-    var peripherals: AnyProperty<[BTPeripheral]> { get }
+    var scannedPeripherals: AnyProperty<[BTPeripheral]> { get }
     
-    func peripheralsUpdatedSignal() -> BTPeripheralSignal
+    var peripherals: AnyProperty<[BTPeripheral]> { get }
 }

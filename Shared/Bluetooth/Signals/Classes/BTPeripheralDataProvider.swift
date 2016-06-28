@@ -14,30 +14,20 @@ class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProv
     
     // MARK: Internal Properties
     
+    var scannedPeripherals: AnyProperty<[BTPeripheral]> {
+         return AnyProperty(scannedPeripheralsToUpdate)
+    }
+    
     var peripherals: AnyProperty<[BTPeripheral]> {
         return AnyProperty(peripheralsToUpdate)
     }
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
     
-    // MARK: Private Properties
-    
-    private var signal: BTPeripheralSignal
-    private var observer: BTPeripheralSignal.Observer
-    
+    var scannedPeripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
+        
     // MARK: Initializers
     
     override init() {
-        (self.signal, self.observer) = BTPeripheralSignal.pipe()
         super.init()
-    }
-    
-    // MARK: Internal Methods
-    
-    func peripheralsUpdatedSignal() -> BTPeripheralSignal {
-        return signal
-    }
-    
-    func peripheralsUpdatedSignalObserver() -> BTPeripheralSignalObserver {
-        return observer
     }
 }

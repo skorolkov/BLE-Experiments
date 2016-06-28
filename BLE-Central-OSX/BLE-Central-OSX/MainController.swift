@@ -38,4 +38,9 @@ private extension MainController {
             })
             .start()
     }
+    
+    @IBAction func stopScanningButtonPressed(sender: NSButton) {
+        centralRolePerformer.stopScan()
+    }
+    
 }
