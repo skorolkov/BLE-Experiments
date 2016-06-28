@@ -39,4 +39,3 @@ import CoreBluetooth
     func coreBluetoothPeripheral() -> CBPeripheral
 }
 
-

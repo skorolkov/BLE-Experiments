@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PeripheralViewController" customModule="BLE_Peripheral" customModuleProvider="target">
             <connections>
+                <outlet property="startAdvertisingButton" destination="6Eq-JG-caW" id="bVg-Nh-8wp"/>
+                <outlet property="stopAdvertisingButton" destination="7bE-PO-VQx" id="efR-6P-Sd8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,11 +24,21 @@
                         <action selector="startAdvertisiongButtonPressed:" destination="-1" eventType="touchUpInside" id="Bv9-d4-4a8"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7bE-PO-VQx" userLabel="Stop Advertising Button">
+                    <rect key="frame" x="20" y="60" width="560" height="30"/>
+                    <state key="normal" title="Stop Advertising"/>
+                    <connections>
+                        <action selector="stopAdvertisingButtonPressed:" destination="-1" eventType="touchUpInside" id="PKu-8r-RuF"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="7bE-PO-VQx" secondAttribute="trailing" constant="20" id="Ft2-d1-SUc"/>
                 <constraint firstItem="6Eq-JG-caW" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="20" id="LB8-tW-GuX"/>
                 <constraint firstAttribute="trailing" secondItem="6Eq-JG-caW" secondAttribute="trailing" constant="20" id="OEi-bG-COZ"/>
+                <constraint firstItem="7bE-PO-VQx" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="aTe-HE-hZO"/>
+                <constraint firstItem="7bE-PO-VQx" firstAttribute="top" secondItem="6Eq-JG-caW" secondAttribute="bottom" constant="10" id="d3z-Vu-vFc"/>
                 <constraint firstItem="6Eq-JG-caW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="jhc-pD-gRD"/>
             </constraints>
         </view>

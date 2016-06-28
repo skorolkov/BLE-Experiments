@@ -11,7 +11,7 @@ import CoreBluetooth
 
 enum BTPeripheralState: Int {
     case Disconnected
-    case Discovered
+    case Scanned
     case Connected
     case CharacteristicDiscovered
 }
@@ -26,4 +26,18 @@ struct BTPeripheral {
         self.name = name
         self.state = state
     }
+    
+    init(peripheral: BTPeripheralAPIType, state: BTPeripheralState) {
+        self.identifierString = peripheral.identifier.UUIDString
+        self.name = peripheral.name
+        self.state = state
+    }
+}
+
+extension BTPeripheral: Equatable {}
+
+func ==(left: BTPeripheral, right: BTPeripheral) -> Bool {
+    return (left.identifierString == right.identifierString &&
+        left.name == right.name &&
+        left.state == right.state)
 }

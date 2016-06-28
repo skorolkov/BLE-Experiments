@@ -158,6 +158,18 @@ extension BTPeripheralProxy: CBPeripheralDelegate {
     }
 }
 
+// MARK: Description
+
+extension BTPeripheralProxy {
+    override var description: String {
+        return "<\(NSStringFromClass(self.dynamicType)): indentifier=\(identifier.UUIDString), name=\(name), state=\(state)>"
+    }
+    
+    override var debugDescription: String {
+        return description
+    }
+}
+
 // MARK: Supporting methods
 
 private extension BTPeripheralProxy {

@@ -10,6 +10,7 @@ import Foundation
 import CoreBluetooth
 import Operations
 import CocoaLumberjack
+import ReactiveCocoa
 
 class BTCentralRolePerformer: NSObject {
     
@@ -17,23 +18,32 @@ class BTCentralRolePerformer: NSObject {
 
     static let sharedInstance = BTCentralRolePerformer()
 
-    // MARK: Types Definitions
-    
-    typealias BTCentralRoleBlock =
-        (rolePerformer: BTCentralRolePerformer, result: BTOperationResult) -> Void
-    
     // MARK: Signals
     
     typealias BTPeripheralNotifier = protocol<BTPeripheralUpdating, NSObjectProtocol>
     
-    private(set) var peripheralDataProvider: BTPeripheralNotifier = BTPeripheralDataProvider()
+    private(set) var peripheralDataProvider: BTPeripheralDataProvider = BTPeripheralDataProvider()
+    
+    private var peripheralNotifier: BTPeripheralNotifier {
+        return peripheralDataProvider
+    }
     
     // MARK: Private Properties
     
     private var centralManager: BTCentralManagerAPIWithHadlerProtocol
     
-    private var managedPeripherals: [BTPeripheralAPIType] = []
-
+    private var scannedPeripherals: [BTPeripheralAPIType] = [] {
+        didSet {
+            
+        }
+    }
+    
+    private var connectedPeripherals: [BTPeripheralAPIType] = [] {
+        didSet {
+            
+        }
+    }
+    
     // MARK: Operations
     
     private var operationQueue: OperationQueue
@@ -41,12 +51,17 @@ class BTCentralRolePerformer: NSObject {
     // MARK: Initializers
     
     override init() {
+        
+        let queueName = "com.bluetooth.\(self.dynamicType)"
+        let queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT)
+        
         operationQueue = OperationQueue()
-        operationQueue.name = "\(self.dynamicType).queue"
+        operationQueue.name = queueName
+        operationQueue.underlyingQueue = queue
         
         let bluetoothCentralManager = CBCentralManager(
             delegate: nil,
-            queue: nil,
+            queue: queue,
             options: [CBCentralManagerOptionShowPowerAlertKey : true])
         
         centralManager = BTCentralManagerProxy(centralManager: bluetoothCentralManager)
@@ -60,39 +75,81 @@ class BTCentralRolePerformer: NSObject {
     
     // MARK: Internal Methods
     
-    func startScanningWithCompletion(completion: BTCentralRoleBlock?) -> BTCentralManagerOperation {
-        
-        let startScanningOperation = BTCentralManagerScanningOperation(
-            centralManager: centralManager,
-            serviceUUIDs: nil,
-            options: nil,
-            stopScanningCondition: { (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool in
-                // FIXME: temp condition
-                return discoveredPeripherals.count >= 1
-        })
-        
-        startScanningOperation.addObserver(DidFinishObserver { [weak self] result in
+    func scan(withServices serviceUUIDs: [CBUUID]? = nil,
+                           options: [String : AnyObject]? = nil,
+                           allowDuplicatePeripheralIds: Bool = false,
+                           timeout: NSTimeInterval = 10,
+                           validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
+                           stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock)
+        -> SignalProducer<[BTPeripheral], BTError> {
             
-            guard let strongSelf = self else {
-                return
-            }
-            
-            if let scanningOperation = result.operation as? BTCentralManagerScanningOperation {
-                strongSelf.managedPeripherals = scanningOperation.discoveredPeripherals
+            return SignalProducer { observer, disposable in
+                let startScanningOperation = BTCentralManagerScanningOperation(
+                    centralManager: self.centralManager,
+                    serviceUUIDs: serviceUUIDs,
+                    options: options,
+                    allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
+                    timeout: timeout,
+                    intermediateScanResultBlock: {
+                        [weak self] (discoveredPeripherals: [BTPeripheralAPIType]) in
+                        
+                        guard let strongSelf = self else {
+                            return
+                        }
+                        
+                        strongSelf.scannedPeripherals = discoveredPeripherals
+                        
+                        let modelPeripherals = BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(discoveredPeripherals)
+                        observer.sendNext(modelPeripherals)
+                    },
+                    stopScanningCondition: stopScanningCondition)
                 
-                //FIXME: debug print
-                print(strongSelf.managedPeripherals)
+                startScanningOperation.addObserver(DidFinishObserver { [weak self] (operation, errors) in
+                    
+                    guard let strongSelf = self else {
+                        return
+                    }
+                    
+                    if operation.finished && errors.count > 0 {
+                        
+                        let timeoutErrorIndex = errors.indexOf({
+                            if let timeoutError = $0 as? OperationError {
+                                if case .OperationTimedOut(_) = timeoutError {
+                                    return true
+                                }
+                            }
+                            return false
+                        })
+                        
+                        if timeoutErrorIndex == nil {
+                            let error = BTOperationError(code: .OperationFailed(errors: errors))
+                            Log.bluetooth.error("BTCentralRolePerformer: scanning, error: \(error)")
+                            observer.sendFailed(error)
+                            return
+                        }
+                    }
+                    
+                    guard let scanningOperation = operation as? BTCentralManagerScanningOperation else {
+                        let error = BTOperationError(code: .OperationTypeMismatch)
+                        Log.bluetooth.error("BTCentralRolePerformer: scanning, error: \(error)")
+                        observer.sendFailed(error)
+                        return
+                    }
+                    
+                    strongSelf.scannedPeripherals = scanningOperation.discoveredPeripherals
+                    
+                     Log.bluetooth.info("BTCentralRolePerformer: scan completed, " +
+                        "discovered periphrals: \(strongSelf.scannedPeripherals)")
+                    
+                    let modelPeripherals =
+                        BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(strongSelf.scannedPeripherals)
+                    observer.sendNext(modelPeripherals)
+                    observer.sendCompleted()
+                })
+                
+                self.operationQueue.addOperation(startScanningOperation)
             }
-            
-            completion?(rolePerformer: strongSelf,
-                result: BTOperationResult(operation: result.operation, errors: result.errors))
-            })
-        
-        operationQueue.addOperation(startScanningOperation)
-        
-        return startScanningOperation
     }
-    
 }
 
 // MARK: BTCentralManagerHandlerProtocol
@@ -126,6 +183,7 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
                                  didDiscoverPeripheral peripheral: BTPeripheralAPIType,
                                                        advertisementData: [String : AnyObject],
                                                        RSSI: NSNumber) {
+        // Nothing to do here
     }
 }
 
@@ -159,5 +217,19 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
         peripheral: BTPeripheralAPIType,
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
+    }
+}
+
+// MARK: Supporting Methods
+
+private extension BTCentralRolePerformer {
+    static func modelPeripheralsFromScannedPeripherals(peripherals: [BTPeripheralAPIType]) -> [BTPeripheral] {
+        return peripherals.map { return BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0) }
+    }
+    
+    static func modelPeripheralWithScannedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
+        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
+                            name: peripheral.name,
+                            state: .Scanned)
     }
 }

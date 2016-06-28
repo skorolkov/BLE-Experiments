@@ -67,8 +67,7 @@ extension BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerHandl
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
         if peripheral.state == .PoweredOn {
-            peripheralManager?.removeHandler(self)
-            finish()
+            removeHandlerAndFinish()
         }
     }
 }

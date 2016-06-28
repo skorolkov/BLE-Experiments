@@ -11,13 +11,20 @@ import Operations
 
 class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     
-    typealias BTStopScanningBlock = (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool
-    
+    typealias BTScanningResultBlock = (discoveredPeripherals: [BTPeripheralAPIType]) -> Void
+    typealias BTScanningStopBlock = (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool
+    typealias BTScanningValidPeripheralPredicate = (
+        peripheral: BTPeripheralAPIType,
+        advertisementData: [String : AnyObject]) -> Bool
+
     // MARK: Private Properties
     
     private var serviceUUIDs: [CBUUID]? = nil
     private var options: [String : AnyObject]? = nil
-    private var stopScanningCondition: BTStopScanningBlock
+    private var allowDuplicatePeripheralIds: Bool
+    private var validatePeripheralPredicate: BTScanningValidPeripheralPredicate? = nil
+    private var intermediateScanResultBlock: BTScanningResultBlock? = nil
+    private var stopScanningCondition: BTScanningStopBlock
     
     private(set) var discoveredPeripherals: [BTPeripheralAPIType] = []
     
@@ -26,16 +33,25 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     init(centralManager: BTCentralManagerAPIType,
          serviceUUIDs: [CBUUID]? = nil,
          options: [String : AnyObject]? = nil,
-         stopScanningCondition: BTStopScanningBlock,
+         allowDuplicatePeripheralIds: Bool = false,
+         timeout: NSTimeInterval = 10,
+         validatePeripheralPredicate: BTScanningValidPeripheralPredicate? = nil,
+         intermediateScanResultBlock: BTScanningResultBlock? = nil,
+         stopScanningCondition: BTScanningStopBlock,
          mutuallyExclusiveCondition: OperationCondition = MutuallyExclusive<BTCentralManagerScanningOperation>()) {
         self.serviceUUIDs = serviceUUIDs
         self.options = options
+        self.allowDuplicatePeripheralIds = allowDuplicatePeripheralIds
+        self.validatePeripheralPredicate = validatePeripheralPredicate
+        self.intermediateScanResultBlock = intermediateScanResultBlock
         self.stopScanningCondition = stopScanningCondition
         
         super.init(centralManager: centralManager)
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
         addCondition(mutuallyExclusiveCondition)
+        
+        addObserver(TimeoutObserver(timeout: timeout))
     }
     
     override func execute() {
@@ -49,6 +65,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
 
     override func cancel() {
         centralManager?.stopScan()
+        centralManager?.removeHandler(self)
         super.cancel()
     }
 }
@@ -67,11 +84,35 @@ extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
                         didDiscoverPeripheral peripheral: BTPeripheralAPIType,
                                               advertisementData: [String : AnyObject],
                                               RSSI: NSNumber) {
+        
+        if !allowDuplicatePeripheralIds {
+            if let _ = discoveredPeripherals.indexOf({ return $0.identifier.isEqual(peripheral.identifier) }) {
+                return
+            }
+        }
+        
+        if let predicate = validatePeripheralPredicate {
+            if predicate(peripheral: peripheral, advertisementData: advertisementData) {
+                newPeripheralDiscovered(peripheral)
+            }
+        }
+        else {
+            newPeripheralDiscovered(peripheral)
+        }
+    }
+}
+
+// MARK: Supporting Methdods
+
+private extension BTCentralManagerScanningOperation {
+    func newPeripheralDiscovered(peripheral: BTPeripheralAPIType) {
+        
         discoveredPeripherals.append(peripheral)
+        intermediateScanResultBlock?(discoveredPeripherals: discoveredPeripherals)
         
         if stopScanningCondition(discoveredPeripherals: discoveredPeripherals) {
             centralManager?.stopScan()
             removeHandlerAndFinish()
-        }        
+        }
     }
 }

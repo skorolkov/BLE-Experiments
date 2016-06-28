@@ -16,9 +16,9 @@ class BTStartAdvertisingOperation: BTPeripheralManagerOperation {
     
     // MARK: Initializers
     
-    init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType,
-                               peripheralRolePerformer: BTPeripheralRolePerformer,
-                               mutuallyExclusiveCondition: OperationCondition =
+    init(peripheralManager: BTPeripheralManagerAPIType,
+         peripheralRolePerformer: BTPeripheralRolePerformer,
+         mutuallyExclusiveCondition: OperationCondition =
         MutuallyExclusive<BTPeripheralManagerProxy>()) {
         
         super.init(withPeripheralManager: peripheralManager)
@@ -51,14 +51,6 @@ extension BTStartAdvertisingOperation: BTPeripheralManagerHandlerProtocol {
     }
     
     func peripheralManagerDidStartAdvertising(peripheral: BTPeripheralManagerAPIType, error: NSError?) {
-        
-        peripheralManager?.removeHandler(self)
-        
-        if let error = error {
-            finish(error)
-        }
-        else {
-            finish()
-        }
+        removeHandlerAndFinish(error)
     }
 }

@@ -23,6 +23,7 @@ class BTPeripheralRolePerformer: NSObject {
     private var peripheralManager: BTPeripheralManagerProxy
 
     private(set) var services: [BTPrimacyService] = []
+    private(set) var advertisementData: [String : AnyObject] = [:]
     private(set) var servicesAdded: Bool = false
     
     // MARK: Operations
@@ -31,7 +32,8 @@ class BTPeripheralRolePerformer: NSObject {
     
     // MARK: Initializers
     
-    init(services: [BTPrimacyService]) {
+    init(services: [BTPrimacyService],
+         advertisementData: [String : AnyObject]) {
         
         operationQueue = OperationQueue()
         operationQueue.name = "\(self.dynamicType).queue"
@@ -44,10 +46,12 @@ class BTPeripheralRolePerformer: NSObject {
         peripheralManager = BTPeripheralManagerProxy(peripheralManager: bluetoothPeripheralManager)
         
         self.services = services
+        self.advertisementData = advertisementData
         
         super.init()
         
         peripheralManager.addHandler(self)
+        peripheralManager.addHandler(BTPeripheralManagerLoggingHandler())
     }
     
     convenience override init() {
@@ -57,7 +61,7 @@ class BTPeripheralRolePerformer: NSObject {
                 properties: [.WriteWithoutResponse, .Write],
                 value: nil,
                 permissions: .Writeable),
-            BTPermissionsCharacteristic(UUIDString: "2A4D",
+            BTPermissionsCharacteristic(UUIDString: "2AAF",
                 properties: .Notify,
                 value: nil,
                 permissions: .Readable)
@@ -66,26 +70,46 @@ class BTPeripheralRolePerformer: NSObject {
         let mainService = BTPrimacyService(UUIDString: "C14D2C0A-401F-B7A9-841F-E2E93B80F631",
             primary: false,
             characteristics: characteristics)
+        
+        let advertisementData = [
+            CBAdvertisementDataLocalNameKey : "MyAwesomePeripheral",
+            CBAdvertisementDataServiceUUIDsKey : [mainService.UUID]
+        ]
     
-        self.init(services: [mainService])
+        self.init(services: [mainService],
+                  advertisementData: advertisementData)
     }
     
     // MARK: Internal Methods
 
     func startAdevertisingWithCompletion(completion: BTPeripheralRoleBlock?) -> BTPeripheralManagerOperation {
         
-        let startAdvertisingOperation = BTStartAdvertisingOperation(withPeripheralManager: peripheralManager,
+        let startAdvertisingOperation = BTStartAdvertisingOperation(
+            peripheralManager: peripheralManager,
             peripheralRolePerformer: self)
         
-        startAdvertisingOperation.addObserver(DidFinishObserver { result in
+        startAdvertisingOperation.advertisingData = advertisementData
+        
+        startAdvertisingOperation.addObserver(DidFinishObserver { (operation, errors) in
+            
+            Log.bluetooth.info("BTPeripheralRolePerformer: advertisement started")
+            Log.bluetooth.verbose("BTPeripheralRolePerformer: advertisement start operation finished: " +
+                "\(operation.finished) with errors: \(errors)")
             
             completion?(rolePerformer: self,
-                result: BTOperationResult(operation: result.operation, errors: result.errors))
+                result: BTOperationResult(operation: operation, errors: errors))
             })
         
         operationQueue.addOperation(startAdvertisingOperation)
         
         return startAdvertisingOperation
+    }
+    
+    func stopAdevertising() {
+        if peripheralManager.isAdvertising {
+            peripheralManager.stopAdvertising()
+            Log.bluetooth.info("BTPeripheralRolePerformer: advertisement stopped")
+        }
     }
 }
 
@@ -94,25 +118,19 @@ class BTPeripheralRolePerformer: NSObject {
 extension BTPeripheralRolePerformer: BTPeripheralManagerHandlerProtocol {
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
-        DDLogVerbose("PeripheralManager: did update state = \(peripheral.state)")
-        
         addServices()
     }
     
     func peripheralManager(peripheral: BTPeripheralManagerAPIType, didAddService service: CBService, error: NSError?) {
-        DDLogVerbose("PeripheralManager: did add service \(service) with error = \(error)")
     }
     
     func peripheralManagerDidStartAdvertising(peripheral: BTPeripheralManagerAPIType, error: NSError?) {
-        DDLogVerbose("PeripheralManager: did start advertising with error = \(error)")
     }
     
     func peripheralManager(peripheral: BTPeripheralManagerAPIType, didReceiveReadRequest request: CBATTRequest) {
-        DDLogVerbose("PeripheralManager: did receive read request = \(request)")
     }
     
     func peripheralManager(peripheral: BTPeripheralManagerAPIType, didReceiveWriteRequests requests: [CBATTRequest]) {
-        DDLogVerbose("PeripheralManager: did receive write requests = \(requests)")
     }
 }
 
@@ -124,12 +142,15 @@ private extension BTPeripheralRolePerformer {
             peripheralRolePerformer: self,
             services: services)
         
-        addServiceOperation.addObserver(DidFinishObserver { [weak weakSelf = self] result in
+        addServiceOperation.addObserver(DidFinishObserver { [weak weakSelf = self] (operation, errors) in
             
-            if result.operation.finished && result.errors.isEmpty {
+            if operation.finished && errors.isEmpty {
                 weakSelf?.servicesAdded = true
+                Log.bluetooth.info("BTPeripheralRolePerformer: services added")
             }
             
+            Log.bluetooth.verbose("BTPeripheralRolePerformer: services add operation finished=" +
+                "\(operation.finished), cancelled=\(operation.cancelled) with errors: \(errors)")
             })
         
         operationQueue.addOperation(addServiceOperation)

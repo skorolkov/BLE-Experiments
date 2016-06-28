@@ -7,6 +7,8 @@
 //
 
 import Cocoa
+import CoreBluetooth
+import ReactiveCocoa
 
 class MainController: NSViewController {
 
@@ -23,6 +25,17 @@ class MainController: NSViewController {
 
 private extension MainController {
     @IBAction func startScanningButtonPressed(sender: NSButton) {
-        centralRolePerformer.startScanningWithCompletion(nil)
+        centralRolePerformer.scan(
+            withServices: [CBUUID(string: "C14D2C0A-401F-B7A9-841F-E2E93B80F631")],
+            options: [CBCentralManagerScanOptionAllowDuplicatesKey : false],
+            timeout: 600)
+        { discoveredPeripherals -> Bool in discoveredPeripherals.count == 2 }
+            .producer
+            .observeOn(UIScheduler())
+            .skipRepeats({ $0 != $1 })
+            .on(next: { peripherals in
+                Log.application.info("scanning: found peripherals: \(peripherals)")
+            })
+            .start()
     }
 }

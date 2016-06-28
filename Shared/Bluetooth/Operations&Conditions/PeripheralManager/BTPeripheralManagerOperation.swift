@@ -8,7 +8,7 @@
 
 import Operations
 
-class BTPeripheralManagerOperation: Operation {
+class BTPeripheralManagerOperation: BTOperation {
     
     // MARK: Private Properties
     
@@ -18,5 +18,14 @@ class BTPeripheralManagerOperation: Operation {
     
     init(withPeripheralManager peripheralManager: BTPeripheralManagerAPIType) {
         self.peripheralManager = peripheralManager
+    }
+    
+    // MARK: Internal Methods
+    
+    func removeHandlerAndFinish(error: ErrorType? = nil) {
+        if let handler = self as? BTPeripheralManagerHandlerProtocol {
+            peripheralManager?.removeHandler(handler)
+        }
+        finish(error)
     }
 }

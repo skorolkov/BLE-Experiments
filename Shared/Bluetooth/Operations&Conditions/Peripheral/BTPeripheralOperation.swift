@@ -9,7 +9,7 @@
 import Foundation
 import Operations
 
-class BTPeripheralOperation: Operation {
+class BTPeripheralOperation: BTOperation {
     
     // MARK: Private Properties
     

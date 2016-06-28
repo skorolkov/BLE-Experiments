@@ -18,7 +18,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
-        configureLoggingStuff()
+        Config.configureLoggingStuff()
+        Config.setupLoggers()
         
         mainController = MainController(nibName: "MainController", bundle: nil)
         
@@ -44,21 +45,5 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
     }
-    
-    func configureLoggingStuff() {
-        // your log statements will be sent to the Console.app and
-        // the Xcode console (just like a normal NSLog)
-        DDLog.addLogger(DDASLLogger.sharedInstance())
-        DDLog.addLogger(DDTTYLogger.sharedInstance())
-        
-        let formatter = CustomLogFormatter()
-        
-        DDTTYLogger.sharedInstance().logFormatter = formatter
-        
-        defaultDebugLevel = Config.ddLogLevel
-        
-        DDLogInfo("\n\n\n\t\t\t\t\t\t***** Application started *****\n\n\n")
-    }
-    
 }
 

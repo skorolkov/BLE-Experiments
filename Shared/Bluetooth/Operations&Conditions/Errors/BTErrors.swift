@@ -97,3 +97,18 @@ final class BTPeripheralUpdateNotificationStateForCharacteristicError: BTError {
         self.originalError = originalError
     }
 }
+
+final class BTOperationError: BTError {
+    
+    enum Code {
+        case OperationFailed(errors: [ErrorType])
+        case OperationTypeMismatch
+    }
+    
+    let code: Code
+    
+    init(code: Code) {
+        self.code = code
+    }
+    
+}

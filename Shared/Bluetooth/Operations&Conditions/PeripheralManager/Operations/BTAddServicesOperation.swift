@@ -49,18 +49,14 @@ class BTAddServicesOperation: BTPeripheralManagerOperation {
 extension BTAddServicesOperation: BTPeripheralManagerHandlerProtocol {
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
-        // nothing to do here
+        if peripheral.state != .Resetting || peripheral.state != .PoweredOn {
+            let error = BTPeripheralManagerStateInvalidError(withExpectedState: .PoweredOn,
+                                                             realState: peripheral.state)
+            removeHandlerAndFinish(error)
+        }
     }
     
     func peripheralManager(peripheral: BTPeripheralManagerAPIType, didAddService service: CBService, error: NSError?) {
-        
-        peripheralManager?.removeHandler(self)
-        
-        if let error = error {
-            finish(error)
-        }
-        else {
-            finish()
-        }
+        removeHandlerAndFinish(error)
     }
 }
