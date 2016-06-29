@@ -38,7 +38,6 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     // MARK: Operations
     
     private(set) var operationQueue: OperationQueue
-    private var scanOperation: BTCentralManagerScanningOperation? = nil
 
     // MARK: Central Manager
     
@@ -100,104 +99,22 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         return managedPeripherals[index]
     }
     
-    func scan(withServices serviceUUIDs: [CBUUID]? = nil,
-                           options: [String : AnyObject]? = nil,
-                           allowDuplicatePeripheralIds: Bool = false,
-                           timeout: NSTimeInterval = 10,
-                           validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
-                           stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock)
-        -> SignalProducer<[BTPeripheral], BTError> {
-            
-            return SignalProducer { observer, disposable in
-                let startScanningOperation = BTCentralManagerScanningOperation(
-                    centralManager: self.centralManager,
-                    serviceUUIDs: serviceUUIDs,
-                    options: options,
-                    allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
-                    timeout: timeout,
-                    intermediateScanResultBlock: {
-                        [weak self] (discoveredPeripherals: [BTPeripheralAPIType]) in
-                        
-                        guard let strongSelf = self else {
-                            return
-                        }
-                        
-                        for discoveredPeripheral in discoveredPeripherals {
-                             strongSelf.updateManagedPeripheral(discoveredPeripheral)
-                        }
-                        
-                        let modelPeripherals = discoveredPeripherals.map {
-                            BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0)
-                        }
-                        
-                        for modelPeripheral in modelPeripherals {
-                            strongSelf.updateModelPeripheral(modelPeripheral)
-                        }
-                        
-                        observer.sendNext(modelPeripherals)
-                    },
-                    stopScanningCondition: stopScanningCondition)
-                
-                startScanningOperation.addObserver(DidFinishObserver { [weak self] (operation, errors) in
-                    
-                    guard let strongSelf = self else {
-                        return
-                    }
-                    
-                    if operation.finished && errors.count > 0 {
-                        
-                        let timeoutErrorIndex = errors.indexOf({
-                            if let timeoutError = $0 as? OperationError {
-                                if case .OperationTimedOut(_) = timeoutError {
-                                    return true
-                                }
-                            }
-                            return false
-                        })
-                        
-                        if timeoutErrorIndex == nil {
-                            let error = BTOperationError(code: .OperationFailed(errors: errors))
-                            Log.bluetooth.error("BTCentralRolePerformer: scanning, error: \(error)")
-                            observer.sendFailed(error)
-                            return
-                        }
-                    }
-                    
-                    guard let scanningOperation = operation as? BTCentralManagerScanningOperation else {
-                        let error = BTOperationError(code: .OperationTypeMismatch)
-                        Log.bluetooth.error("BTCentralRolePerformer: scanning, error: \(error)")
-                        observer.sendFailed(error)
-                        return
-                    }
-                    
-                    Log.bluetooth.info("BTCentralRolePerformer: scan completed, " +
-                        "discovered peripherals: \(scanningOperation.discoveredPeripherals)")
-                    
-                    for discoveredPeripheral in scanningOperation.discoveredPeripherals {
-                        strongSelf.updateManagedPeripheral(discoveredPeripheral)
-                    }
-
-                    let modelPeripherals = scanningOperation.discoveredPeripherals.map {
-                        BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0)
-                    }
-                    
-                    for modelPeripheral in modelPeripherals {
-                        strongSelf.updateModelPeripheral(modelPeripheral)
-                    }
-                    
-                    observer.sendNext(modelPeripherals)
-                    observer.sendCompleted()
-                })
-                
-                self.scanOperation = startScanningOperation
-                
-                self.operationQueue.addOperation(startScanningOperation)
-            }
-    }
-    
-    func stopScan() {
-        scanOperation?.cancel()
-        scanOperation = nil
+    func scanSignalProvider(withServices serviceUUIDs: [CBUUID]? = nil,
+                                         options: [String : AnyObject]? = nil,
+                                         allowDuplicatePeripheralIds: Bool = false,
+                                         timeout: NSTimeInterval = 10,
+                                         validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
+                                         stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock) -> BTPeripheralScanSignalProvider {
+        
+        return BTPeripheralScanSignalProvider(
+            centralManager: centralManager,
+            serviceUUIDs: serviceUUIDs,
+            options: options,
+            allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
+            timeout: timeout,
+            validatePeripheralPredicate: validatePeripheralPredicate,
+            stopScanningCondition: stopScanningCondition,
+            centralRolePerformer: self)
     }
     
     func connectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType,

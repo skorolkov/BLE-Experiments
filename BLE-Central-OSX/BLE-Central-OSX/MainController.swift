@@ -19,8 +19,12 @@ class MainController: NSViewController {
     @IBOutlet weak var disconnectButton: NSButton!
     
     private var centralRolePerformer = BTCentralRolePerformer()
-    private var peripheralModels: [BTPeripheral] = []
     
+    private var scanSignalProvider: BTPeripheralScanSignalProvider? = nil
+    
+    private var scannedPeripheralModels: [BTPeripheral] = []
+    private var connectedPeripheralModels: [BTPeripheral] = []
+    private var disconnectedPeripheralModels: [BTPeripheral] = []
     
     // MARK: Lifecycle
     
@@ -36,20 +40,29 @@ class MainController: NSViewController {
 
 private extension MainController {
     @IBAction func startScanningButtonPressed(sender: NSButton) {
-        centralRolePerformer.scan(
+        scanSignalProvider = centralRolePerformer.scanSignalProvider(
             withServices: [CBUUID(string: "C14D2C0A-401F-B7A9-841F-E2E93B80F631")],
             options: [CBCentralManagerScanOptionAllowDuplicatesKey : false],
-            timeout: 600)
-        { discoveredPeripherals -> Bool in discoveredPeripherals.count == 2 }
-            .producer
+            timeout: 600,
+            stopScanningCondition: { discoveredPeripherals -> Bool in
+                discoveredPeripherals.count == 2
+        })
+
+        guard let provider = scanSignalProvider else {
+            return
+        }
+        
+        provider.scan().producer
             .observeOn(UIScheduler())
             .skipRepeats({ $0 != $1 })
             .on(started: {
+                self.scannedPeripheralModels = []
+                
                 self.startScanButton.enabled = false
                 self.stopScanButton.enabled = true
             })
             .on(next: { peripherals in
-                self.peripheralModels = peripherals
+                self.scannedPeripheralModels = peripherals
                 Log.application.info("scanning: found peripherals: \(peripherals)")
                 
                 self.connectButton.enabled = (peripherals.count > 0)
@@ -67,11 +80,11 @@ private extension MainController {
     }
     
     @IBAction func stopScanningButtonPressed(sender: NSButton) {
-        centralRolePerformer.stopScan()
+        scanSignalProvider?.stopScan()
     }
     
     @IBAction func connectButtonPressed(sender: NSButton) {
-        guard let indentifierString = peripheralModels.first?.identifierString else {
+        guard let indentifierString = scannedPeripheralModels.first?.identifierString else {
             return
         }
         
@@ -84,12 +97,30 @@ private extension MainController {
         connectSignalProvider.connect().producer
             .observeOn(UIScheduler())
             .on(next: { peripherals in
-                self.peripheralModels = peripherals
+                self.connectedPeripheralModels = peripherals
                 Log.application.info("connecting: connected peripherals: \(peripherals)")
             })
             .start()
     }
     
     @IBAction func disconnectButtonPressed(sender: NSButton) {
+        
+        guard let indentifierString = connectedPeripheralModels.first?.identifierString else {
+            return
+        }
+        
+        guard let peripheral = centralRolePerformer.peripheralWithIdentifier(indentifierString) else {
+            return
+        }
+        
+        let disconnectSignalProvider = centralRolePerformer.disconnectSignalProviderWithPeripheral(peripheral)
+        
+        disconnectSignalProvider.disconnect().producer
+            .observeOn(UIScheduler())
+            .on(next: { peripherals in
+                self.disconnectedPeripheralModels = peripherals
+                Log.application.info("disconnecting: disconnected peripherals: \(peripherals)")
+            })
+            .start()
     }
 }
