@@ -9,7 +9,17 @@
 import Foundation
 import CoreBluetooth
 
-class BTError: ErrorType {}
+class BTError: ErrorType, CustomStringConvertible, CustomDebugStringConvertible {
+    // MARK: CustomStringConvertible
+    var description: String {
+        return "<\(self.dynamicType)>"
+    }
+    
+    // MARK: CustomDebugStringConvertible
+    var debugDescription: String {
+        return description
+    }
+}
 
 final class BTCentralManagerStateInvalidError: BTError {
     
@@ -19,6 +29,11 @@ final class BTCentralManagerStateInvalidError: BTError {
     init(withExpectedState expectedState: CBCentralManagerState, realState: CBCentralManagerState) {
         self.expectedState = expectedState
         self.realState = realState
+    }
+    
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): expectedState=\(expectedState), realState=\(realState)>"
     }
 }
 
@@ -31,6 +46,11 @@ final class BTPeripheralManagerStateInvalidError: BTError {
         self.expectedState = expectedState
         self.realState = realState
     }
+    
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): expectedState=\(expectedState), realState=\(realState)>"
+    }
 }
 
 final class BTPeripheralStateInvalidError: BTError {
@@ -42,33 +62,33 @@ final class BTPeripheralStateInvalidError: BTError {
         self.expectedState = expectedState
         self.realState = realState
     }
+    
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): expectedState=\(expectedState), realState=\(realState)>"
+    }
 }
 
-final class BTCentralManagerFailToConnectPeripheralError: BTError {
+class BTWrapperError: BTError {
     let originalError: NSError?
     
     init(originalError: NSError?) {
         self.originalError = originalError
     }
-}
-
-final class BTPeriphalServiceDiscoveryError: BTError {
-    let originalError: NSError?
     
-    init(originalError: NSError?) {
-        self.originalError = originalError
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): originalError=\(originalError)>"
     }
 }
 
-final class BTPeriphalCharacteristicDiscoveryError: BTError {
-    let originalError: NSError?
-    
-    init(originalError: NSError?) {
-        self.originalError = originalError
-    }
-}
+final class BTCentralManagerFailToConnectPeripheralError: BTWrapperError {}
 
-final class BTPeripheralUpdateValueForCharacteristicError: BTError {
+final class BTPeriphalServiceDiscoveryError: BTWrapperError {}
+
+final class BTPeriphalCharacteristicDiscoveryError: BTWrapperError {}
+
+class BTCharacteristicError: BTError {
     let characteristicUUID: CBUUID
     let originalError: NSError?
     
@@ -76,27 +96,18 @@ final class BTPeripheralUpdateValueForCharacteristicError: BTError {
         self.characteristicUUID = characteristicUUID
         self.originalError = originalError
     }
-}
-
-final class BTPeripheralWriteValueForCharacteristicError: BTError {
-    let characteristicUUID: CBUUID
-    let originalError: NSError?
     
-    init(characteristicUUID: CBUUID, originalError: NSError?) {
-        self.characteristicUUID = characteristicUUID
-        self.originalError = originalError
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): characteristicUUID=\(characteristicUUID), originalError =\(originalError)>"
     }
 }
 
-final class BTPeripheralUpdateNotificationStateForCharacteristicError: BTError {
-    let characteristicUUID: CBUUID
-    let originalError: NSError?
-    
-    init(characteristicUUID: CBUUID, originalError: NSError?) {
-        self.characteristicUUID = characteristicUUID
-        self.originalError = originalError
-    }
-}
+final class BTPeripheralUpdateValueForCharacteristicError: BTCharacteristicError {}
+
+final class BTPeripheralWriteValueForCharacteristicError: BTCharacteristicError {}
+
+final class BTPeripheralUpdateNotificationStateForCharacteristicError: BTCharacteristicError {}
 
 final class BTOperationError: BTError {
     
@@ -109,6 +120,11 @@ final class BTOperationError: BTError {
     
     init(code: Code) {
         self.code = code
+    }
+    
+    // MARK: CustomStringConvertible
+    override var description: String {
+        return "<\(self.dynamicType): code=\(code)>"
     }
     
 }

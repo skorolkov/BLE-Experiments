@@ -18,7 +18,12 @@ class MainController: NSViewController {
     @IBOutlet weak var connectButton: NSButton!
     @IBOutlet weak var disconnectButton: NSButton!
     
-    private var centralRolePerformer = BTCentralRolePerformer()
+    private var centralRolePerformer = BTCentralRolePerformer.sharedInstance
+    
+    private var peripheralDataProvider: BTPeripheralProviding =
+        BTCentralRolePerformer.sharedInstance.peripheralDataProvider
+    
+    private var peripheralDataProviderDisposable: Disposable? = nil
     
     private var scanSignalProvider: BTPeripheralScanSignalProvider? = nil
     
@@ -28,6 +33,10 @@ class MainController: NSViewController {
     
     // MARK: Lifecycle
     
+    deinit {
+        peripheralDataProviderDisposable?.dispose()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,8 +44,17 @@ class MainController: NSViewController {
         stopScanButton.enabled = false
         connectButton.enabled = false
         disconnectButton.enabled = false
+        
+        peripheralDataProviderDisposable = peripheralDataProvider.peripherals
+            .signal
+            .observeOn(UIScheduler())
+        .observeNext({ peripheralModels in
+            Log.application.info("peripheral models updated: \(peripheralModels)")
+        })
     }
 }
+
+// MARK: Actions
 
 private extension MainController {
     @IBAction func startScanningButtonPressed(sender: NSButton) {

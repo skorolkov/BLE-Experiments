@@ -205,15 +205,4 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
 // MARK: Supporting Methods
 
 private extension BTCentralRolePerformer {
-    static func modelPeripheralWithScannedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .Scanned)
-    }
-    
-    static func modelPeripheralWithConnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .Connected)
-    }
 }

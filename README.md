@@ -14,3 +14,14 @@
 - Для конкретных классов обработчиков предлагается базовый класс, которых позволяет задат поток (thread) в котором будут вызваться блоки обработчиков
 - таким образом можно получать сообщения от CBCentralManager и CBPeripheral в одном потоке,а обрабатывать в другом
 
+### Errors
+
+- `BTError` - base class for any error produced or wrapped by framework
+
+- `CustomStringConvertible` & `CustomDebugStringConvertible` protocols support for BTError class and subclasses
+
+## TODO List
+
+
+
+
