@@ -10,8 +10,6 @@ import ReactiveCocoa
 import Result
 
 protocol BTPeripheralProviding {
-    
-    var scannedPeripherals: AnyProperty<[BTPeripheral]> { get }
-    
+        
     var peripherals: AnyProperty<[BTPeripheral]> { get }
 }

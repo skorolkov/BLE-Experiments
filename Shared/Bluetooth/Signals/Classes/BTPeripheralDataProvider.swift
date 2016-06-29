@@ -14,16 +14,10 @@ class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProv
     
     // MARK: Internal Properties
     
-    var scannedPeripherals: AnyProperty<[BTPeripheral]> {
-         return AnyProperty(scannedPeripheralsToUpdate)
-    }
-    
     var peripherals: AnyProperty<[BTPeripheral]> {
         return AnyProperty(peripheralsToUpdate)
     }
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
-    
-    var scannedPeripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
         
     // MARK: Initializers
     

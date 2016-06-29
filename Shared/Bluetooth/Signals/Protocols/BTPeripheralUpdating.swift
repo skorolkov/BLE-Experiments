@@ -10,8 +10,5 @@ import ReactiveCocoa
 import Result
 
 protocol BTPeripheralUpdating {
-   
-    var scannedPeripheralsToUpdate: MutableProperty<[BTPeripheral]> { get set }
-
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> { get set }
 }

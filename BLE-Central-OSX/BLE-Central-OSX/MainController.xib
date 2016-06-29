@@ -7,6 +7,10 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="MainController" customModule="BLE_Central_OSX" customModuleProvider="target">
             <connections>
+                <outlet property="connectButton" destination="YrU-cG-OUi" id="qy7-PU-gQX"/>
+                <outlet property="disconnectButton" destination="SIF-jR-Amr" id="IlZ-F1-FGK"/>
+                <outlet property="startScanButton" destination="phE-tJ-jyZ" id="vQi-6W-rbh"/>
+                <outlet property="stopScanButton" destination="OaJ-eS-TQO" id="g0j-7r-D57"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
@@ -36,11 +40,35 @@
                         <action selector="stopScanningButtonPressed:" target="-2" id="dhS-XZ-4GF"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YrU-cG-OUi">
+                    <rect key="frame" x="194" y="162" width="92" height="32"/>
+                    <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="InA-St-bAe">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="connectButtonPressed:" target="-2" id="FeK-3g-zyz"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIF-jR-Amr" userLabel="Disconnect Button">
+                    <rect key="frame" x="185" y="131" width="109" height="32"/>
+                    <buttonCell key="cell" type="push" title="Disconnect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GMv-WB-s3A">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="disconnectButtonPressed:" target="-2" id="wX6-gl-6cV"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="3e2-cm-tRk"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Gk9-ig-gx9"/>
+                <constraint firstItem="YrU-cG-OUi" firstAttribute="top" secondItem="OaJ-eS-TQO" secondAttribute="bottom" constant="10" id="PMW-Zn-XKO"/>
+                <constraint firstItem="SIF-jR-Amr" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="X2O-ea-XVE"/>
+                <constraint firstItem="SIF-jR-Amr" firstAttribute="top" secondItem="YrU-cG-OUi" secondAttribute="bottom" constant="10" id="Z5L-G6-Dr7"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="top" secondItem="phE-tJ-jyZ" secondAttribute="bottom" constant="10" id="eCo-9J-p5t"/>
+                <constraint firstItem="YrU-cG-OUi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="iAa-J2-ZY0"/>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="ki2-2T-YzR"/>
             </constraints>
         </customView>

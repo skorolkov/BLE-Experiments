@@ -11,6 +11,10 @@ import Operations
 
 class BTCentralManagerDisconnectingOperation: BTCentralManagerOperation {
     
+    // MARK: Internal Properties
+    
+    private(set) var updatedPeripheral: BTPeripheralAPIType? = nil
+    
     // MARK: Private Properties
     
     private var peripheral: BTPeripheralAPIType
@@ -51,6 +55,8 @@ extension BTCentralManagerDisconnectingOperation: BTCentralManagerHandlerProtoco
     func centralManager(central: BTCentralManagerAPIType,
                         didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                 error: NSError?) {
+        updatedPeripheral = peripheral
+        
         let btError: ErrorType? = (error != nil) ?
             BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)

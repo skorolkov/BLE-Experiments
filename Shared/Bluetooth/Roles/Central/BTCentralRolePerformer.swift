@@ -12,7 +12,7 @@ import Operations
 import CocoaLumberjack
 import ReactiveCocoa
 
-class BTCentralRolePerformer: NSObject {
+class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     
     // MARK: Singleton
 
@@ -28,28 +28,27 @@ class BTCentralRolePerformer: NSObject {
         return peripheralDataProvider
     }
     
-    // MARK: Private Properties
-    
-    private var centralManager: BTCentralManagerAPIWithHadlerProtocol
-    
-    private var scannedPeripherals: [BTPeripheralAPIType] = [] {
+    private var managedPeripherals: [BTPeripheralAPIType] = []
+    private var modelPeripherals: [BTPeripheral] = [] {
         didSet {
-            let modelPeripherals = BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(scannedPeripherals)
-            peripheralNotifier.scannedPeripheralsToUpdate.value = modelPeripherals
+            peripheralNotifier.peripheralsToUpdate.value = modelPeripherals
         }
     }
     
-    private var managedPeripherals: [BTPeripheralAPIType] = []
-    
     // MARK: Operations
     
-    private var operationQueue: OperationQueue
+    private(set) var operationQueue: OperationQueue
     private var scanOperation: BTCentralManagerScanningOperation? = nil
 
+    // MARK: Central Manager
+    
+    private var centralManager: BTCentralManagerAPIWithHadlerProtocol
+    
     // MARK: Initializers
     
     override init() {
         
+        // WARNING: the same dispatch_queue used for OperationQueue and for CBCentralManager
         let queueName = "com.bluetooth.\(self.dynamicType)"
         let queue = dispatch_queue_create(queueName, DISPATCH_QUEUE_CONCURRENT)
         
@@ -73,6 +72,34 @@ class BTCentralRolePerformer: NSObject {
     
     // MARK: Internal Methods
     
+    func updateManagedPeripheral(peripheral: BTPeripheralAPIType) {
+        if let index = managedPeripherals.indexOf( { $0.identifier.isEqual(peripheral.identifier) } ) {
+            managedPeripherals[index] = peripheral
+        }
+        else {
+            managedPeripherals.append(peripheral)
+        }
+    }
+    
+    func updateModelPeripheral(peripheral: BTPeripheral) {
+        if let index = modelPeripherals.indexOf( { $0.identifierString == peripheral.identifierString } ) {
+            modelPeripherals[index] = peripheral
+        }
+        else {
+            modelPeripherals.append(peripheral)
+        }
+    }
+    
+    // MARK: Get Peripheral
+    
+    func peripheralWithIdentifier(identifierString: String) -> BTPeripheralAPIType? {
+        guard let index = managedPeripherals.indexOf({ $0.identifier.UUIDString == identifierString }) else {
+            return nil
+        }
+        
+        return managedPeripherals[index]
+    }
+    
     func scan(withServices serviceUUIDs: [CBUUID]? = nil,
                            options: [String : AnyObject]? = nil,
                            allowDuplicatePeripheralIds: Bool = false,
@@ -95,9 +122,18 @@ class BTCentralRolePerformer: NSObject {
                             return
                         }
                         
-                        strongSelf.scannedPeripherals = discoveredPeripherals
+                        for discoveredPeripheral in discoveredPeripherals {
+                             strongSelf.updateManagedPeripheral(discoveredPeripheral)
+                        }
                         
-                        let modelPeripherals = BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(discoveredPeripherals)
+                        let modelPeripherals = discoveredPeripherals.map {
+                            BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0)
+                        }
+                        
+                        for modelPeripheral in modelPeripherals {
+                            strongSelf.updateModelPeripheral(modelPeripheral)
+                        }
+                        
                         observer.sendNext(modelPeripherals)
                     },
                     stopScanningCondition: stopScanningCondition)
@@ -134,13 +170,21 @@ class BTCentralRolePerformer: NSObject {
                         return
                     }
                     
-                    strongSelf.scannedPeripherals = scanningOperation.discoveredPeripherals
+                    Log.bluetooth.info("BTCentralRolePerformer: scan completed, " +
+                        "discovered peripherals: \(scanningOperation.discoveredPeripherals)")
                     
-                     Log.bluetooth.info("BTCentralRolePerformer: scan completed, " +
-                        "discovered periphrals: \(strongSelf.scannedPeripherals)")
+                    for discoveredPeripheral in scanningOperation.discoveredPeripherals {
+                        strongSelf.updateManagedPeripheral(discoveredPeripheral)
+                    }
+
+                    let modelPeripherals = scanningOperation.discoveredPeripherals.map {
+                        BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0)
+                    }
                     
-                    let modelPeripherals =
-                        BTCentralRolePerformer.modelPeripheralsFromScannedPeripherals(strongSelf.scannedPeripherals)
+                    for modelPeripheral in modelPeripherals {
+                        strongSelf.updateModelPeripheral(modelPeripheral)
+                    }
+                    
                     observer.sendNext(modelPeripherals)
                     observer.sendCompleted()
                 })
@@ -154,6 +198,22 @@ class BTCentralRolePerformer: NSObject {
     func stopScan() {
         scanOperation?.cancel()
         scanOperation = nil
+    }
+    
+    func connectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType,
+                 options: [String : AnyObject]? = nil) -> BTPeripheralConnectSignalProvider {
+        return BTPeripheralConnectSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            options: options,
+            centralRolePerformer: self)
+    }
+    
+    func disconnectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheralDisconnectSignalProvider {
+        return BTPeripheralDisconnectSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            centralRolePerformer: self)
     }
 }
 
@@ -228,13 +288,15 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
 // MARK: Supporting Methods
 
 private extension BTCentralRolePerformer {
-    static func modelPeripheralsFromScannedPeripherals(peripherals: [BTPeripheralAPIType]) -> [BTPeripheral] {
-        return peripherals.map { return BTCentralRolePerformer.modelPeripheralWithScannedPeripheral($0) }
-    }
-    
     static func modelPeripheralWithScannedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
         return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
                             name: peripheral.name,
                             state: .Scanned)
+    }
+    
+    static func modelPeripheralWithConnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
+        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
+                            name: peripheral.name,
+                            state: .Connected)
     }
 }

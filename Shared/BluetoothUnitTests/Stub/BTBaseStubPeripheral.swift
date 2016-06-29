@@ -24,6 +24,17 @@ import CoreBluetooth
     
     private(set) var handlerContainer = BTHandlersContainer<BTPeripheralHandlerProtocol>()
     
+    // MARK: Initializers
+    
+    private override init() {
+        super.init()
+    }
+    
+    init(identifier: NSUUID) {
+        self.identifier = identifier
+        super.init()
+    }
+    
     // MARK: Discover services and characterictics
     
     func discoverServices(serviceUUIDs: [CBUUID]?) {

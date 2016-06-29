@@ -13,8 +13,12 @@ import Operations
 
 class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
     
+    private var identifier: NSUUID!
+    
     override func setUp() {
         super.setUp()
+        
+        identifier = NSUUID(UUIDString: "19151B7D-2CD0-4AFC-AE88-8D03993AC46F")!
     }
     
     override func tearDown() {
@@ -26,7 +30,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let centralManager = BTStubSuccessConnectionCentralManager()
         centralManager.state = .PoweredOff
         
-        let peripheral = BTBaseStubPeripheral()
+        let peripheral = BTBaseStubPeripheral(identifier: identifier)
 
         let operation = BTCentralManagerConnectingOperation(
         centralManager: centralManager,
@@ -52,7 +56,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let centralManager = BTStubSuccessConnectionCentralManager()
         centralManager.state = .PoweredOn
         
-        let peripheral = BTBaseStubPeripheral()
+        let peripheral = BTBaseStubPeripheral(identifier: identifier)
         
         let operation = BTCentralManagerConnectingOperation(
             centralManager: centralManager,
@@ -86,7 +90,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let centralManager = BTStubFailedConnectionCentralManager()
         centralManager.state = .PoweredOn
         
-        let peripheral = BTBaseStubPeripheral()
+        let peripheral = BTBaseStubPeripheral(identifier: identifier)
         
         let operation = BTCentralManagerConnectingOperation(
             centralManager: centralManager,
@@ -120,7 +124,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
         let centralManager = BTStubSuccessConnectionCentralManager()
         centralManager.state = .PoweredOn
         
-        let peripheral = BTBaseStubPeripheral()
+        let peripheral = BTBaseStubPeripheral(identifier: identifier)
         
         let operation = BTCentralManagerConnectingOperation(
             centralManager: centralManager,
