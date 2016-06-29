@@ -25,7 +25,7 @@ class MainController: NSViewController {
     
     private var peripheralDataProviderDisposable: Disposable? = nil
     
-    private var scanSignalProvider: BTPeripheralScanSignalProvider? = nil
+    private var scanSignalProviderDisposable: Disposable? = nil
     
     private var scannedPeripheralModels: [BTPeripheral] = []
     private var connectedPeripheralModels: [BTPeripheral] = []
@@ -58,19 +58,16 @@ class MainController: NSViewController {
 
 private extension MainController {
     @IBAction func startScanningButtonPressed(sender: NSButton) {
-        scanSignalProvider = centralRolePerformer.scanSignalProvider(
+        
+        let scanSignalProvider = centralRolePerformer.scanSignalProvider(
             withServices: [CBUUID(string: "C14D2C0A-401F-B7A9-841F-E2E93B80F631")],
             options: [CBCentralManagerScanOptionAllowDuplicatesKey : false],
             timeout: 600,
             stopScanningCondition: { discoveredPeripherals -> Bool in
                 discoveredPeripherals.count == 2
         })
-
-        guard let provider = scanSignalProvider else {
-            return
-        }
         
-        provider.scan().producer
+        scanSignalProviderDisposable = scanSignalProvider.scan().producer
             .observeOn(UIScheduler())
             .skipRepeats({ $0 != $1 })
             .on(started: {
@@ -98,7 +95,7 @@ private extension MainController {
     }
     
     @IBAction func stopScanningButtonPressed(sender: NSButton) {
-        scanSignalProvider?.stopScan()
+        scanSignalProviderDisposable?.dispose()
     }
     
     @IBAction func connectButtonPressed(sender: NSButton) {

@@ -136,13 +136,18 @@ class BTPeripheralScanSignalProvider {
             self.scanOperation = startScanningOperation
             
             self.centralRolePerformer.operationQueue.addOperation(startScanningOperation)
+            
+            disposable.addDisposable { [weak self] in
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                if let op = strongSelf.scanOperation where !op.finished {
+                    op.cancel()
+                    strongSelf.scanOperation = nil
+                }
+            }
         }
-    }
-    
-    func stopScan() {
-        //TODO: save reference to disposable to interrupt SignalProducer = ???
-        scanOperation?.cancel()
-        scanOperation = nil
     }
 }
 

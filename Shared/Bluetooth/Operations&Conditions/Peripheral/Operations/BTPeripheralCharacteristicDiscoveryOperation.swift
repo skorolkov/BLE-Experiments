@@ -10,7 +10,11 @@ import CoreBluetooth
 import Operations
 
 class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
-        
+    
+    // MARK: Internal Properties
+    
+    private(set) var updatedPeripheral: BTPeripheralAPIType? = nil
+    
     // MARK: Private Properties
 
     private var core: BTCharacteristicDiscoveryCore
@@ -91,6 +95,7 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
         }
         
         guard let services = peripheral.services else {
+            updatedPeripheral = peripheral
             removeHandlerAndFinish()
             return
         }
@@ -98,6 +103,7 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
         let itemsToDiscover = core.discoveredServices(services)
         
         guard !itemsToDiscover.isEmpty else {
+            updatedPeripheral = peripheral
             removeHandlerAndFinish()
             return
         }
@@ -116,6 +122,7 @@ extension BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralHandlerProto
         let discoveryFinished = core.discoveredCharacteristicsForService(service, error: error)
         
         if discoveryFinished {
+            updatedPeripheral = peripheral
             removeHandlerAndFinish()
         }
     }
