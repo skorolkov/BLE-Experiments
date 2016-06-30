@@ -72,7 +72,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
                 return
             }
             
-            if scanOperation.discoveredPeripherals.count == 2 {
+            if scanOperation.discoveryResults.count == 2 {
                 scanningFinishedExpectation.fulfill()
             }
         })
