@@ -60,18 +60,18 @@ class BTPeripheralScanSignalProvider {
                 allowDuplicatePeripheralIds: self.allowDuplicatePeripheralIds,
                 timeout: self.timeout,
                 intermediateScanResultBlock: {
-                    [weak self] (discoveredPeripherals: [BTPeripheralAPIType]) in
+                    [weak self] (discoveryResults: [BTPeripheralScanResult]) in
                     
                     guard let strongSelf = self else {
                         return
                     }
                     
-                    for discoveredPeripheral in discoveredPeripherals {
-                        strongSelf.centralRolePerformer.updateManagedPeripheral(discoveredPeripheral)
+                    for discoveryResult in discoveryResults {
+                        strongSelf.centralRolePerformer.updateManagedPeripheral(discoveryResult.peripheral)
                     }
                     
-                    let modelPeripherals = discoveredPeripherals.map {
-                        BTPeripheralScanSignalProvider.modelPeripheralWithScannedPeripheral($0)
+                    let modelPeripherals = discoveryResults.map {
+                        BTPeripheral.createWithScanResult($0)
                     }
                     
                     for modelPeripheral in modelPeripherals {
@@ -115,14 +115,16 @@ class BTPeripheralScanSignalProvider {
                 }
                 
                 Log.bluetooth.info("BTPeripheralScanSignalProvider: scan completed, " +
-                    "discovered peripherals: \(scanningOperation.discoveredPeripherals)")
+                    "discovered \(scanningOperation.discoveryResults.count) peripherals")
+                Log.bluetooth.verbose("BTPeripheralScanSignalProvider: discovery results: " +
+                    "\(scanningOperation.discoveryResults.count)")
                 
-                for discoveredPeripheral in scanningOperation.discoveredPeripherals {
-                    strongSelf.centralRolePerformer.updateManagedPeripheral(discoveredPeripheral)
+                for discoveryResult in scanningOperation.discoveryResults {
+                    strongSelf.centralRolePerformer.updateManagedPeripheral(discoveryResult.peripheral)
                 }
                 
-                let modelPeripherals = scanningOperation.discoveredPeripherals.map {
-                    BTPeripheralScanSignalProvider.modelPeripheralWithScannedPeripheral($0)
+                let modelPeripherals = scanningOperation.discoveryResults.map {
+                    BTPeripheral.createWithScanResult($0)
                 }
                 
                 for modelPeripheral in modelPeripherals {
@@ -137,26 +139,15 @@ class BTPeripheralScanSignalProvider {
             
             self.centralRolePerformer.operationQueue.addOperation(startScanningOperation)
             
-            disposable.addDisposable { [weak self] in
-                guard let strongSelf = self else {
-                    return
-                }
-                
-                if let op = strongSelf.scanOperation where !op.finished {
-                    op.cancel()
-                    strongSelf.scanOperation = nil
-                }
+            disposable.addDisposable {
+                self.scanOperation = nil
             }
         }
     }
-}
-
-// MARK: Supporting Methods
-
-private extension BTPeripheralScanSignalProvider {
-    static func modelPeripheralWithScannedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .Scanned)
+    
+    func stopScan() {
+        if let op = scanOperation where !op.finished {
+            op.cancel()
+        }
     }
 }

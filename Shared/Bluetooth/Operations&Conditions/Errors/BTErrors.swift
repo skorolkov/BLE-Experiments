@@ -84,6 +84,8 @@ class BTWrapperError: BTError {
 
 final class BTCentralManagerFailToConnectPeripheralError: BTWrapperError {}
 
+final class BTCentralManagerDidDisconnectPeripheralError: BTWrapperError {}
+
 final class BTPeriphalServiceDiscoveryError: BTWrapperError {}
 
 final class BTPeriphalCharacteristicDiscoveryError: BTWrapperError {}

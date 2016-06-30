@@ -90,11 +90,12 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
                 
                 Log.bluetooth.info("BTPeripheralCharacteristicDiscoverySignalProvider: " +
                     "discover characteristic completed for peripheral with id=\(strongSelf.peripheral.identifier)")
+                Log.bluetooth.verbose("BTPeripheralCharacteristicDiscoverySignalProvider: " +
+                    "discovered services: \(discoverOperation.updatedPeripheral?.services)")
                 
                 if let discoveredPeripheral = discoverOperation.updatedPeripheral {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(discoveredPeripheral)
-                    let modelPeripheral =
-                        BTPeripheralCharacteristicDiscoverySignalProvider.modelPeripheralWithDiscoveredPeripheral(discoveredPeripheral)
+                    let modelPeripheral = BTPeripheral.createWithDiscoveredPeripheral(discoveredPeripheral)
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
                     
                     observer.sendNext([modelPeripheral])
@@ -108,15 +109,5 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
             
             self.centralRolePerformer.operationQueue.addOperation(discoverOperation)
         }
-    }
-}
-
-// MARK: Supporting Methods
-
-private extension BTPeripheralCharacteristicDiscoverySignalProvider {
-    static func modelPeripheralWithDiscoveredPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .CharacteristicDiscovered)
     }
 }

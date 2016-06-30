@@ -9,13 +9,16 @@
 import CoreBluetooth
 import Operations
 
+typealias BTPeripheralScanResult = (
+    peripheral: BTPeripheralAPIType,
+    advertisementData: [String : AnyObject],
+    RSSI: NSNumber)
+
 class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     
-    typealias BTScanningResultBlock = (discoveredPeripherals: [BTPeripheralAPIType]) -> Void
-    typealias BTScanningStopBlock = (discoveredPeripherals: [BTPeripheralAPIType]) -> Bool
-    typealias BTScanningValidPeripheralPredicate = (
-        peripheral: BTPeripheralAPIType,
-        advertisementData: [String : AnyObject]) -> Bool
+    typealias BTScanningResultBlock = (discoveryResults: [BTPeripheralScanResult]) -> Void
+    typealias BTScanningStopBlock = (discoveryResults: [BTPeripheralScanResult]) -> Bool
+    typealias BTScanningValidPeripheralPredicate = (discoveryResult: BTPeripheralScanResult) -> Bool
 
     // MARK: Private Properties
     
@@ -26,7 +29,7 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     private var intermediateScanResultBlock: BTScanningResultBlock? = nil
     private var stopScanningCondition: BTScanningStopBlock
     
-    private(set) var discoveredPeripherals: [BTPeripheralAPIType] = []
+    private(set) var discoveryResults: [BTPeripheralScanResult] = []
     
     // MARK: Initializers
     
@@ -86,18 +89,24 @@ extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
                                               RSSI: NSNumber) {
         
         if !allowDuplicatePeripheralIds {
-            if let _ = discoveredPeripherals.indexOf({ return $0.identifier.isEqual(peripheral.identifier) }) {
+            if let _ = discoveryResults.indexOf({
+                return $0.peripheral.identifier.isEqual(peripheral.identifier) }) {
                 return
             }
         }
         
+        let discoveryResult = BTPeripheralScanResult(
+            peripheral: peripheral,
+            advertisementData: advertisementData,
+            RSSI: RSSI)
+        
         if let predicate = validatePeripheralPredicate {
-            if predicate(peripheral: peripheral, advertisementData: advertisementData) {
-                newPeripheralDiscovered(peripheral)
+            if predicate(discoveryResult: discoveryResult) {
+                newPeripheralDiscovered(discoveryResult)
             }
         }
         else {
-            newPeripheralDiscovered(peripheral)
+            newPeripheralDiscovered(discoveryResult)
         }
     }
 }
@@ -105,12 +114,12 @@ extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
 // MARK: Supporting Methdods
 
 private extension BTCentralManagerScanningOperation {
-    func newPeripheralDiscovered(peripheral: BTPeripheralAPIType) {
+    func newPeripheralDiscovered(discoveryResult: BTPeripheralScanResult) {
         
-        discoveredPeripherals.append(peripheral)
-        intermediateScanResultBlock?(discoveredPeripherals: discoveredPeripherals)
+        discoveryResults.append(discoveryResult)
+        intermediateScanResultBlock?(discoveryResults: discoveryResults)
         
-        if stopScanningCondition(discoveredPeripherals: discoveredPeripherals) {
+        if stopScanningCondition(discoveryResults: discoveryResults) {
             centralManager?.stopScan()
             removeHandlerAndFinish()
         }

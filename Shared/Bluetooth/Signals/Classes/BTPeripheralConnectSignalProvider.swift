@@ -68,7 +68,7 @@ class BTPeripheralConnectSignalProvider {
                 
                 if let connectedPeripheral = connectOperation.updatedPeripheral {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(connectedPeripheral)
-                    let modelPeripheral = BTPeripheralConnectSignalProvider.modelPeripheralWithConnectedPeripheral(connectedPeripheral)
+                    let modelPeripheral = BTPeripheral.createWithConnectedPeripheral(connectedPeripheral)
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
 
                     observer.sendNext([modelPeripheral])
@@ -82,15 +82,5 @@ class BTPeripheralConnectSignalProvider {
             
             self.centralRolePerformer.operationQueue.addOperation(connectOperation)
         }
-    }
-}
-
-// MARK: Supporting Methods
-
-private extension BTPeripheralConnectSignalProvider {
-    static func modelPeripheralWithConnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .Connected)
     }
 }

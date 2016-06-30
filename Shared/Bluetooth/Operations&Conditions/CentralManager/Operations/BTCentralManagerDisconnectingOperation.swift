@@ -58,7 +58,7 @@ extension BTCentralManagerDisconnectingOperation: BTCentralManagerHandlerProtoco
         updatedPeripheral = peripheral
         
         let btError: ErrorType? = (error != nil) ?
-            BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
+                BTCentralManagerDidDisconnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
     }
 }

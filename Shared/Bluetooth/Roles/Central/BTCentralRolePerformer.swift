@@ -174,6 +174,10 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     func centralManager(central: BTCentralManagerAPIType,
                                  didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                          error: NSError?) {
+        
+        updateManagedPeripheral(peripheral)
+        let modelPeripheral = BTPeripheral.createWithDisconnectedPeripheral(peripheral, error: error)
+        updateModelPeripheral(modelPeripheral)
     }
     
     func centralManager(central: BTCentralManagerAPIType,
@@ -194,6 +198,13 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
 extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
     
     func peripheralDidUpdateName(peripheral: BTPeripheralAPIType) {
+        if let index = modelPeripherals.indexOf( { $0.identifierString == peripheral.identifier.UUIDString } ) {
+            let previousModelPeripheral = modelPeripherals[index]
+            let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
+                                                  name: peripheral.name,
+                                                  state: previousModelPeripheral.state)
+            modelPeripherals[index] = newModelPeripheral
+        }
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
@@ -220,9 +231,4 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
     }
-}
-
-// MARK: Supporting Methods
-
-private extension BTCentralRolePerformer {
 }

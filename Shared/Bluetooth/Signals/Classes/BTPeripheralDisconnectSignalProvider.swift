@@ -43,16 +43,22 @@ class BTPeripheralDisconnectSignalProvider {
                     return
                 }
                 
-                if operation.finished && errors.count > 0 {
-                    let error = BTOperationError(code: .OperationFailed(errors: errors))
+                guard let disconnectOperation = operation as? BTCentralManagerDisconnectingOperation else {
+                    let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral " +
                         "with id=\(strongSelf.peripheral.identifier), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
-                guard let disconnectOperation = operation as? BTCentralManagerDisconnectingOperation else {
-                    let error = BTOperationError(code: .OperationTypeMismatch)
+                var disconnectError: NSError? = nil
+                
+                if let disconnectErrorIndex = errors.indexOf({ ($0 is BTCentralManagerDidDisconnectPeripheralError) }) {
+                    disconnectError = (errors[disconnectErrorIndex] as? BTCentralManagerDidDisconnectPeripheralError)?.originalError
+                }
+                
+                if errors.count > 0 && disconnectError == nil  {
+                    let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral " +
                         "with id=\(strongSelf.peripheral.identifier), error: \(error)")
                     observer.sendFailed(error)
@@ -64,8 +70,9 @@ class BTPeripheralDisconnectSignalProvider {
                 
                 if let disconnectedPeripheral = disconnectOperation.updatedPeripheral {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(disconnectedPeripheral)
-                    let modelPeripheral =
-                        BTPeripheralDisconnectSignalProvider.modelPeripheralWithDisconnectedPeripheral(disconnectedPeripheral)
+                    let modelPeripheral = BTPeripheral.createWithDisconnectedPeripheral(
+                        disconnectedPeripheral,
+                        error: disconnectError)
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
                     
                     observer.sendNext([modelPeripheral])
@@ -79,15 +86,5 @@ class BTPeripheralDisconnectSignalProvider {
             
             self.centralRolePerformer.operationQueue.addOperation(disconnectOperation)
         }
-    }
-}
-
-// MARK: Supporting Methods
-
-private extension BTPeripheralDisconnectSignalProvider {
-    static func modelPeripheralWithDisconnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
-        return BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                            name: peripheral.name,
-                            state: .Disconnected)
     }
 }

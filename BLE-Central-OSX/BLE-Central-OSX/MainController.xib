@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="connectButton" destination="YrU-cG-OUi" id="qy7-PU-gQX"/>
                 <outlet property="disconnectButton" destination="SIF-jR-Amr" id="IlZ-F1-FGK"/>
+                <outlet property="discoverButton" destination="TEK-7v-s2D" id="qq8-pm-JiY"/>
                 <outlet property="startScanButton" destination="phE-tJ-jyZ" id="vQi-6W-rbh"/>
                 <outlet property="stopScanButton" destination="OaJ-eS-TQO" id="g0j-7r-D57"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -51,7 +52,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIF-jR-Amr" userLabel="Disconnect Button">
-                    <rect key="frame" x="185" y="131" width="109" height="32"/>
+                    <rect key="frame" x="186" y="131" width="109" height="32"/>
                     <buttonCell key="cell" type="push" title="Disconnect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GMv-WB-s3A">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -60,16 +61,28 @@
                         <action selector="disconnectButtonPressed:" target="-2" id="wX6-gl-6cV"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TEK-7v-s2D" userLabel="Discover Button">
+                    <rect key="frame" x="146" y="100" width="188" height="32"/>
+                    <buttonCell key="cell" type="push" title="Discover Characteristics" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xs3-gO-Ovx">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="discoverButtonPressed:" target="-2" id="6Uo-jq-YjV"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="3e2-cm-tRk"/>
+                <constraint firstItem="TEK-7v-s2D" firstAttribute="top" secondItem="SIF-jR-Amr" secondAttribute="bottom" constant="10" id="5nZ-O5-nfz"/>
+                <constraint firstItem="SIF-jR-Amr" firstAttribute="top" secondItem="YrU-cG-OUi" secondAttribute="bottom" constant="10" id="Fxo-gK-oNi"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Gk9-ig-gx9"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="top" secondItem="OaJ-eS-TQO" secondAttribute="bottom" constant="10" id="PMW-Zn-XKO"/>
                 <constraint firstItem="SIF-jR-Amr" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="X2O-ea-XVE"/>
-                <constraint firstItem="SIF-jR-Amr" firstAttribute="top" secondItem="YrU-cG-OUi" secondAttribute="bottom" constant="10" id="Z5L-G6-Dr7"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="top" secondItem="phE-tJ-jyZ" secondAttribute="bottom" constant="10" id="eCo-9J-p5t"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="iAa-J2-ZY0"/>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="ki2-2T-YzR"/>
+                <constraint firstItem="TEK-7v-s2D" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="x87-Ad-6fu"/>
             </constraints>
         </customView>
     </objects>

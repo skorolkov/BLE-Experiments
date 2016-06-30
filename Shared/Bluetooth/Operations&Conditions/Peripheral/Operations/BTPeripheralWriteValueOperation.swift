@@ -71,7 +71,7 @@ extension BTPeripheralWriteValueOperation: BTCentralManagerHandlerProtocol {
                                 error: NSError?) {
         
         let btError: ErrorType? = (error != nil) ?
-            BTCentralManagerFailToConnectPeripheralError(originalError: error) : nil
+                BTCentralManagerDidDisconnectPeripheralError(originalError: error) : nil
         removeHandlerAndFinish(btError)
     }
 }

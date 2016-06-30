@@ -14,7 +14,6 @@ class PeripheralViewController: UIViewController {
     
     @IBOutlet weak var startAdvertisingButton: UIButton!
     @IBOutlet weak var stopAdvertisingButton: UIButton!
-
     
     private var peripheralRole = BTPeripheralRolePerformer()
     
