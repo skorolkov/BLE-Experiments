@@ -11,10 +11,12 @@ import Operations
 
 class BTPeripheralSetNotifyValueOperation: BTPeripheralOperation {
     
+    private(set) var updatedCharacteristic: CBCharacteristic? = nil
+    
     // MARK: Private Properties
     
-    private var notificationEnabled: Bool
-    private var characterictic: CBCharacteristic
+    private let notificationEnabled: Bool
+    private let characterictic: CBCharacteristic
     
     // MARK: Initializers
     
@@ -84,6 +86,8 @@ extension BTPeripheralSetNotifyValueOperation: BTPeripheralHandlerProtocol {
             removeHandlerAndFinish(btError)
             return
         }
+        
+        updatedCharacteristic = characteristic
         
         removeHandlerAndFinish()
     }

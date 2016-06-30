@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 import Operations
 
 protocol BTCentralRolePerforming: class {
@@ -14,5 +15,10 @@ protocol BTCentralRolePerforming: class {
 
     func updateManagedPeripheral(peripheral: BTPeripheralAPIType)
 
-    func updateModelPeripheral(peripheral: BTPeripheral)
+    func updateModelPeripheral(modelPeripheral: BTPeripheral)
+    
+    func updateModelPeripheral(peripheral: BTPeripheralAPIType,
+                               withCharacteristic characteristic: CBCharacteristic)
+    
+    func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral?
 }

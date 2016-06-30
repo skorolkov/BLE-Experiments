@@ -92,6 +92,9 @@
 		A6A13B7E1D25245300C6A248 /* CBService+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A13B7D1D25245300C6A248 /* CBService+Description.swift */; };
 		A6A13B831D25267C00C6A248 /* CBCharacteristic+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A13B821D25267C00C6A248 /* CBCharacteristic+Description.swift */; };
 		A6A13CD61D253F5200C6A248 /* CBUUID+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A13CD51D253F5200C6A248 /* CBUUID+Description.swift */; };
+		A6A4BF5F1D258EEA00A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4BF5E1D258EEA00A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift */; };
+		A6A4BF611D25A2FA00A7304A /* BTReadCharacteristicSignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4BF601D25A2FA00A7304A /* BTReadCharacteristicSignalProvider.swift */; };
+		A6A4BF631D25B04500A7304A /* BTWriteCharacteristicSignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4BF621D25B04500A7304A /* BTWriteCharacteristicSignalProvider.swift */; };
 		A6C2EF1F1CB6FC600072E226 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C2EF1D1CB6FC600072E226 /* MainController.swift */; };
 		A6C2EF201CB6FC600072E226 /* MainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C2EF1E1CB6FC600072E226 /* MainController.xib */; };
 		A6C5E4E21D242B750015A3C5 /* BTPeripheralCharacteristicDiscoverySignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C5E4E11D242B750015A3C5 /* BTPeripheralCharacteristicDiscoverySignalProvider.swift */; };
@@ -202,6 +205,9 @@
 		A6A13B7D1D25245300C6A248 /* CBService+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBService+Description.swift"; sourceTree = "<group>"; };
 		A6A13B821D25267C00C6A248 /* CBCharacteristic+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCharacteristic+Description.swift"; sourceTree = "<group>"; };
 		A6A13CD51D253F5200C6A248 /* CBUUID+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBUUID+Description.swift"; sourceTree = "<group>"; };
+		A6A4BF5E1D258EEA00A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCharacteristicSetNotifyValueSignalProvider.swift; sourceTree = "<group>"; };
+		A6A4BF601D25A2FA00A7304A /* BTReadCharacteristicSignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTReadCharacteristicSignalProvider.swift; sourceTree = "<group>"; };
+		A6A4BF621D25B04500A7304A /* BTWriteCharacteristicSignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTWriteCharacteristicSignalProvider.swift; sourceTree = "<group>"; };
 		A6C2EF1D1CB6FC600072E226 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		A6C2EF1E1CB6FC600072E226 /* MainController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainController.xib; sourceTree = "<group>"; };
 		A6C5E4E11D242B750015A3C5 /* BTPeripheralCharacteristicDiscoverySignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralCharacteristicDiscoverySignalProvider.swift; sourceTree = "<group>"; };
@@ -542,6 +548,9 @@
 				A603258C1D23C76400575138 /* BTPeripheralConnectSignalProvider.swift */,
 				A60325901D23CC1000575138 /* BTPeripheralDisconnectSignalProvider.swift */,
 				A6C5E4E11D242B750015A3C5 /* BTPeripheralCharacteristicDiscoverySignalProvider.swift */,
+				A6A4BF5E1D258EEA00A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift */,
+				A6A4BF601D25A2FA00A7304A /* BTReadCharacteristicSignalProvider.swift */,
+				A6A4BF621D25B04500A7304A /* BTWriteCharacteristicSignalProvider.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1083,6 +1092,7 @@
 				A6A13B7E1D25245300C6A248 /* CBService+Description.swift in Sources */,
 				A65CC6EA1D21C246006C6570 /* BTPeripheralManagerAPIWithHandlerProtocol.swift in Sources */,
 				A65CC6CD1D21C246006C6570 /* BTPeripheralCharacteristicDiscoveryOperation.swift in Sources */,
+				A6A4BF5F1D258EEA00A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift in Sources */,
 				A60325911D23CC1000575138 /* BTPeripheralDisconnectSignalProvider.swift in Sources */,
 				A6C2EF1F1CB6FC600072E226 /* MainController.swift in Sources */,
 				A65CC6E61D21C246006C6570 /* PeriphralFullAPIProtocol.swift in Sources */,
@@ -1115,6 +1125,7 @@
 				A65CC6E21D21C246006C6570 /* BTCentralManagerProxy.swift in Sources */,
 				A60326361D23F4C200575138 /* BTPeripheralScanSignalProvider.swift in Sources */,
 				A62480B61D226EAF0079AEB8 /* BTOperation.swift in Sources */,
+				A6A4BF611D25A2FA00A7304A /* BTReadCharacteristicSignalProvider.swift in Sources */,
 				A6913E391C9FFC7100316658 /* Config.swift in Sources */,
 				A65CC6D81D21C246006C6570 /* BTPeripheralRolePerformer.swift in Sources */,
 				A6C5E4E21D242B750015A3C5 /* BTPeripheralCharacteristicDiscoverySignalProvider.swift in Sources */,
@@ -1134,6 +1145,7 @@
 				A65CC6DD1D21C246006C6570 /* BTHandlersContainer.swift in Sources */,
 				A65CC6E71D21C246006C6570 /* BTPeripheralProxy.swift in Sources */,
 				A65CC6B71D21C246006C6570 /* CBPeripheralManagerState+StringConvertible.swift in Sources */,
+				A6A4BF631D25B04500A7304A /* BTWriteCharacteristicSignalProvider.swift in Sources */,
 				A65CC6BA1D21C246006C6570 /* BTCentralManagerHandlerProtocol.swift in Sources */,
 				A65CC6B41D21C246006C6570 /* BTPeripheral.swift in Sources */,
 				A6A13B831D25267C00C6A248 /* CBCharacteristic+Description.swift in Sources */,

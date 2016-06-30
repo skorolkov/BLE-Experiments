@@ -11,25 +11,30 @@ import CoreBluetooth
 struct BTCharacteristic {
     let UUID: CBUUID
     let properties: CBCharacteristicProperties
+    let isNotifying: Bool
     let value: NSData?
     
     init(UUIDString: String,
          properties: CBCharacteristicProperties,
+         isNotifying: Bool,
          value: NSData?) {
         self.UUID = CBUUID(string: UUIDString)
         self.properties = properties
+        self.isNotifying = isNotifying
         self.value = value?.copy() as? NSData
     }
     
     init(characteristic: BTCharacteristic) {
         self.UUID = characteristic.UUID.copy() as! CBUUID
         self.properties = characteristic.properties
+        self.isNotifying = characteristic.isNotifying
         self.value = characteristic.value?.copy() as? NSData
     }
     
     init(coreBluetoothCharacteristic: CBCharacteristic) {
         self.init(UUIDString: coreBluetoothCharacteristic.UUID.UUIDString,
                   properties: coreBluetoothCharacteristic.properties,
+                  isNotifying: coreBluetoothCharacteristic.isNotifying,
                   value: coreBluetoothCharacteristic.value)
     }
 }

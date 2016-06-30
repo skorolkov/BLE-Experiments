@@ -13,6 +13,7 @@ class BTPeripheralReadValueOperation: BTPeripheralOperation {
     
     // MARK: Internal Properties
     
+    private(set) var updatedCharacteristic: CBCharacteristic? = nil
     private(set) var value: NSData? = nil
     
     // MARK: Private Properties
@@ -85,6 +86,7 @@ extension BTPeripheralReadValueOperation: BTPeripheralHandlerProtocol {
             return
         }
         
+        updatedCharacteristic = characteristic
         value = (characteristic.value?.copy() as! NSData)
         removeHandlerAndFinish()
     }
