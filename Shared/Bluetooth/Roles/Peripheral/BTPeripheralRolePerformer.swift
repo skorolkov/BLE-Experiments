@@ -59,17 +59,17 @@ class BTPeripheralRolePerformer: NSObject {
         let characteristics = [
             BTPermissionsCharacteristic(UUIDString: "2A4D",
                 properties: [.WriteWithoutResponse, .Write],
-                value: nil,
-                permissions: .Writeable),
+                permissions: .Writeable,
+                value: nil),
             BTPermissionsCharacteristic(UUIDString: "2AAF",
                 properties: .Notify,
-                value: nil,
-                permissions: .Readable)
+                permissions: .Readable,
+                value: nil)
         ]
         
         let mainService = BTPrimacyService(UUIDString: "C14D2C0A-401F-B7A9-841F-E2E93B80F631",
             primary: false,
-            characteristics: characteristics)
+            permissionCharacteristics: characteristics)
         
         let advertisementData = [
             CBAdvertisementDataLocalNameKey : "MyAwesomePeripheral",

@@ -69,12 +69,15 @@ class MainController: NSViewController {
         peripheralDataProvider.peripherals
             .producer
             .observeOn(UIScheduler())
+            //.skipRepeats({ $0 != $1 })
             .on(next: { peripheralModels in
                 self.peripheralModels = peripheralModels
                 Log.application.info("peripheral models updated: \(peripheralModels)")
                 
-                self.connectButton.enabled = (self.scannedPeripheralModels.count > 0) || (self.disconnectedPeripheralModels.count > 0)
-                self.disconnectButton.enabled = (self.connectedPeripheralModels.count > 0)
+                self.connectButton.enabled = (self.scannedPeripheralModels.count > 0) ||
+                    (self.disconnectedPeripheralModels.count > 0)
+                self.disconnectButton.enabled = (self.connectedPeripheralModels.count > 0) ||
+                    (self.discoveredCharacteristicdPeripheralModels.count > 0)
                 self.discoverButton.enabled = (self.connectedPeripheralModels.count > 0)
             })
             .start()
