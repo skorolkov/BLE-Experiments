@@ -719,12 +719,12 @@
 		A6A4C1C31D25C88000A7304A /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A6A4C1C41D25C88000A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift */,
-				A6A4C1C51D25C88000A7304A /* BTPeripheralCharacteristicDiscoverySignalProvider.swift */,
-				A6A4C1C61D25C88000A7304A /* BTPeripheralConnectSignalProvider.swift */,
 				A6A4C1C71D25C88000A7304A /* BTPeripheralDataProvider.swift */,
-				A6A4C1C81D25C88000A7304A /* BTPeripheralDisconnectSignalProvider.swift */,
 				A6A4C1C91D25C88000A7304A /* BTPeripheralScanSignalProvider.swift */,
+				A6A4C1C61D25C88000A7304A /* BTPeripheralConnectSignalProvider.swift */,
+				A6A4C1C51D25C88000A7304A /* BTPeripheralCharacteristicDiscoverySignalProvider.swift */,
+				A6A4C1C81D25C88000A7304A /* BTPeripheralDisconnectSignalProvider.swift */,
+				A6A4C1C41D25C88000A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift */,
 				A6A4C1CA1D25C88000A7304A /* BTReadCharacteristicSignalProvider.swift */,
 				A6A4C1CB1D25C88000A7304A /* BTWriteCharacteristicSignalProvider.swift */,
 			);

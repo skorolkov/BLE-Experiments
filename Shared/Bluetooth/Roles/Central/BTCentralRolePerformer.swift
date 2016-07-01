@@ -184,7 +184,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
             centralRolePerformer: self)
     }
     
-    func notificationsEnabledValueUpdate(
+    func notificationsEnabledValueUpdateSignalProvider(
         notificationsEnabled: Bool,
         peripheral: BTPeripheralAPIType,
         characteristic: CBCharacteristic) -> BTCharacteristicSetNotifyValueSignalProvider {

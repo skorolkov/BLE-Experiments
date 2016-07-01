@@ -40,7 +40,7 @@ class BTWriteCharacteristicSignalProvider {
     
     // MARK: Internal Methods
     
-    func write() -> SignalProducer<[BTPeripheral], BTError> {
+    func write() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             
             let operation = BTPeripheralWriteValueOperation(
@@ -66,7 +66,7 @@ class BTWriteCharacteristicSignalProvider {
                     return
                 }
                 
-                guard let _ = operation as? BTPeripheralWriteValueOperation else {
+                guard let writeOperation = operation as? BTPeripheralWriteValueOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTWriteCharacteristicSignalProvider: " +
                         "failed to write value for peripheral " +
@@ -76,8 +76,11 @@ class BTWriteCharacteristicSignalProvider {
                     return
                 }
                 
+                let characterictic = writeOperation.updatedCharacteristic ?? strongSelf.characterictic
+
+                
                 Log.bluetooth.info("BTWriteCharacteristicSignalProvider: write value=\(strongSelf.valueToWrite)"
-                    + " for characteristic with id=\(strongSelf.characterictic.UUID)")
+                    + " for characteristic with id=\(characterictic.UUID)")
                 
                 let previousPeripheralModel = strongSelf.centralRolePerformer.modelPeripheralWithIdentifier(
                     strongSelf.peripheral.identifier.UUIDString)
@@ -85,9 +88,9 @@ class BTWriteCharacteristicSignalProvider {
                 let newPeripheralModel = BTPeripheral.createWithPeripheral(
                     strongSelf.peripheral,
                     state: previousPeripheralModel?.state ?? .Unknown,
-                    characteristic: strongSelf.characterictic)
+                    characteristic: characterictic)
                 
-                observer.sendNext([newPeripheralModel])
+                observer.sendNext(newPeripheralModel)
                 observer.sendCompleted()
                 
                 })

@@ -37,7 +37,7 @@ class BTCharacteristicSetNotifyValueSignalProvider {
     
     // MARK: Internal Methods
     
-    func setNotifyValue() -> SignalProducer<[BTPeripheral], BTError> {
+    func setNotifyValue() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             let operation = BTPeripheralSetNotifyValueOperation(
                 centralManager: self.centralManager,
@@ -84,10 +84,10 @@ class BTCharacteristicSetNotifyValueSignalProvider {
                         state: previousPeripheralModel?.state ?? .Unknown,
                         characteristic: updatedCharacteristic)
                     
-                    observer.sendNext([newPeripheralModel])
+                    observer.sendNext(newPeripheralModel)
                 }
                 else {
-                    observer.sendNext([])
+                    observer.sendNext(nil)
                 }
                 
                 observer.sendCompleted()

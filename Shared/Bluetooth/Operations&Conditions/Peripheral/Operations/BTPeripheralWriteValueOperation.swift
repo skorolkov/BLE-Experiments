@@ -11,6 +11,10 @@ import Operations
 
 class BTPeripheralWriteValueOperation: BTPeripheralOperation {
     
+    // MARK: Internal Properties
+    
+    private(set) var updatedCharacteristic: CBCharacteristic? = nil
+    
     // MARK: Private Properties
     
     private var valueToWrite: NSData
@@ -92,6 +96,8 @@ extension BTPeripheralWriteValueOperation: BTPeripheralHandlerProtocol {
             removeHandlerAndFinish(btError)
             return
         }
+        
+        updatedCharacteristic = characteristic
         
         removeHandlerAndFinish()
     }

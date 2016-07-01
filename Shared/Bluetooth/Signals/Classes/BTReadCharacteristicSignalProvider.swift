@@ -34,7 +34,7 @@ class BTReadCharacteristicSignalProvider {
 
     // MARK: Internal Methods
     
-    func read() -> SignalProducer<[BTPeripheral], BTError> {
+    func read() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             
             let operation = BTPeripheralReadValueOperation(
@@ -81,10 +81,10 @@ class BTReadCharacteristicSignalProvider {
                         state: previousPeripheralModel?.state ?? .Unknown,
                         characteristic: updatedCharacteristic)
                     
-                    observer.sendNext([newPeripheralModel])
+                    observer.sendNext(newPeripheralModel)
                 }
                 else {
-                    observer.sendNext([])
+                    observer.sendNext(nil)
                 }
                 
                 observer.sendCompleted()
