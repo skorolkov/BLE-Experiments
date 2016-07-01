@@ -29,10 +29,7 @@
 		A6A4C1ED1D25C88100A7304A /* BTCharacteristicDiscoveryCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C17F1D25C88000A7304A /* BTCharacteristicDiscoveryCore.swift */; };
 		A6A4C1EE1D25C88100A7304A /* BTPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1801D25C88000A7304A /* BTPeripheral.swift */; };
 		A6A4C1EF1D25C88100A7304A /* BTTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1811D25C88000A7304A /* BTTypes.swift */; };
-		A6A4C1F01D25C88100A7304A /* CBCentralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1831D25C88000A7304A /* CBCentralManagerState+StringConvertible.swift */; };
 		A6A4C1F11D25C88100A7304A /* CBCharacteristic+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1851D25C88000A7304A /* CBCharacteristic+Description.swift */; };
-		A6A4C1F21D25C88100A7304A /* CBPeripheralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1861D25C88000A7304A /* CBPeripheralManagerState+StringConvertible.swift */; };
-		A6A4C1F31D25C88100A7304A /* CBPeripheralState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1871D25C88000A7304A /* CBPeripheralState+StringConvertible.swift */; };
 		A6A4C1F41D25C88100A7304A /* CBService+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1891D25C88000A7304A /* CBService+Description.swift */; };
 		A6A4C1F51D25C88100A7304A /* CBUUID+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C18B1D25C88000A7304A /* CBUUID+Description.swift */; };
 		A6A4C1F61D25C88100A7304A /* BTCustomQueueHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C18D1D25C88000A7304A /* BTCustomQueueHandler.swift */; };
@@ -98,6 +95,9 @@
 		A6A4C2321D25C88100A7304A /* BTPeripheralManagerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1EC1D25C88100A7304A /* BTPeripheralManagerProxy.swift */; };
 		A6C2EF1F1CB6FC600072E226 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C2EF1D1CB6FC600072E226 /* MainController.swift */; };
 		A6C2EF201CB6FC600072E226 /* MainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C2EF1E1CB6FC600072E226 /* MainController.xib */; };
+		A6D723B21D26978100B21072 /* CBCentralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */; };
+		A6D723B31D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */; };
+		A6D723B41D26978100B21072 /* CBPeripheralState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */; };
 		A8FA98826C2CB32006B9DA5E /* Pods_BLE_Central_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,10 +142,7 @@
 		A6A4C17F1D25C88000A7304A /* BTCharacteristicDiscoveryCore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCharacteristicDiscoveryCore.swift; sourceTree = "<group>"; };
 		A6A4C1801D25C88000A7304A /* BTPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheral.swift; sourceTree = "<group>"; };
 		A6A4C1811D25C88000A7304A /* BTTypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTTypes.swift; sourceTree = "<group>"; };
-		A6A4C1831D25C88000A7304A /* CBCentralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCentralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6A4C1851D25C88000A7304A /* CBCharacteristic+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCharacteristic+Description.swift"; sourceTree = "<group>"; };
-		A6A4C1861D25C88000A7304A /* CBPeripheralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
-		A6A4C1871D25C88000A7304A /* CBPeripheralState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralState+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6A4C1891D25C88000A7304A /* CBService+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBService+Description.swift"; sourceTree = "<group>"; };
 		A6A4C18B1D25C88000A7304A /* CBUUID+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBUUID+Description.swift"; sourceTree = "<group>"; };
 		A6A4C18D1D25C88000A7304A /* BTCustomQueueHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCustomQueueHandler.swift; sourceTree = "<group>"; };
@@ -211,6 +208,9 @@
 		A6A4C1EC1D25C88100A7304A /* BTPeripheralManagerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerProxy.swift; sourceTree = "<group>"; };
 		A6C2EF1D1CB6FC600072E226 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		A6C2EF1E1CB6FC600072E226 /* MainController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainController.xib; sourceTree = "<group>"; };
+		A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCentralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
+		A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
+		A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralState+StringConvertible.swift"; sourceTree = "<group>"; };
 		B7D411D08D5980F5D7C8747B /* Pods-BLE-Central-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSX.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Central_OSXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -475,10 +475,8 @@
 		A6A4C1821D25C88000A7304A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				A6A4C1831D25C88000A7304A /* CBCentralManagerState+StringConvertible.swift */,
+				A6D723AE1D26978100B21072 /* CBStates+CustomStringConvertible */,
 				A6A4C1841D25C88000A7304A /* CBCharacteristic+Description */,
-				A6A4C1861D25C88000A7304A /* CBPeripheralManagerState+StringConvertible.swift */,
-				A6A4C1871D25C88000A7304A /* CBPeripheralState+StringConvertible.swift */,
 				A6A4C1881D25C88000A7304A /* CBService+Description */,
 				A6A4C18A1D25C88000A7304A /* CBUUID+Description */,
 			);
@@ -852,6 +850,16 @@
 			path = Proxy;
 			sourceTree = "<group>";
 		};
+		A6D723AE1D26978100B21072 /* CBStates+CustomStringConvertible */ = {
+			isa = PBXGroup;
+			children = (
+				A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */,
+				A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */,
+				A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */,
+			);
+			path = "CBStates+CustomStringConvertible";
+			sourceTree = "<group>";
+		};
 		E43AF815E0FE5484231DBF1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1120,7 +1128,6 @@
 				A6A4C2101D25C88100A7304A /* BTPeripheralManagerPoweredOnCondition.swift in Sources */,
 				A6A4C22C1D25C88100A7304A /* PeriphralFullAPIProtocol.swift in Sources */,
 				A6A4C20D1D25C88100A7304A /* BTPeripheralSetNotifyValueOperation.swift in Sources */,
-				A6A4C1F31D25C88100A7304A /* CBPeripheralState+StringConvertible.swift in Sources */,
 				A6A4C22E1D25C88100A7304A /* BTPeripheralManagerAPIType.swift in Sources */,
 				A6A4C20E1D25C88100A7304A /* BTPeripheralWriteValueOperation.swift in Sources */,
 				A6A4C1F41D25C88100A7304A /* CBService+Description.swift in Sources */,
@@ -1129,7 +1136,6 @@
 				A6A4C2321D25C88100A7304A /* BTPeripheralManagerProxy.swift in Sources */,
 				A6A4C1FE1D25C88100A7304A /* BTPeripheralManagerBlockHandler.swift in Sources */,
 				A6A4C2031D25C88100A7304A /* BTCentralManagerOperation.swift in Sources */,
-				A6A4C1F01D25C88100A7304A /* CBCentralManagerState+StringConvertible.swift in Sources */,
 				A6A4C2081D25C88100A7304A /* BTErrors.swift in Sources */,
 				A6A4C1FD1D25C88100A7304A /* BTPeripheralManagerHandlerProtocol.swift in Sources */,
 				A6A4C1F61D25C88100A7304A /* BTCustomQueueHandler.swift in Sources */,
@@ -1137,6 +1143,7 @@
 				A6A4C2041D25C88100A7304A /* BTCentralManagerPoweredOnCondition.swift in Sources */,
 				A6A4C2141D25C88100A7304A /* BTStartAdvertisingOperation.swift in Sources */,
 				A6A4C2261D25C88100A7304A /* BTCentralManagerAPIWithHadlerProtocol.swift in Sources */,
+				A6D723B21D26978100B21072 /* CBCentralManagerState+StringConvertible.swift in Sources */,
 				A6A4C2251D25C88100A7304A /* BTCentralManagerAPIProtocol.swift in Sources */,
 				A6A4C2201D25C88100A7304A /* BTPeripheralProviding.swift in Sources */,
 				A6A4C21A1D25C88100A7304A /* BTPeripheralDataProvider.swift in Sources */,
@@ -1145,7 +1152,6 @@
 				A6A4C21F1D25C88100A7304A /* BTCentralRolePerforming.swift in Sources */,
 				A6A4C2221D25C88100A7304A /* BTHandlerContainerProtocol.swift in Sources */,
 				A6A4C22D1D25C88100A7304A /* BTPeripheralProxy.swift in Sources */,
-				A6A4C1F21D25C88100A7304A /* CBPeripheralManagerState+StringConvertible.swift in Sources */,
 				A62481841D22A2FA0079AEB8 /* Config+Logging.swift in Sources */,
 				A6A4C2281D25C88100A7304A /* BTCentralManagerProxy.swift in Sources */,
 				A6A4C1F71D25C88100A7304A /* BTCentralManagerHandlerProtocol.swift in Sources */,
@@ -1155,6 +1161,7 @@
 				A6A4C2151D25C88100A7304A /* BTCentralRolePerformer.swift in Sources */,
 				A6A4C1EE1D25C88100A7304A /* BTPeripheral.swift in Sources */,
 				A6A4C2211D25C88100A7304A /* BTPeripheralUpdating.swift in Sources */,
+				A6D723B41D26978100B21072 /* CBPeripheralState+StringConvertible.swift in Sources */,
 				A6A4C1FF1D25C88100A7304A /* BTPeripheralManagerLoggingHandler.swift in Sources */,
 				A6A4C2121D25C88100A7304A /* BTServiceNotAddedCondition.swift in Sources */,
 				A6A4C22F1D25C88100A7304A /* BTPeripheralManagerAPIProtocol.swift in Sources */,
@@ -1162,6 +1169,7 @@
 				A6A4C2161D25C88100A7304A /* BTPeripheralRolePerformer.swift in Sources */,
 				A6A4C22A1D25C88100A7304A /* BTPeripheralAPIProtocol.swift in Sources */,
 				A6A4C1F51D25C88100A7304A /* CBUUID+Description.swift in Sources */,
+				A6D723B31D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift in Sources */,
 				A6A4C1F91D25C88100A7304A /* BTCentralManagerLoggingHandler.swift in Sources */,
 				A6A4C20F1D25C88100A7304A /* BTPeripheralManagerOperation.swift in Sources */,
 			);

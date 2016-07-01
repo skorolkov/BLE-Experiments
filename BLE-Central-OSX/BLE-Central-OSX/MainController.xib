@@ -10,6 +10,7 @@
                 <outlet property="connectButton" destination="YrU-cG-OUi" id="qy7-PU-gQX"/>
                 <outlet property="disconnectButton" destination="SIF-jR-Amr" id="IlZ-F1-FGK"/>
                 <outlet property="discoverButton" destination="TEK-7v-s2D" id="qq8-pm-JiY"/>
+                <outlet property="enableNotificationsButton" destination="kbr-9b-Sgi" id="Ibh-EI-KqZ"/>
                 <outlet property="startScanButton" destination="phE-tJ-jyZ" id="vQi-6W-rbh"/>
                 <outlet property="stopScanButton" destination="OaJ-eS-TQO" id="g0j-7r-D57"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -71,13 +72,25 @@
                         <action selector="discoverButtonPressed:" target="-2" id="6Uo-jq-YjV"/>
                     </connections>
                 </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kbr-9b-Sgi" userLabel="Enable Notifications Button">
+                    <rect key="frame" x="160" y="69" width="161" height="32"/>
+                    <buttonCell key="cell" type="push" title="Enable Notifications" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6XP-Qi-P1J">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="enableNotificationsButtonPressed:" target="-2" id="DPk-IQ-6OC"/>
+                    </connections>
+                </button>
             </subviews>
             <constraints>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" constant="20" id="3e2-cm-tRk"/>
                 <constraint firstItem="TEK-7v-s2D" firstAttribute="top" secondItem="SIF-jR-Amr" secondAttribute="bottom" constant="10" id="5nZ-O5-nfz"/>
+                <constraint firstItem="kbr-9b-Sgi" firstAttribute="top" secondItem="TEK-7v-s2D" secondAttribute="bottom" constant="10" id="FFC-bb-Ojw"/>
                 <constraint firstItem="SIF-jR-Amr" firstAttribute="top" secondItem="YrU-cG-OUi" secondAttribute="bottom" constant="10" id="Fxo-gK-oNi"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Gk9-ig-gx9"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="top" secondItem="OaJ-eS-TQO" secondAttribute="bottom" constant="10" id="PMW-Zn-XKO"/>
+                <constraint firstItem="kbr-9b-Sgi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="VpR-EB-are"/>
                 <constraint firstItem="SIF-jR-Amr" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="X2O-ea-XVE"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="top" secondItem="phE-tJ-jyZ" secondAttribute="bottom" constant="10" id="eCo-9J-p5t"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="iAa-J2-ZY0"/>

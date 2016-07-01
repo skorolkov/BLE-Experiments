@@ -18,6 +18,7 @@ class MainController: NSViewController {
     @IBOutlet weak var connectButton: NSButton!
     @IBOutlet weak var disconnectButton: NSButton!
     @IBOutlet weak var discoverButton: NSButton!
+    @IBOutlet weak var enableNotificationsButton: NSButton!
     
     private var centralRolePerformer = BTCentralRolePerformer.sharedInstance
     
@@ -195,6 +196,16 @@ private extension MainController {
                 Log.application.info("characteristic discovery: peripherals: \(peripherals)")
             })
             .start()
+    }
+    
+    @IBAction func enableNotificationsButtonPressed(sender: NSButton) {
+        guard let indentifierString = discoveredCharacteristicdPeripheralModels.first?.identifierString else {
+            return
+        }
+        
+        guard let peripheral = centralRolePerformer.peripheralWithIdentifier(indentifierString) else {
+            return
+        }
     }
 }
 
