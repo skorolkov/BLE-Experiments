@@ -17,9 +17,9 @@ class BTPeripheralWriteValueOperation: BTPeripheralOperation {
     
     // MARK: Private Properties
     
-    private var valueToWrite: NSData
-    private var charactericticToWrite: CBCharacteristic
-    private var writeType: CBCharacteristicWriteType
+    private let valueToWrite: NSData
+    private let charactericticToWrite: CBCharacteristic
+    private let writeType: CBCharacteristicWriteType
     
     // MARK: Initializers
     

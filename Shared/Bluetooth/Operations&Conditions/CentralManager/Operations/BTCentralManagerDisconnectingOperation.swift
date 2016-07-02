@@ -17,7 +17,7 @@ class BTCentralManagerDisconnectingOperation: BTCentralManagerOperation {
     
     // MARK: Private Properties
     
-    private var peripheral: BTPeripheralAPIType
+    private let peripheral: BTPeripheralAPIType
     
     // MARK: Initializers
     

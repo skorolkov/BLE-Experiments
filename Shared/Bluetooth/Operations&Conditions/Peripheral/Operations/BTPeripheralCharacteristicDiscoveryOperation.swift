@@ -17,7 +17,7 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
     
     // MARK: Private Properties
 
-    private var core: BTCharacteristicDiscoveryCore
+    private let core: BTCharacteristicDiscoveryCore
     
     // MARK: Initializers
     

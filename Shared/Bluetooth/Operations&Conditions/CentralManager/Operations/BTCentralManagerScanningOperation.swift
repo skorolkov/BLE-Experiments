@@ -22,12 +22,12 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
 
     // MARK: Private Properties
     
-    private var serviceUUIDs: [CBUUID]? = nil
-    private var options: [String : AnyObject]? = nil
-    private var allowDuplicatePeripheralIds: Bool
-    private var validatePeripheralPredicate: BTScanningValidPeripheralPredicate? = nil
-    private var intermediateScanResultBlock: BTScanningResultBlock? = nil
-    private var stopScanningCondition: BTScanningStopBlock
+    private let serviceUUIDs: [CBUUID]?
+    private let options: [String : AnyObject]?
+    private let allowDuplicatePeripheralIds: Bool
+    private let validatePeripheralPredicate: BTScanningValidPeripheralPredicate?
+    private let intermediateScanResultBlock: BTScanningResultBlock?
+    private let stopScanningCondition: BTScanningStopBlock
     
     private(set) var discoveryResults: [BTPeripheralScanResult] = []
     

@@ -17,8 +17,8 @@ class BTCentralManagerConnectingOperation: BTCentralManagerOperation {
     
     // MARK: Private Properties
     
-    private var peripheral: BTPeripheralAPIType
-    private var options: [String : AnyObject]? = nil
+    private let peripheral: BTPeripheralAPIType
+    private let options: [String : AnyObject]?
     
     // MARK: Initializers
     
@@ -26,6 +26,7 @@ class BTCentralManagerConnectingOperation: BTCentralManagerOperation {
          peripheral: BTPeripheralAPIType,
          options: [String : AnyObject]? = nil) {
         self.peripheral = peripheral
+        self.options = options
         
         super.init(centralManager: centralManager)
         

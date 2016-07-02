@@ -18,7 +18,7 @@ class BTPeripheralReadValueOperation: BTPeripheralOperation {
     
     // MARK: Private Properties
     
-    private var charactericticToRead: CBCharacteristic
+    private let charactericticToRead: CBCharacteristic
     
     // MARK: Initializers
     
