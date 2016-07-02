@@ -95,9 +95,13 @@
 		A6A4C2321D25C88100A7304A /* BTPeripheralManagerProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C1EC1D25C88100A7304A /* BTPeripheralManagerProxy.swift */; };
 		A6C2EF1F1CB6FC600072E226 /* MainController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C2EF1D1CB6FC600072E226 /* MainController.swift */; };
 		A6C2EF201CB6FC600072E226 /* MainController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6C2EF1E1CB6FC600072E226 /* MainController.xib */; };
+		A6D338961D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D338951D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift */; };
+		A6D338981D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D338971D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift */; };
 		A6D723B21D26978100B21072 /* CBCentralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */; };
 		A6D723B31D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */; };
 		A6D723B41D26978100B21072 /* CBPeripheralState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */; };
+		A6D723C01D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723BF1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift */; };
+		A6D723C21D26F4DA00B21072 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6D723C11D26F4DA00B21072 /* CoreBluetooth.framework */; };
 		A8FA98826C2CB32006B9DA5E /* Pods_BLE_Central_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -208,9 +212,13 @@
 		A6A4C1EC1D25C88100A7304A /* BTPeripheralManagerProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPeripheralManagerProxy.swift; sourceTree = "<group>"; };
 		A6C2EF1D1CB6FC600072E226 /* MainController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainController.swift; sourceTree = "<group>"; };
 		A6C2EF1E1CB6FC600072E226 /* MainController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainController.xib; sourceTree = "<group>"; };
+		A6D338951D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCharacteristicProperties+StringConvertible.swift"; sourceTree = "<group>"; };
+		A6D338971D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBAttributePermissions+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBCentralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralManagerState+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralState+StringConvertible.swift"; sourceTree = "<group>"; };
+		A6D723BF1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTPeripheralAPIProtocol+FindCharacretistics.swift"; sourceTree = "<group>"; };
+		A6D723C11D26F4DA00B21072 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
 		B7D411D08D5980F5D7C8747B /* Pods-BLE-Central-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSX.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Central_OSXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -220,6 +228,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A6D723C21D26F4DA00B21072 /* CoreBluetooth.framework in Frameworks */,
 				14C1CA867891E281A44E5467 /* Pods_BLE_Central_OSX.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -475,6 +484,7 @@
 		A6A4C1821D25C88000A7304A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A6D723BE1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics */,
 				A6D723AE1D26978100B21072 /* CBStates+CustomStringConvertible */,
 				A6A4C1841D25C88000A7304A /* CBCharacteristic+Description */,
 				A6A4C1881D25C88000A7304A /* CBService+Description */,
@@ -856,13 +866,24 @@
 				A6D723AF1D26978100B21072 /* CBCentralManagerState+StringConvertible.swift */,
 				A6D723B01D26978100B21072 /* CBPeripheralManagerState+StringConvertible.swift */,
 				A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */,
+				A6D338951D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift */,
+				A6D338971D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift */,
 			);
 			path = "CBStates+CustomStringConvertible";
+			sourceTree = "<group>";
+		};
+		A6D723BE1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics */ = {
+			isa = PBXGroup;
+			children = (
+				A6D723BF1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift */,
+			);
+			path = "BTPeripheralAPIProtocol+FindCharacretistics";
 			sourceTree = "<group>";
 		};
 		E43AF815E0FE5484231DBF1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A6D723C11D26F4DA00B21072 /* CoreBluetooth.framework */,
 				94E7EE42DD2B92243AC17F03 /* Pods_BLE_Central_OSX.framework */,
 				FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */,
 			);
@@ -1118,6 +1139,7 @@
 				A6913E231C9FFC7100316658 /* AppDelegate.swift in Sources */,
 				A6A4C20A1D25C88100A7304A /* BTPeripheralConnectedCondition.swift in Sources */,
 				A6A4C21D1D25C88100A7304A /* BTReadCharacteristicSignalProvider.swift in Sources */,
+				A6D723C01D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift in Sources */,
 				A6A4C2071D25C88100A7304A /* BTCentralManagerScanningOperation.swift in Sources */,
 				A6A4C2051D25C88100A7304A /* BTCentralManagerConnectingOperation.swift in Sources */,
 				A6A4C1EF1D25C88100A7304A /* BTTypes.swift in Sources */,
@@ -1163,7 +1185,9 @@
 				A6A4C2211D25C88100A7304A /* BTPeripheralUpdating.swift in Sources */,
 				A6D723B41D26978100B21072 /* CBPeripheralState+StringConvertible.swift in Sources */,
 				A6A4C1FF1D25C88100A7304A /* BTPeripheralManagerLoggingHandler.swift in Sources */,
+				A6D338981D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift in Sources */,
 				A6A4C2121D25C88100A7304A /* BTServiceNotAddedCondition.swift in Sources */,
+				A6D338961D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift in Sources */,
 				A6A4C22F1D25C88100A7304A /* BTPeripheralManagerAPIProtocol.swift in Sources */,
 				A6A4C2171D25C88100A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift in Sources */,
 				A6A4C2161D25C88100A7304A /* BTPeripheralRolePerformer.swift in Sources */,

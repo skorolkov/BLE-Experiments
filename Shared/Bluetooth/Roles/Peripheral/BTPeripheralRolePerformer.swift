@@ -57,18 +57,14 @@ class BTPeripheralRolePerformer: NSObject {
     convenience override init() {
         
         let characteristics = [
-            BTPermissionsCharacteristic(UUIDString: "2A4D",
-                properties: [.WriteWithoutResponse, .Write],
-                permissions: .Writeable,
-                value: nil),
-            BTPermissionsCharacteristic(UUIDString: "2AAF",
-                properties: .Notify,
-                permissions: .Readable,
+            BTPermissionsCharacteristic(UUIDString: "295CEA7E-78E8-4B4E-9870-6F30CED85075",
+                properties: [.Read, .Notify],
+                permissions: [.Readable, .Writeable],
                 value: nil)
         ]
         
-        let mainService = BTPrimacyService(UUIDString: "C14D2C0A-401F-B7A9-841F-E2E93B80F631",
-            primary: false,
+        let mainService = BTPrimacyService(UUIDString: "E4268EF0-AF46-4213-8545-DB1DE45A3C10",
+            primary: true,
             permissionCharacteristics: characteristics)
         
         let advertisementData = [

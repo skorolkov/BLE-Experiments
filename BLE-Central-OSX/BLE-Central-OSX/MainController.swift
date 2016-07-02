@@ -12,7 +12,9 @@ import ReactiveCocoa
 
 class MainController: NSViewController {
     
-    // MARK: Private Properties
+    private let kPeripheralName = "MyAwesomePeripheral"
+    
+    // MARK: IBActions
     @IBOutlet weak var startScanButton: NSButton!
     @IBOutlet weak var stopScanButton: NSButton!
     @IBOutlet weak var connectButton: NSButton!
@@ -20,11 +22,12 @@ class MainController: NSViewController {
     @IBOutlet weak var discoverButton: NSButton!
     @IBOutlet weak var enableNotificationsButton: NSButton!
     
+    // MARK: Private Properties
+    
     private var centralRolePerformer = BTCentralRolePerformer.sharedInstance
     
     private var peripheralDataProvider: BTPeripheralProviding =
         BTCentralRolePerformer.sharedInstance.peripheralDataProvider
-    
     
     private var scanSignalProvider: BTPeripheralScanSignalProvider?  = nil
     private var scanSignalProviderDisposable: Disposable? = nil
@@ -34,6 +37,8 @@ class MainController: NSViewController {
     
     private var characteristicDiscoverySignalProvider: BTPeripheralCharacteristicDiscoverySignalProvider? = nil
     
+    private var setNotifyValueSignalProvider: BTCharacteristicSetNotifyValueSignalProvider? = nil
+
     private var peripheralModels: [BTPeripheral] = []
     
     private var scannedPeripheralModels: [BTPeripheral] {
@@ -91,9 +96,16 @@ private extension MainController {
     @IBAction func startScanningButtonPressed(sender: NSButton) {
         
         scanSignalProvider = centralRolePerformer.scanSignalProvider(
-            withServices: [CBUUID(string: "C14D2C0A-401F-B7A9-841F-E2E93B80F631")],
             options: [CBCentralManagerScanOptionAllowDuplicatesKey : false],
             timeout: 600,
+            validatePeripheralPredicate: {
+                if let name = $0.peripheral.name {
+                    return name == self.kPeripheralName
+                }
+                else {
+                    return true
+                }
+            },
             stopScanningCondition: { discoveryResults -> Bool in
                 discoveryResults.count == 2
         })
@@ -131,7 +143,8 @@ private extension MainController {
     
     @IBAction func connectButtonPressed(sender: NSButton) {
         
-        var indentifierString = scannedPeripheralModels.first?.identifierString
+        var indentifierString = filterPeripheralModels(scannedPeripheralModels,
+                                                       withName: kPeripheralName).first?.identifierString
         
         if indentifierString == nil {
             indentifierString = disconnectedPeripheralModels.first?.identifierString
@@ -157,7 +170,8 @@ private extension MainController {
     
     @IBAction func disconnectButtonPressed(sender: NSButton) {
         
-        guard let indentifierString = connectedPeripheralModels.first?.identifierString else {
+        guard let indentifierString = filterPeripheralModels(connectedPeripheralModels,
+                                                             withName: kPeripheralName).first?.identifierString else {
             return
         }
         
@@ -177,7 +191,8 @@ private extension MainController {
     
     @IBAction func discoverButtonPressed(sender: NSButton) {
         
-        guard let indentifierString = connectedPeripheralModels.first?.identifierString else {
+        guard let indentifierString = filterPeripheralModels(connectedPeripheralModels,
+                                                             withName: kPeripheralName).first?.identifierString else {
             return
         }
         
@@ -199,13 +214,34 @@ private extension MainController {
     }
     
     @IBAction func enableNotificationsButtonPressed(sender: NSButton) {
-        guard let indentifierString = discoveredCharacteristicdPeripheralModels.first?.identifierString else {
+        
+        guard let indentifierString =  filterPeripheralModels(discoveredCharacteristicdPeripheralModels,
+                                                              withName: kPeripheralName).first?.identifierString else {
             return
         }
         
         guard let peripheral = centralRolePerformer.peripheralWithIdentifier(indentifierString) else {
             return
         }
+        
+        guard let characteristic = peripheral.characteristicWithUUIDString(
+            "295CEA7E-78E8-4B4E-9870-6F30CED85075", properties: .Read) else {
+            return
+        }
+        
+        setNotifyValueSignalProvider = centralRolePerformer.notificationsEnabledValueUpdateSignalProvider(
+            true,
+            peripheral: peripheral,
+            characteristic: characteristic)
+        
+        setNotifyValueSignalProvider?.setNotifyValue().producer
+            .observeOn(UIScheduler())
+            .on(next: { peripheral in
+                Log.application.info("characteristic notify value updated: " +
+                    "peripherals id =\(peripheral?.identifierString)" +
+                    "characteristic: \(peripheral?.characteristics)")
+            })
+            .start()
     }
 }
 
@@ -224,6 +260,16 @@ private extension MainController {
             default:
                 return false
             }
+        })
+    }
+    
+    func filterPeripheralModels(peripheralModels: [BTPeripheral], withName name: String) -> [BTPeripheral] {
+        return peripheralModels.filter({
+            if let peripheralName = $0.name {
+                return peripheralName == name
+            }
+            
+            return false
         })
     }
 }

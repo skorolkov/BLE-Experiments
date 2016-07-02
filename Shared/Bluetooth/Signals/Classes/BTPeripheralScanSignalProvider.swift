@@ -59,6 +59,7 @@ class BTPeripheralScanSignalProvider {
                 options: self.options,
                 allowDuplicatePeripheralIds: self.allowDuplicatePeripheralIds,
                 timeout: self.timeout,
+                validatePeripheralPredicate: self.validatePeripheralPredicate,
                 intermediateScanResultBlock: {
                     [weak self] (discoveryResults: [BTPeripheralScanResult]) in
                     
