@@ -15,4 +15,6 @@ import Foundation
     func addHandler(handlerToAdd: BTPeripheralHandlerProtocol)
     
     func removeHandler(handlerToRemove: BTPeripheralHandlerProtocol)
+    
+    func removeAllHandlers()
 }

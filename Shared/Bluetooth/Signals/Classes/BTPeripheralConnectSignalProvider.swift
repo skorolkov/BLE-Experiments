@@ -14,10 +14,10 @@ class BTPeripheralConnectSignalProvider {
     
     // MARK: Privare Properties
     
-    private var centralManager: BTCentralManagerAPIType
-    private var peripheral: BTPeripheralAPIType
-    private var options: [String : AnyObject]? = nil
-    private var centralRolePerformer: BTCentralRolePerforming
+    private let centralManager: BTCentralManagerAPIType
+    private let peripheral: BTPeripheralAPIType
+    private let options: [String : AnyObject]?
+    private let centralRolePerformer: BTCentralRolePerforming
     
     // MARK: Initializers
     

@@ -17,7 +17,7 @@ class BTCharacteristicSetNotifyValueSignalProvider {
     
     private let centralManager: BTCentralManagerAPIType
     private let peripheral: BTPeripheralAPIType
-    private var characterictic: CBCharacteristic
+    private let characterictic: CBCharacteristic
     private let notificationsEnabled: Bool
     private let centralRolePerformer: BTCentralRolePerforming
     

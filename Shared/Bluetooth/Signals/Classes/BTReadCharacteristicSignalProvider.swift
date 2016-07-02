@@ -17,7 +17,7 @@ class BTReadCharacteristicSignalProvider {
     
     private let centralManager: BTCentralManagerAPIType
     private let peripheral: BTPeripheralAPIType
-    private var characterictic: CBCharacteristic
+    private let characterictic: CBCharacteristic
     private let centralRolePerformer: BTCentralRolePerforming
     
     // MARK: Initializers

@@ -31,6 +31,10 @@ class BTHandlersContainer<Handler: NSObjectProtocol>: BTHandlerContainerProtocol
         
         handlers.removeAtIndex(index)
     }
+
+    func removeAllHandlers() {
+        handlers.removeAll()
+    }
     
     private func indexOfHandler(handlerToFind: Handler) -> Int? {
         return handlers.indexOf { (handler: Handler) -> Bool in

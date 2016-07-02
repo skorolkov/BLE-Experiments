@@ -15,15 +15,15 @@ class BTPeripheralScanSignalProvider {
     
     // MARK: Private Properties
 
-    private var centralManager: BTCentralManagerAPIType
-    private var serviceUUIDs: [CBUUID]? = nil
-    private var options: [String : AnyObject]? = nil
-    private var allowDuplicatePeripheralIds: Bool = false
-    private var timeout: NSTimeInterval = 10
-    private var validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil
-    private var stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock
+    private let centralManager: BTCentralManagerAPIType
+    private let serviceUUIDs: [CBUUID]?
+    private let options: [String : AnyObject]?
+    private let allowDuplicatePeripheralIds: Bool
+    private let timeout: NSTimeInterval
+    private let validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate?
+    private let stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock
     
-    private var centralRolePerformer: BTCentralRolePerforming
+    private let centralRolePerformer: BTCentralRolePerforming
     
     private var scanOperation: BTCentralManagerScanningOperation? = nil
     

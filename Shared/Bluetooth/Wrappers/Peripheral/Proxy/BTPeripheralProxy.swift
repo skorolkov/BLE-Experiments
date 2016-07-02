@@ -91,6 +91,10 @@ extension BTPeripheralProxy: BTPeripheralAPIWithHandlerProtocol {
     func removeHandler(handlerToRemove: BTPeripheralHandlerProtocol) {
         handlerContainer.removeHandler(handlerToRemove)
     }
+
+    func removeAllHandlers() {
+        handlerContainer.removeAllHandlers()
+    }
 }
 
 // MARK: CBPeripheralDelegate

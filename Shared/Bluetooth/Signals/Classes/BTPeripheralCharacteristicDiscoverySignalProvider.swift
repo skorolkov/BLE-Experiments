@@ -14,12 +14,12 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
     
     // MARK: Private Properties
     
-    private var centralManager: BTCentralManagerAPIType
-    private var peripheral: BTPeripheralAPIType
-    private var servicePrototypes: [BTService]? = nil
-    private var characteristicPrototypes: [BTCharacteristic]? = nil
+    private let centralManager: BTCentralManagerAPIType
+    private let peripheral: BTPeripheralAPIType
+    private let servicePrototypes: [BTService]?
+    private let characteristicPrototypes: [BTCharacteristic]?
     
-    private var centralRolePerformer: BTCentralRolePerforming
+    private let centralRolePerformer: BTCentralRolePerforming
     
     // MARK: Initializers
     
@@ -30,6 +30,7 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
         self.centralManager = centralManager
         self.peripheral = peripheral
         self.servicePrototypes = servicePrototypes
+        self.characteristicPrototypes = nil
         self.centralRolePerformer = centralRolePerformer
     }
     
@@ -39,6 +40,7 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
          centralRolePerformer: BTCentralRolePerforming) {
         self.centralManager = centralManager
         self.peripheral = peripheral
+        self.servicePrototypes = nil
         self.characteristicPrototypes = characteristicPrototypes
         self.centralRolePerformer = centralRolePerformer
     }

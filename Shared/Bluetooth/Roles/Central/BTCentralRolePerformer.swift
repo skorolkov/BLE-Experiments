@@ -89,29 +89,6 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         }
     }
     
-    func updateModelPeripheral(
-        peripheral: BTPeripheralAPIType,
-        withCharacteristic characteristic: CBCharacteristic) {
-        
-        let modelCharacteristic = BTCharacteristic(coreBluetoothCharacteristic: characteristic)
-        
-        if let index = modelPeripherals.indexOf({ $0.identifierString == peripheral.identifier.UUIDString }) {
-            let previousModelPeripheral = modelPeripherals[index]
-            let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                                                  name: peripheral.name,
-                                                  state: previousModelPeripheral.state,
-                                                  characteristics: [modelCharacteristic])
-            modelPeripherals[index] = newModelPeripheral
-        }
-        else {
-            let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
-                                                  name: peripheral.name,
-                                                  state: .Unknown,
-                                                  characteristics: [modelCharacteristic])
-            modelPeripherals.append(newModelPeripheral)
-        }
-    }
-    
     func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral? {
         guard let index = modelPeripherals.indexOf({ $0.identifierString == identifierString }) else {
             return nil
@@ -129,6 +106,8 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         
         return managedPeripherals[index]
     }
+
+    // MARK: Get Signal Providers
     
     func scanSignalProvider(withServices serviceUUIDs: [CBUUID]? = nil,
                                          options: [String : AnyObject]? = nil,
@@ -245,6 +224,8 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
         updateManagedPeripheral(peripheral)
         let modelPeripheral = BTPeripheral.createWithDisconnectedPeripheral(peripheral, error: error)
         updateModelPeripheral(modelPeripheral)
+        
+        peripheral.removeAllHandlers()
     }
     
     func centralManager(central: BTCentralManagerAPIType,
@@ -302,5 +283,32 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
         updateModelPeripheral(peripheral, withCharacteristic: characteristic)
+    }
+}
+
+// MARK: Supporting Methods
+
+private extension BTCentralRolePerformer {
+    func updateModelPeripheral(
+            peripheral: BTPeripheralAPIType,
+            withCharacteristic characteristic: CBCharacteristic) {
+
+        let modelCharacteristic = BTCharacteristic(coreBluetoothCharacteristic: characteristic)
+
+        if let index = modelPeripherals.indexOf({ $0.identifierString == peripheral.identifier.UUIDString }) {
+            let previousModelPeripheral = modelPeripherals[index]
+            let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
+                                                  name: peripheral.name,
+                                                  state: previousModelPeripheral.state,
+                                                  characteristics: [modelCharacteristic])
+            modelPeripherals[index] = newModelPeripheral
+        }
+        else {
+            let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
+                                                  name: peripheral.name,
+                                                  state: .Unknown,
+                                                  characteristics: [modelCharacteristic])
+            modelPeripherals.append(newModelPeripheral)
+        }
     }
 }

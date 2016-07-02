@@ -17,8 +17,5 @@ protocol BTCentralRolePerforming: class {
 
     func updateModelPeripheral(modelPeripheral: BTPeripheral)
     
-    func updateModelPeripheral(peripheral: BTPeripheralAPIType,
-                               withCharacteristic characteristic: CBCharacteristic)
-    
     func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral?
 }

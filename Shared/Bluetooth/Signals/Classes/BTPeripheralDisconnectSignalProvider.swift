@@ -14,9 +14,9 @@ class BTPeripheralDisconnectSignalProvider {
     
     // MARK: Privare Properties
     
-    private var centralManager: BTCentralManagerAPIType
-    private var peripheral: BTPeripheralAPIType
-    private var centralRolePerformer: BTCentralRolePerforming
+    private let centralManager: BTCentralManagerAPIType
+    private let peripheral: BTPeripheralAPIType
+    private let centralRolePerformer: BTCentralRolePerforming
     
     // MARK: Initializers
     
