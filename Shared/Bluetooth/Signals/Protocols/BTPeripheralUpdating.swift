@@ -6,9 +6,14 @@
 //  Copyright © 2016 Polecat. All rights reserved.
 //
 
+import CoreBluetooth
 import ReactiveCocoa
 import Result
 
 protocol BTPeripheralUpdating {
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> { get set }
+    
+    var centralManagerStateToUpdate: MutableProperty<CBCentralManagerState> { get set }
+    
+    var scanningForPeripheralsToUpdate: MutableProperty<Bool> { get set }
 }

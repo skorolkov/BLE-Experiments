@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import CoreBluetooth
 import ReactiveCocoa
 import Result
 
@@ -17,8 +18,21 @@ class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProv
     var peripherals: AnyProperty<[BTPeripheral]> {
         return AnyProperty(peripheralsToUpdate)
     }
+    
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
-        
+    
+    var centralManagerState: AnyProperty<CBCentralManagerState> {
+        return AnyProperty(centralManagerStateToUpdate)
+    }
+    
+    var centralManagerStateToUpdate: MutableProperty<CBCentralManagerState> = MutableProperty(.Unknown)
+    
+    var isScanningForPeripherals: AnyProperty<Bool> {
+        return AnyProperty(scanningForPeripheralsToUpdate)
+    }
+    
+    var scanningForPeripheralsToUpdate: MutableProperty<Bool> = MutableProperty(false)
+    
     // MARK: Initializers
     
     override init() {

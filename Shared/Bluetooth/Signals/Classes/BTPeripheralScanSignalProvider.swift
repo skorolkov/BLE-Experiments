@@ -83,6 +83,10 @@ class BTPeripheralScanSignalProvider {
                 },
                 stopScanningCondition: self.stopScanningCondition)
             
+            startScanningOperation.addObserver(StartedObserver { [weak self] operation in
+                self?.centralRolePerformer.setScanningForPeripheralsInProgress(true)
+                })
+            
             startScanningOperation.addObserver(DidFinishObserver { [weak self] (operation, errors) in
                 
                 guard let strongSelf = self else {
@@ -103,6 +107,7 @@ class BTPeripheralScanSignalProvider {
                     if timeoutErrorIndex == nil {
                         let error = BTOperationError(code: .OperationFailed(errors: errors))
                         Log.bluetooth.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
+                        strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                         observer.sendFailed(error)
                         return
                     }
@@ -111,6 +116,7 @@ class BTPeripheralScanSignalProvider {
                 guard let scanningOperation = operation as? BTCentralManagerScanningOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
+                    strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                     observer.sendFailed(error)
                     return
                 }
@@ -132,6 +138,7 @@ class BTPeripheralScanSignalProvider {
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
                 }
                 
+                strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                 observer.sendNext(modelPeripherals)
                 observer.sendCompleted()
                 })
@@ -149,6 +156,7 @@ class BTPeripheralScanSignalProvider {
     func stopScan() {
         if let op = scanOperation where !op.finished {
             op.cancel()
+            scanOperation = nil
         }
     }
 }

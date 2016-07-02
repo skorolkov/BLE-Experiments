@@ -34,6 +34,11 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
             peripheralNotifier.peripheralsToUpdate.value = modelPeripherals
         }
     }
+    private var scanningForPeripherals: Bool = false {
+        didSet {
+            peripheralNotifier.scanningForPeripheralsToUpdate.value = scanningForPeripherals
+        }
+    }
     
     // MARK: Operations
     
@@ -95,6 +100,10 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         }
         
         return modelPeripherals[index]
+    }
+    
+    func setScanningForPeripheralsInProgress(scanningInProgress: Bool) {
+        self.scanningForPeripherals = scanningInProgress
     }
     
     // MARK: Get Peripheral
@@ -205,6 +214,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
 extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
+        peripheralNotifier.centralManagerStateToUpdate.value = central.state
     }
     
     func centralManager(central: BTCentralManagerAPIType,
