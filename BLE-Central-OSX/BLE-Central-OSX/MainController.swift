@@ -87,6 +87,24 @@ class MainController: NSViewController {
                 self.discoverButton.enabled = (self.connectedPeripheralModels.count > 0)
             })
             .start()
+        
+        peripheralDataProvider.centralManagerState
+        .producer
+        .observeOn(UIScheduler())
+        .on(next: { state in
+            Log.application.info("central manager state updated: \(state)")
+
+        })
+        .start()
+        
+        peripheralDataProvider.isScanningForPeripherals
+            .producer
+            .observeOn(UIScheduler())
+            .on(next: { isScanning in
+                Log.application.info("central scanning state: \(isScanning)")
+                
+            })
+            .start()
     }
 }
 
