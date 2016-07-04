@@ -76,6 +76,10 @@ import CoreBluetooth
     func removeHandler(handlerToRemove: BTPeripheralHandlerProtocol) {
         handlerContainer.removeHandler(handlerToRemove)
     }
+    
+    func removeAllHandlers() {
+        handlerContainer.removeAllHandlers()
+    }
 }
 
 private class BTStubCBPeriheral: CBPeripheral {

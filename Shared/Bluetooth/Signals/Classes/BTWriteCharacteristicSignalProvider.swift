@@ -60,7 +60,7 @@ class BTWriteCharacteristicSignalProvider {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTWriteCharacteristicSignalProvider: " +
                         "failed to write value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
                         "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
@@ -70,7 +70,7 @@ class BTWriteCharacteristicSignalProvider {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTWriteCharacteristicSignalProvider: " +
                         "failed to write value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
                         "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return

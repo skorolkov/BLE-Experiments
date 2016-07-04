@@ -23,23 +23,10 @@ class BTPeripheralCharacteristicDiscoveryOperation: BTPeripheralOperation {
     
     init(centralManager: BTCentralManagerAPIType,
          peripheral: BTPeripheralAPIType,
-         servicePrototypes: [BTService] = []) {
+         servicePrototypes: [BTServicePrototype] = []) {
         
         self.core = BTCharacteristicDiscoveryCore(servicePrototypes: servicePrototypes)
         
-        super.init(centralManager: centralManager,
-                   peripheral: peripheral)
-        
-        addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
-        addCondition(BTPeripheralConnectedCondition(peripheral: peripheral))
-    }
-    
-    init(centralManager: BTCentralManagerAPIType,
-         peripheral: BTPeripheralAPIType,
-         characteristicPrototypes: [BTCharacteristic] = []) {
-        
-        self.core = BTCharacteristicDiscoveryCore(characteristicPrototypes: characteristicPrototypes)
-
         super.init(centralManager: centralManager,
                    peripheral: peripheral)
         

@@ -52,8 +52,8 @@ class BTReadCharacteristicSignalProvider {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTReadCharacteristicSignalProvider: " +
                         "failed to read value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
-                        "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
+                        "for characteristic id=\(strongSelf.characterictic.UUID.UUIDString) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -62,7 +62,7 @@ class BTReadCharacteristicSignalProvider {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTReadCharacteristicSignalProvider: " +
                         "failed to read value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
                         "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return

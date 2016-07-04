@@ -16,8 +16,7 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
     
     private let centralManager: BTCentralManagerAPIType
     private let peripheral: BTPeripheralAPIType
-    private let servicePrototypes: [BTService]?
-    private let characteristicPrototypes: [BTCharacteristic]?
+    private let servicePrototypes: [BTServicePrototype]
     
     private let centralRolePerformer: BTCentralRolePerforming
     
@@ -25,23 +24,11 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
     
     init(centralManager: BTCentralManagerAPIType,
          peripheral: BTPeripheralAPIType,
-         servicePrototypes: [BTService],
+         servicePrototypes: [BTServicePrototype],
          centralRolePerformer: BTCentralRolePerforming) {
         self.centralManager = centralManager
         self.peripheral = peripheral
         self.servicePrototypes = servicePrototypes
-        self.characteristicPrototypes = nil
-        self.centralRolePerformer = centralRolePerformer
-    }
-    
-    init(centralManager: BTCentralManagerAPIType,
-         peripheral: BTPeripheralAPIType,
-         characteristicPrototypes: [BTCharacteristic],
-         centralRolePerformer: BTCentralRolePerforming) {
-        self.centralManager = centralManager
-        self.peripheral = peripheral
-        self.servicePrototypes = nil
-        self.characteristicPrototypes = characteristicPrototypes
         self.centralRolePerformer = centralRolePerformer
     }
     
@@ -51,20 +38,10 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
         
         return SignalProducer { observer, disposable in
             
-            var discoverOperation: BTPeripheralCharacteristicDiscoveryOperation
-            
-            if let servicePrototypes = self.servicePrototypes {
-                discoverOperation = BTPeripheralCharacteristicDiscoveryOperation(
-                    centralManager: self.centralManager,
-                    peripheral: self.peripheral,
-                    servicePrototypes: servicePrototypes)
-            }
-            else {
-                discoverOperation = BTPeripheralCharacteristicDiscoveryOperation(
-                    centralManager: self.centralManager,
-                    peripheral: self.peripheral,
-                    characteristicPrototypes: self.characteristicPrototypes ?? [])
-            }
+            let discoverOperation = BTPeripheralCharacteristicDiscoveryOperation(
+                centralManager: self.centralManager,
+                peripheral: self.peripheral,
+                servicePrototypes: self.servicePrototypes)
             
             discoverOperation.addObserver(DidFinishObserver { [weak self] (operation, errors) in
                 
@@ -76,7 +53,7 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: " +
                         "failed to discover characteristic for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -85,13 +62,13 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: " +
                         "failed to discover characteristic for peripheral " +
-                            "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                            "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
                 Log.bluetooth.info("BTPeripheralCharacteristicDiscoverySignalProvider: " +
-                    "discover characteristic completed for peripheral with id=\(strongSelf.peripheral.identifier)")
+                    "discover characteristic completed for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString)")
                 Log.bluetooth.verbose("BTPeripheralCharacteristicDiscoverySignalProvider: " +
                     "discovered services: \(discoverOperation.updatedPeripheral?.services)")
                 

@@ -154,21 +154,11 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     
     func discoverCharacteristicsSignalProviderWithPeripheral(
         peripheral: BTPeripheralAPIType,
-        servicePrototypes: [BTService]) -> BTPeripheralCharacteristicDiscoverySignalProvider {
+        servicePrototypes: [BTServicePrototype]) -> BTPeripheralCharacteristicDiscoverySignalProvider {
         return BTPeripheralCharacteristicDiscoverySignalProvider(
             centralManager: centralManager,
             peripheral: peripheral,
             servicePrototypes: servicePrototypes,
-            centralRolePerformer: self)
-    }
-    
-    func discoverCharacteristicsSignalProviderWithPeripheral(
-        peripheral: BTPeripheralAPIType,
-        characteristicPrototypes: [BTCharacteristic]) -> BTPeripheralCharacteristicDiscoverySignalProvider {
-        return BTPeripheralCharacteristicDiscoverySignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            characteristicPrototypes: characteristicPrototypes,
             centralRolePerformer: self)
     }
     

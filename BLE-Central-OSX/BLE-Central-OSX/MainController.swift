@@ -13,6 +13,8 @@ import ReactiveCocoa
 class MainController: NSViewController {
     
     private let kPeripheralName = "MyAwesomePeripheral"
+    private let kServiceUUIDString = "E4268EF0-AF46-4213-8545-DB1DE45A3C10"
+    private let kCharactericticUUIDString = "295CEA7E-78E8-4B4E-9870-6F30CED85075"
     
     // MARK: IBActions
     @IBOutlet weak var startScanButton: NSButton!
@@ -218,10 +220,16 @@ private extension MainController {
             return
         }
         
+        let characteristicPrototypes = BTCharacteristicPrototype(
+            UUID: CBUUID(string: kCharactericticUUIDString))
+        
+        let servicePrototypes = BTServicePrototype(
+            UUID: CBUUID(string: kServiceUUIDString),
+            characteristicPrototypes: [characteristicPrototypes])
+        
         characteristicDiscoverySignalProvider = centralRolePerformer.discoverCharacteristicsSignalProviderWithPeripheral(
             peripheral,
-            servicePrototypes: [])
-        
+            servicePrototypes: [servicePrototypes])
         
         characteristicDiscoverySignalProvider?.discover().producer
             .observeOn(UIScheduler())
@@ -243,7 +251,7 @@ private extension MainController {
         }
         
         guard let characteristic = peripheral.characteristicWithUUIDString(
-            "295CEA7E-78E8-4B4E-9870-6F30CED85075", properties: .Read) else {
+            kCharactericticUUIDString, properties: .Read) else {
             return
         }
         

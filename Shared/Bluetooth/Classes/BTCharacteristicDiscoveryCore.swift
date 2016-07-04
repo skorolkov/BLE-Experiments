@@ -58,26 +58,14 @@ class BTCharacteristicDiscoveryCore {
     
     // MARK: Private Properties
     
-    private var servicePrototypes: [BTService]
-    private var characteristicPrototypes: [BTCharacteristic]
+    private var servicePrototypes: [BTServicePrototype]
     
     private var serviceDiscoveries: [BTServiceCharacteristicDiscovery] = []
     
     // MARK: Initializers
     
-    init(servicePrototypes: [BTService] = []) {
+    init(servicePrototypes: [BTServicePrototype] = []) {
         self.servicePrototypes = servicePrototypes
-        
-        var characteristics: [BTCharacteristic] = []
-        
-        servicePrototypes.forEach { characteristics.appendContentsOf($0.characteristics) }
-        
-        self.characteristicPrototypes = characteristics
-    }
-    
-    init(characteristicPrototypes: [BTCharacteristic] = []) {
-        self.servicePrototypes = []
-        self.characteristicPrototypes = characteristicPrototypes
     }
     
     // MARK: Internal API
@@ -98,13 +86,16 @@ class BTCharacteristicDiscoveryCore {
         else {
             
             itemsToDiscover = servicePrototypes.flatMap {
-                (prototype: BTService) -> (CBService, [CBUUID]?)? in
+                (prototype: BTServicePrototype) -> (CBService, [CBUUID]?)? in
                 
                 guard let index = services.indexOf({ (s: CBService) in return s.UUID.isEqual(prototype.UUID) }) else {
                     return nil
                 }
                 
-                return (services[index], prototype.characteristics.map({ $0.UUID }) )
+                let characteristicUUIDS: [CBUUID]? = prototype.characteristicPrototypes.isEmpty ? nil :
+                    prototype.characteristicPrototypes.map({ $0.UUID })
+                
+                return (services[index], characteristicUUIDS)
             }
         }
         

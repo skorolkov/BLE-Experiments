@@ -55,7 +55,7 @@ class BTCharacteristicSetNotifyValueSignalProvider {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: " +
                         "failed to set notify value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
                         "for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
@@ -65,7 +65,7 @@ class BTCharacteristicSetNotifyValueSignalProvider {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: " +
                         "failed to set notify value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), " +
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
                         "for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return

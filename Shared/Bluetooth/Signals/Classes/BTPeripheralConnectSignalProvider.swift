@@ -50,7 +50,7 @@ class BTPeripheralConnectSignalProvider {
                 if operation.finished && errors.count > 0 {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTPeripheralConnectSignalProvider: failed connect to peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -58,7 +58,7 @@ class BTPeripheralConnectSignalProvider {
                 guard let connectOperation = operation as? BTCentralManagerConnectingOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTPeripheralConnectSignalProvider: failed connect to peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }

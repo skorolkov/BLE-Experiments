@@ -46,7 +46,7 @@ class BTPeripheralDisconnectSignalProvider {
                 guard let disconnectOperation = operation as? BTCentralManagerDisconnectingOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
                     Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -60,7 +60,7 @@ class BTPeripheralDisconnectSignalProvider {
                 if errors.count > 0 && disconnectError == nil  {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
                     Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier), error: \(error)")
+                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }

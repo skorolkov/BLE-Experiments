@@ -102,6 +102,8 @@
 		A6D723B41D26978100B21072 /* CBPeripheralState+StringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */; };
 		A6D723C01D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6D723BF1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift */; };
 		A6D723C21D26F4DA00B21072 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6D723C11D26F4DA00B21072 /* CoreBluetooth.framework */; };
+		A6F470D51D298FA8000C5C44 /* BTPrototypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F470D41D298FA8000C5C44 /* BTPrototypes.swift */; };
+		A6F470DC1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F470DB1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift */; };
 		A8FA98826C2CB32006B9DA5E /* Pods_BLE_Central_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -219,6 +221,8 @@
 		A6D723B11D26978100B21072 /* CBPeripheralState+StringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CBPeripheralState+StringConvertible.swift"; sourceTree = "<group>"; };
 		A6D723BF1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTPeripheralAPIProtocol+FindCharacretistics.swift"; sourceTree = "<group>"; };
 		A6D723C11D26F4DA00B21072 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		A6F470D41D298FA8000C5C44 /* BTPrototypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPrototypes.swift; sourceTree = "<group>"; };
+		A6F470DB1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTPeripheralProxy+Description.swift"; sourceTree = "<group>"; };
 		B7D411D08D5980F5D7C8747B /* Pods-BLE-Central-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSX.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX.debug.xcconfig"; sourceTree = "<group>"; };
 		FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Central_OSXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -477,6 +481,7 @@
 				A6A4C17F1D25C88000A7304A /* BTCharacteristicDiscoveryCore.swift */,
 				A6A4C1801D25C88000A7304A /* BTPeripheral.swift */,
 				A6A4C1811D25C88000A7304A /* BTTypes.swift */,
+				A6F470D41D298FA8000C5C44 /* BTPrototypes.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -484,6 +489,7 @@
 		A6A4C1821D25C88000A7304A /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				A6F470DA1D29A3E8000C5C44 /* BTPeripheralProxy+Description */,
 				A6D723BE1D26998D00B21072 /* BTPeripheralAPIProtocol+FindCharacretistics */,
 				A6D723AE1D26978100B21072 /* CBStates+CustomStringConvertible */,
 				A6A4C1841D25C88000A7304A /* CBCharacteristic+Description */,
@@ -880,6 +886,14 @@
 			path = "BTPeripheralAPIProtocol+FindCharacretistics";
 			sourceTree = "<group>";
 		};
+		A6F470DA1D29A3E8000C5C44 /* BTPeripheralProxy+Description */ = {
+			isa = PBXGroup;
+			children = (
+				A6F470DB1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift */,
+			);
+			path = "BTPeripheralProxy+Description";
+			sourceTree = "<group>";
+		};
 		E43AF815E0FE5484231DBF1D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1147,6 +1161,7 @@
 				A62480B91D226FA10079AEB8 /* OperationQueueAPI.swift in Sources */,
 				A6A4C1FB1D25C88100A7304A /* BTPeripheralBlockHandler.swift in Sources */,
 				A62480BE1D226FBB0079AEB8 /* Log.swift in Sources */,
+				A6F470DC1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift in Sources */,
 				A6A4C2101D25C88100A7304A /* BTPeripheralManagerPoweredOnCondition.swift in Sources */,
 				A6A4C22C1D25C88100A7304A /* PeriphralFullAPIProtocol.swift in Sources */,
 				A6A4C20D1D25C88100A7304A /* BTPeripheralSetNotifyValueOperation.swift in Sources */,
@@ -1187,6 +1202,7 @@
 				A6A4C1FF1D25C88100A7304A /* BTPeripheralManagerLoggingHandler.swift in Sources */,
 				A6D338981D282CEB0038C603 /* CBAttributePermissions+StringConvertible.swift in Sources */,
 				A6A4C2121D25C88100A7304A /* BTServiceNotAddedCondition.swift in Sources */,
+				A6F470D51D298FA8000C5C44 /* BTPrototypes.swift in Sources */,
 				A6D338961D28228F0038C603 /* CBCharacteristicProperties+StringConvertible.swift in Sources */,
 				A6A4C22F1D25C88100A7304A /* BTPeripheralManagerAPIProtocol.swift in Sources */,
 				A6A4C2171D25C88100A7304A /* BTCharacteristicSetNotifyValueSignalProvider.swift in Sources */,
