@@ -13,7 +13,9 @@ enum BTPeripheralState {
     case Unknown
     case Disconnected(error: NSError?)
     case Scanned(advertisementData: [String : AnyObject], RSSI: NSNumber)
+    case Retrieved
     case Connected
+    case RetrieveConnected
     case CharacteristicDiscovered
 }
 
@@ -22,7 +24,9 @@ extension BTPeripheralState: Equatable {}
 func ==(left: BTPeripheralState, right: BTPeripheralState) -> Bool {
     switch (left, right) {
     case (.Unknown, .Unknown),
+         (.Retrieved, .Retrieved),
          (.Connected, .Connected),
+         (.RetrieveConnected, .RetrieveConnected),
          (.CharacteristicDiscovered, .CharacteristicDiscovered):
         return true
     case (.Disconnected(let l_error), .Disconnected(let r_error)):
@@ -78,8 +82,16 @@ extension BTPeripheral {
             state: .Scanned(advertisementData: discoveryResult.advertisementData, RSSI: discoveryResult.RSSI))
     }
     
+    static func createWithRetrievedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
+        return BTPeripheral(peripheral: peripheral, state: .Retrieved)
+    }
+
     static func createWithConnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
         return BTPeripheral(peripheral: peripheral, state: .Connected)
+    }
+    
+    static func createWithRetrieveConnectedPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {
+        return BTPeripheral(peripheral: peripheral, state: .RetrieveConnected)
     }
     
     static func createWithDiscoveredPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheral {

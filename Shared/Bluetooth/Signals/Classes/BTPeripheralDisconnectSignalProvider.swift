@@ -30,7 +30,7 @@ class BTPeripheralDisconnectSignalProvider {
     
     // MARK: Internal Methods
     
-    func disconnect() -> SignalProducer<[BTPeripheral], BTError> {
+    func disconnect() -> SignalProducer<BTPeripheral?, BTError> {
         
         return SignalProducer { observer, disposable in
             let disconnectOperation = BTCentralManagerDisconnectingOperation(
@@ -75,10 +75,10 @@ class BTPeripheralDisconnectSignalProvider {
                         error: disconnectError)
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
                     
-                    observer.sendNext([modelPeripheral])
+                    observer.sendNext(modelPeripheral)
                 }
                 else {
-                    observer.sendNext([])
+                    observer.sendNext(nil)
                 }
                 
                 observer.sendCompleted()

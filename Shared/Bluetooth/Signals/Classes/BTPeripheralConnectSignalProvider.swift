@@ -33,7 +33,7 @@ class BTPeripheralConnectSignalProvider {
     
     // MARK: Internal Methods
     
-    func connect() -> SignalProducer<[BTPeripheral], BTError> {
+    func connect() -> SignalProducer<BTPeripheral?, BTError> {
         
         return SignalProducer { observer, disposable in
             let connectOperation = BTCentralManagerConnectingOperation(
@@ -71,10 +71,10 @@ class BTPeripheralConnectSignalProvider {
                     let modelPeripheral = BTPeripheral.createWithConnectedPeripheral(connectedPeripheral)
                     strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
 
-                    observer.sendNext([modelPeripheral])
+                    observer.sendNext(modelPeripheral)
                 }
                 else {
-                    observer.sendNext([])
+                    observer.sendNext(nil)
                 }
 
                 observer.sendCompleted()

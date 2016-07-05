@@ -146,12 +146,26 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
             centralRolePerformer: self)
     }
     
+    func retrievePeripheralWithUUIDs(periphralUUIDs: [NSUUID]) -> BTRetrievePeripheralSignalProvider {
+        return BTRetrievePeripheralSignalProvider(
+            centralManager: self.centralManager,
+            periphralUUIDs: periphralUUIDs,
+            centralRolePerformer: self)
+    }
+    
     func connectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType,
                                              options: [String : AnyObject]? = nil) -> BTPeripheralConnectSignalProvider {
         return BTPeripheralConnectSignalProvider(
             centralManager: centralManager,
             peripheral: peripheral,
             options: options,
+            centralRolePerformer: self)
+    }
+    
+    func retrieveConnectedPeripheralWithServiceUUIDs(serviceUUIDs: [CBUUID]) -> BTRetrieveConnectedPeripheralSignalProvider {
+        return BTRetrieveConnectedPeripheralSignalProvider(
+            centralManager: self.centralManager,
+            serviceUUIDs: serviceUUIDs,
             centralRolePerformer: self)
     }
     
