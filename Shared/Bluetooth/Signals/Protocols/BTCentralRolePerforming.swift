@@ -19,5 +19,7 @@ protocol BTCentralRolePerforming: class {
     
     func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral?
     
+    func removeNotUsedModelPeripherals()
+    
     func setScanningForPeripheralsInProgress(scanningInProgress: Bool)
 }

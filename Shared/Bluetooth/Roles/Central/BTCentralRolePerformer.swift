@@ -102,6 +102,14 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         return modelPeripherals[index]
     }
     
+    func removeNotUsedModelPeripherals() {
+        let usedModelPeripherals = modelPeripherals.filter {
+            $0.state == .Connected || $0.state == .CharacteristicDiscovered
+        }
+        
+        modelPeripherals = usedModelPeripherals
+    }
+    
     func setScanningForPeripheralsInProgress(scanningInProgress: Bool) {
         self.scanningForPeripherals = scanningInProgress
     }
@@ -121,6 +129,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     func scanSignalProvider(withServices serviceUUIDs: [CBUUID]? = nil,
                                          options: [String : AnyObject]? = nil,
                                          allowDuplicatePeripheralIds: Bool = false,
+                                         cleanNotUsedPeripherals: Bool = true,
                                          timeout: NSTimeInterval = 10,
                                          validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
                                          stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock) -> BTPeripheralScanSignalProvider {
@@ -130,6 +139,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
             serviceUUIDs: serviceUUIDs,
             options: options,
             allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
+            cleanNotUsedPeripherals: cleanNotUsedPeripherals,
             timeout: timeout,
             validatePeripheralPredicate: validatePeripheralPredicate,
             stopScanningCondition: stopScanningCondition,

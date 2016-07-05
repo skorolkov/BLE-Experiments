@@ -19,6 +19,7 @@ class BTPeripheralScanSignalProvider {
     private let serviceUUIDs: [CBUUID]?
     private let options: [String : AnyObject]?
     private let allowDuplicatePeripheralIds: Bool
+    private let cleanNotUsedPeripherals: Bool
     private let timeout: NSTimeInterval
     private let validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate?
     private let stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock
@@ -33,6 +34,7 @@ class BTPeripheralScanSignalProvider {
          serviceUUIDs: [CBUUID]? = nil,
          options: [String : AnyObject]? = nil,
          allowDuplicatePeripheralIds: Bool = false,
+         cleanNotUsedPeripherals: Bool = true,
          timeout: NSTimeInterval = 10,
          validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
          stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock,
@@ -42,6 +44,7 @@ class BTPeripheralScanSignalProvider {
         self.serviceUUIDs = serviceUUIDs
         self.options = options
         self.allowDuplicatePeripheralIds = allowDuplicatePeripheralIds
+        self.cleanNotUsedPeripherals = cleanNotUsedPeripherals
         self.timeout = timeout
         self.validatePeripheralPredicate = validatePeripheralPredicate
         self.stopScanningCondition = stopScanningCondition
@@ -84,7 +87,16 @@ class BTPeripheralScanSignalProvider {
                 stopScanningCondition: self.stopScanningCondition)
             
             startScanningOperation.addObserver(StartedObserver { [weak self] operation in
-                self?.centralRolePerformer.setScanningForPeripheralsInProgress(true)
+                
+                guard let strongSelf = self else {
+                    return
+                }
+                
+                strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(true)
+                
+                if strongSelf.cleanNotUsedPeripherals {
+                    strongSelf.centralRolePerformer.removeNotUsedModelPeripherals()
+                }
                 })
             
             startScanningOperation.addObserver(DidFinishObserver { [weak self] (operation, errors) in
