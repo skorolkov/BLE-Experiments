@@ -23,6 +23,8 @@ class MainController: NSViewController {
     @IBOutlet weak var disconnectButton: NSButton!
     @IBOutlet weak var discoverButton: NSButton!
     @IBOutlet weak var enableNotificationsButton: NSButton!
+    @IBOutlet weak var retrievePeripheralButton: NSButton!
+    @IBOutlet weak var retrieveConnectedPeripheralButton: NSButton!
     
     // MARK: Private Properties
     
@@ -58,6 +60,10 @@ class MainController: NSViewController {
     private var discoveredCharacteristicdPeripheralModels: [BTPeripheral] {
         return filterdPeripheralModelsWithState(.CharacteristicDiscovered)
     }
+    
+    // MARK: Retrieving Properties
+    
+    private var scannedPeriphralUUID: NSUUID? = nil
     
     // MARK: Lifecycle
     
@@ -139,6 +145,8 @@ private extension MainController {
             })
             .on(next: { peripherals in
                 Log.application.info("scanning: found peripherals: \(peripherals)")
+                self.scannedPeriphralUUID = peripherals.first != nil ?
+                    NSUUID(UUIDString: peripherals.first!.identifierString) : nil
             })
             .on(event: { event in
                 switch event {
@@ -266,6 +274,32 @@ private extension MainController {
                 Log.application.info("characteristic notify value updated: " +
                     "peripherals id =\(peripheral?.identifierString)" +
                     "characteristic: \(peripheral?.characteristics)")
+            })
+            .start()
+    }
+    
+    @IBAction func retrievePeripheralButtonPressed(sender: NSButton) {
+        
+        let peripheralUUIDs = scannedPeriphralUUID != nil ? [scannedPeriphralUUID!] : []
+        
+        self.centralRolePerformer.retrievePeripheralWithUUIDs(peripheralUUIDs).retrieve()
+            .producer
+            .observeOn(UIScheduler())
+            .on(next: { peripherals in
+                Log.application.info("retrieved peripherals: \(peripherals)")
+            })
+            .start()
+    }
+    
+    @IBAction func retrieveConnectedPeripheralButtonPressed(sender: NSButton) {
+        let serviceUUID = CBUUID(string: kServiceUUIDString)
+        
+        self.centralRolePerformer.retrieveConnectedPeripheralWithServiceUUIDs([serviceUUID])
+            .retrieveСonnected()
+            .producer
+            .observeOn(UIScheduler())
+            .on(next: { peripherals in
+                Log.application.info("retrieved connected peripherals: \(peripherals)")
             })
             .start()
     }

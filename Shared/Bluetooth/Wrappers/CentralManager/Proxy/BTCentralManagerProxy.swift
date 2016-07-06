@@ -18,13 +18,16 @@ import CoreBluetooth
     // MARK: Private Properties
     
     private var centralManager: BTCentralManagerInitializibleType
+    private weak var peripheralWrapper: BTCentralManagerPeripheralWrappingProtocol?
     
     private var handlersContainer = BTHandlersContainer<BTCentralManagerHandlerProtocol>()
     
     // MARK: Initializers
     
-    init(centralManager: BTCentralManagerInitializibleType) {
+    init(centralManager: BTCentralManagerInitializibleType,
+         peripheralWrapper: BTCentralManagerPeripheralWrappingProtocol) {
         self.centralManager = centralManager
+        self.peripheralWrapper = peripheralWrapper
         super.init()
         
         self.centralManager.delegate = self
@@ -32,11 +35,13 @@ import CoreBluetooth
     
     init<T where T: BTCentralManagerInitializibleType>(
         centralManagerType: T,
+        peripheralWrapper: BTCentralManagerPeripheralWrappingProtocol,
         queue: dispatch_queue_t? = nil,
         centralManagerOptions options: [String : AnyObject]? = nil) {
             
             self.centralManager = T(delegate: nil, queue: queue, options: options)
-            
+            self.peripheralWrapper = peripheralWrapper
+        
             super.init()
             
             self.centralManager.delegate = self
@@ -170,6 +175,11 @@ private extension BTCentralManagerProxy {
     }
     
     func wrappedPeripheral(peripheral: CBPeripheral) -> BTPeripheralAPIType {
-        return BTPeripheralProxy(peripheral: peripheral)
+        if let wrappedPeripheral = peripheralWrapper?.wrappedPeripheral(peripheral) {
+            return wrappedPeripheral
+        }
+        else {
+            return BTPeripheralProxy(peripheral: peripheral)
+        }
     }
 }

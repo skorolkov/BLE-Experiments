@@ -46,7 +46,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     
     // MARK: Central Manager
     
-    private var centralManager: BTCentralManagerAPIWithHadlerProtocol
+    private var centralManager: BTCentralManagerAPIWithHadlerProtocol!
     
     // MARK: Initializers
     
@@ -60,14 +60,14 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         operationQueue.name = queueName
         operationQueue.underlyingQueue = queue
         
+        super.init()
+        
         let bluetoothCentralManager = CBCentralManager(
             delegate: nil,
             queue: queue,
             options: [CBCentralManagerOptionShowPowerAlertKey : true])
         
-        centralManager = BTCentralManagerProxy(centralManager: bluetoothCentralManager)
-        
-        super.init()
+        centralManager = BTCentralManagerProxy(centralManager: bluetoothCentralManager, peripheralWrapper: self)
         
         centralManager.addHandler(self)
         
@@ -223,6 +223,18 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     }
 }
 
+// MARK: BTCentralManagerPeripheralWrappingProtocol
+
+extension BTCentralRolePerformer: BTCentralManagerPeripheralWrappingProtocol {
+    func wrappedPeripheral(peripheral: CBPeripheral) -> BTPeripheralAPIType? {
+        guard let index = managedPeripherals.indexOf( { $0.identifier.isEqual(peripheral.identifier) } ) else {
+            return nil
+        }
+        
+        return managedPeripherals[index]
+    }
+}
+
 // MARK: BTCentralManagerHandlerProtocol
 
 extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
@@ -239,6 +251,8 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
                         didConnectPeripheral peripheral: BTPeripheralAPIType) {
         peripheral.addHandler(self)
         peripheral.addHandler(BTPeripheralLoggingHandler())
+        
+        updateManagedPeripheral(peripheral)
     }
     
     func centralManager(central: BTCentralManagerAPIType,
@@ -248,8 +262,6 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
         updateManagedPeripheral(peripheral)
         let modelPeripheral = BTPeripheral.createWithDisconnectedPeripheral(peripheral, error: error)
         updateModelPeripheral(modelPeripheral)
-        
-        peripheral.removeAllHandlers()
     }
     
     func centralManager(central: BTCentralManagerAPIType,

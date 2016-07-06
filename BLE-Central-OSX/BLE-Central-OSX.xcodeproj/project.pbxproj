@@ -14,6 +14,7 @@
 		A62481841D22A2FA0079AEB8 /* Config+Logging.swift in Sources */ = {isa = PBXBuildFile; fileRef = A62481831D22A2FA0079AEB8 /* Config+Logging.swift */; };
 		A63C7E591D2C505F00D549ED /* BTRetrievePeripheralSignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63C7E581D2C505F00D549ED /* BTRetrievePeripheralSignalProvider.swift */; };
 		A63C7E5B1D2C594900D549ED /* BTRetrieveConnectedPeripheralSignalProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A63C7E5A1D2C594900D549ED /* BTRetrieveConnectedPeripheralSignalProvider.swift */; };
+		A655A8AE1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A655A8AD1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift */; };
 		A65CC7941D21C342006C6570 /* BTBaseOperationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CC78A1D21C342006C6570 /* BTBaseOperationTestCase.swift */; };
 		A65CC7951D21C342006C6570 /* BTCentralManagerConnectiongOperationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CC78B1D21C342006C6570 /* BTCentralManagerConnectiongOperationTestCase.swift */; };
 		A65CC7961D21C342006C6570 /* BTcentralManagerPoweredOnCondtionTetsCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CC78C1D21C342006C6570 /* BTcentralManagerPoweredOnCondtionTetsCase.swift */; };
@@ -130,6 +131,7 @@
 		A62481831D22A2FA0079AEB8 /* Config+Logging.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Config+Logging.swift"; sourceTree = "<group>"; };
 		A63C7E581D2C505F00D549ED /* BTRetrievePeripheralSignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTRetrievePeripheralSignalProvider.swift; sourceTree = "<group>"; };
 		A63C7E5A1D2C594900D549ED /* BTRetrieveConnectedPeripheralSignalProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTRetrieveConnectedPeripheralSignalProvider.swift; sourceTree = "<group>"; };
+		A655A8AD1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralManagerPeripheralWrappingProtocol.swift; sourceTree = "<group>"; };
 		A65CC78A1D21C342006C6570 /* BTBaseOperationTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTBaseOperationTestCase.swift; sourceTree = "<group>"; };
 		A65CC78B1D21C342006C6570 /* BTCentralManagerConnectiongOperationTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTCentralManagerConnectiongOperationTestCase.swift; sourceTree = "<group>"; };
 		A65CC78C1D21C342006C6570 /* BTcentralManagerPoweredOnCondtionTetsCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTcentralManagerPoweredOnCondtionTetsCase.swift; sourceTree = "<group>"; };
@@ -801,6 +803,7 @@
 		A6A4C1D71D25C88000A7304A /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				A655A8AD1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift */,
 				A6A4C1D81D25C88000A7304A /* BTCentralManagerAPIProtocol.swift */,
 				A6A4C1D91D25C88000A7304A /* BTCentralManagerAPIWithHadlerProtocol.swift */,
 				A6A4C1DA1D25C88000A7304A /* BTCentralManagerInitializibleProtocol.swift */,
@@ -1172,6 +1175,7 @@
 				A6A4C22C1D25C88100A7304A /* PeriphralFullAPIProtocol.swift in Sources */,
 				A63C7E591D2C505F00D549ED /* BTRetrievePeripheralSignalProvider.swift in Sources */,
 				A6A4C20D1D25C88100A7304A /* BTPeripheralSetNotifyValueOperation.swift in Sources */,
+				A655A8AE1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift in Sources */,
 				A6A4C22E1D25C88100A7304A /* BTPeripheralManagerAPIType.swift in Sources */,
 				A6A4C20E1D25C88100A7304A /* BTPeripheralWriteValueOperation.swift in Sources */,
 				A6A4C1F41D25C88100A7304A /* CBService+Description.swift in Sources */,

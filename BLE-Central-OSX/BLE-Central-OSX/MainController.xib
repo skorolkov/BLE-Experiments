@@ -11,6 +11,8 @@
                 <outlet property="disconnectButton" destination="SIF-jR-Amr" id="IlZ-F1-FGK"/>
                 <outlet property="discoverButton" destination="TEK-7v-s2D" id="qq8-pm-JiY"/>
                 <outlet property="enableNotificationsButton" destination="kbr-9b-Sgi" id="Ibh-EI-KqZ"/>
+                <outlet property="retrieveConnectedPeripheralButton" destination="w5q-aI-iuL" id="Z42-Ly-ixg"/>
+                <outlet property="retrievePeripheralButton" destination="JLz-jM-6ui" id="1Qm-sp-FsE"/>
                 <outlet property="startScanButton" destination="phE-tJ-jyZ" id="vQi-6W-rbh"/>
                 <outlet property="stopScanButton" destination="OaJ-eS-TQO" id="g0j-7r-D57"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
@@ -19,11 +21,11 @@
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="480" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="480" height="366"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="phE-tJ-jyZ">
-                    <rect key="frame" x="172" y="224" width="137" height="32"/>
+                    <rect key="frame" x="172" y="318" width="137" height="32"/>
                     <buttonCell key="cell" type="push" title="Start Scannning" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="uha-wK-YXs">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -33,7 +35,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="OaJ-eS-TQO">
-                    <rect key="frame" x="176" y="193" width="128" height="32"/>
+                    <rect key="frame" x="176" y="287" width="128" height="32"/>
                     <buttonCell key="cell" type="push" title="Stop Scanning" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="3p2-G1-Wm0">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -43,7 +45,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="YrU-cG-OUi">
-                    <rect key="frame" x="194" y="162" width="92" height="32"/>
+                    <rect key="frame" x="194" y="256" width="92" height="32"/>
                     <buttonCell key="cell" type="push" title="Connect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="InA-St-bAe">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -53,7 +55,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="SIF-jR-Amr" userLabel="Disconnect Button">
-                    <rect key="frame" x="186" y="131" width="109" height="32"/>
+                    <rect key="frame" x="186" y="225" width="109" height="32"/>
                     <buttonCell key="cell" type="push" title="Disconnect" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GMv-WB-s3A">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -63,7 +65,7 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="TEK-7v-s2D" userLabel="Discover Button">
-                    <rect key="frame" x="146" y="100" width="188" height="32"/>
+                    <rect key="frame" x="146" y="194" width="188" height="32"/>
                     <buttonCell key="cell" type="push" title="Discover Characteristics" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Xs3-gO-Ovx">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
@@ -73,13 +75,33 @@
                     </connections>
                 </button>
                 <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="kbr-9b-Sgi" userLabel="Enable Notifications Button">
-                    <rect key="frame" x="160" y="69" width="161" height="32"/>
+                    <rect key="frame" x="160" y="163" width="161" height="32"/>
                     <buttonCell key="cell" type="push" title="Enable Notifications" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="6XP-Qi-P1J">
                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                     <connections>
                         <action selector="enableNotificationsButtonPressed:" target="-2" id="DPk-IQ-6OC"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="JLz-jM-6ui" userLabel="Retrieve Peripheral Button">
+                    <rect key="frame" x="163" y="132" width="155" height="32"/>
+                    <buttonCell key="cell" type="push" title="Retrieve Peripheral" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="Dsf-wb-4N9">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="retrievePeripheralButtonPressed:" target="-2" id="bfy-n0-Rn9"/>
+                    </connections>
+                </button>
+                <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="w5q-aI-iuL" userLabel="Retrieve Connected Peripheral Button">
+                    <rect key="frame" x="128" y="101" width="225" height="32"/>
+                    <buttonCell key="cell" type="push" title="Retrieve Connected Peripheral" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="DyS-4j-5bg">
+                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                    <connections>
+                        <action selector="retrieveConnectedPeripheralButtonPressed:" target="-2" id="L7b-HT-Eyk"/>
                     </connections>
                 </button>
             </subviews>
@@ -90,13 +112,18 @@
                 <constraint firstItem="SIF-jR-Amr" firstAttribute="top" secondItem="YrU-cG-OUi" secondAttribute="bottom" constant="10" id="Fxo-gK-oNi"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="Gk9-ig-gx9"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="top" secondItem="OaJ-eS-TQO" secondAttribute="bottom" constant="10" id="PMW-Zn-XKO"/>
+                <constraint firstItem="JLz-jM-6ui" firstAttribute="top" secondItem="kbr-9b-Sgi" secondAttribute="bottom" constant="10" id="UHC-Jl-AvV"/>
                 <constraint firstItem="kbr-9b-Sgi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="VpR-EB-are"/>
                 <constraint firstItem="SIF-jR-Amr" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="X2O-ea-XVE"/>
                 <constraint firstItem="OaJ-eS-TQO" firstAttribute="top" secondItem="phE-tJ-jyZ" secondAttribute="bottom" constant="10" id="eCo-9J-p5t"/>
                 <constraint firstItem="YrU-cG-OUi" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="iAa-J2-ZY0"/>
+                <constraint firstItem="w5q-aI-iuL" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="iP9-NR-yVn"/>
                 <constraint firstItem="phE-tJ-jyZ" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="ki2-2T-YzR"/>
+                <constraint firstItem="w5q-aI-iuL" firstAttribute="top" secondItem="JLz-jM-6ui" secondAttribute="bottom" constant="10" id="srO-1s-gmb"/>
+                <constraint firstItem="JLz-jM-6ui" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="weL-dr-pdx"/>
                 <constraint firstItem="TEK-7v-s2D" firstAttribute="centerX" secondItem="Hz6-mo-xeY" secondAttribute="centerX" id="x87-Ad-6fu"/>
             </constraints>
+            <point key="canvasLocation" x="263" y="371"/>
         </customView>
     </objects>
 </document>
