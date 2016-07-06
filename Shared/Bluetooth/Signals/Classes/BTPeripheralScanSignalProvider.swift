@@ -146,9 +146,11 @@ class BTPeripheralScanSignalProvider {
                     BTPeripheral.createWithScanResult($0)
                 }
                 
-                for modelPeripheral in modelPeripherals {
-                    strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
-                }
+                //FIXME: temp fix
+                
+//                for modelPeripheral in modelPeripherals {
+//                    strongSelf.centralRolePerformer.updateModelPeripheral(modelPeripheral)
+//                }
                 
                 strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                 observer.sendNext(modelPeripherals)
