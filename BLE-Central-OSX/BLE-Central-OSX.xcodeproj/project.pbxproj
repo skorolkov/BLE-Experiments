@@ -26,7 +26,6 @@
 		A65CC79C1D21C342006C6570 /* BTStubScanCentralManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65CC7931D21C342006C6570 /* BTStubScanCentralManager.swift */; };
 		A6913E211C9FFC7100316658 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A6913E201C9FFC7100316658 /* Assets.xcassets */; };
 		A6913E231C9FFC7100316658 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6913E221C9FFC7100316658 /* AppDelegate.swift */; };
-		A6913E371C9FFC7100316658 /* CustomLogFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6913E361C9FFC7100316658 /* CustomLogFormatter.swift */; };
 		A6913E391C9FFC7100316658 /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6913E381C9FFC7100316658 /* Config.swift */; };
 		A6913E401C9FFC7100316658 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6913E3E1C9FFC7100316658 /* MainMenu.xib */; };
 		A6A4C1ED1D25C88100A7304A /* BTCharacteristicDiscoveryCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6A4C17F1D25C88000A7304A /* BTCharacteristicDiscoveryCore.swift */; };
@@ -145,7 +144,6 @@
 		A6913E201C9FFC7100316658 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A6913E221C9FFC7100316658 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A6913E341C9FFC7100316658 /* BLE-Central-OSX-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BLE-Central-OSX-Bridging-Header.h"; sourceTree = "<group>"; };
-		A6913E361C9FFC7100316658 /* CustomLogFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomLogFormatter.swift; sourceTree = "<group>"; };
 		A6913E381C9FFC7100316658 /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		A6913E3F1C9FFC7100316658 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		A6913E411C9FFC7100316658 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -414,7 +412,6 @@
 		A6913E2D1C9FFC7100316658 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				A6913E551C9FFC8600316658 /* CustomLogFormatter */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -456,14 +453,6 @@
 				A64E1AC61CB5254900B7F7E4 /* Supporting Files */,
 			);
 			path = "BLE-Central-OSXTests";
-			sourceTree = "<group>";
-		};
-		A6913E551C9FFC8600316658 /* CustomLogFormatter */ = {
-			isa = PBXGroup;
-			children = (
-				A6913E361C9FFC7100316658 /* CustomLogFormatter.swift */,
-			);
-			name = CustomLogFormatter;
 			sourceTree = "<group>";
 		};
 		A6A4C17D1D25C88000A7304A /* Bluetooth */ = {
@@ -1157,7 +1146,6 @@
 				A6A4C2271D25C88100A7304A /* BTCentralManagerInitializibleProtocol.swift in Sources */,
 				A6A4C2301D25C88100A7304A /* BTPeripheralManagerAPIWithHandlerProtocol.swift in Sources */,
 				A6A4C20B1D25C88100A7304A /* BTPeripheralCharacteristicDiscoveryOperation.swift in Sources */,
-				A6913E371C9FFC7100316658 /* CustomLogFormatter.swift in Sources */,
 				A6A4C21B1D25C88100A7304A /* BTPeripheralDisconnectSignalProvider.swift in Sources */,
 				A6913E231C9FFC7100316658 /* AppDelegate.swift in Sources */,
 				A6A4C20A1D25C88100A7304A /* BTPeripheralConnectedCondition.swift in Sources */,

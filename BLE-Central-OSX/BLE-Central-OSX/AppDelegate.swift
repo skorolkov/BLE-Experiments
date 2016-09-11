@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import CocoaLumberjack
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -18,8 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(aNotification: NSNotification) {
         
-        Config.configureLoggingStuff()
         Config.setupLoggers()
+        logApplicationStart()
         
         mainController = MainController(nibName: "MainController", bundle: nil)
         
@@ -44,6 +43,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationWillTerminate(aNotification: NSNotification) {
         // Insert code here to tear down your application
+    }
+}
+
+// MARK: Logging Support
+
+private extension AppDelegate {
+    func logApplicationStart() {
+        Log.application.info("\n\n\n\t\t\t\t\t\t***** Application started *****\n\n\n")
     }
 }
 

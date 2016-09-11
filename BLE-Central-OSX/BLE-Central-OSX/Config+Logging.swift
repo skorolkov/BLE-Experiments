@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import CocoaLumberjack
 import XCGLogger
 
 //MARK: XCGLogger Setup
@@ -20,25 +19,5 @@ extension Config {
         ]
         
         Log.setLogLevel(.Verbose, toLoggers: loggers)
-    }
-}
-
-//MARK: CocoaLumberjack Setup
-extension Config {
-    static let ddLogLevel = { DDLogLevel.Verbose }()
-    
-    static func configureLoggingStuff() {
-        // your log statements will be sent to the Console.app and
-        // the Xcode console (just like a normal NSLog)
-        DDLog.addLogger(DDASLLogger.sharedInstance())
-        DDLog.addLogger(DDTTYLogger.sharedInstance())
-        
-        let formatter = CustomLogFormatter()
-        
-        DDTTYLogger.sharedInstance().logFormatter = formatter
-        
-        defaultDebugLevel = Config.ddLogLevel
-        
-        DDLogInfo("\n\n\n\t\t\t\t\t\t***** Application started *****\n\n\n")
     }
 }

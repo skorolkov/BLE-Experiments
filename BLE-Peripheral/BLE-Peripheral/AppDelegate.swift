@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CocoaLumberjack
 
 #if FLEX_ENABLED
     import FLEX
@@ -21,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         window = UIWindow(frame: UIScreen.mainScreen().bounds)
         
-        Config.configureLoggingStuff()
         Config.setupLoggers()
+        logApplicationStart()
         
         window?.backgroundColor = UIColor.whiteColor()
         window?.makeKeyAndVisible()
@@ -76,4 +75,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     #endif
 }
 
+// MARK: Logging Support
+
+private extension AppDelegate {
+    func logApplicationStart() {
+        
+        Log.application.info("\n\n\n\t\t\t\t\t\t***** Application started *****\n\n\n")
+        
+        let infoString = String(format: "Device:\n\tname = %@\n\tmodel = %@\n\tsystemVersion = %@\n\n",
+                                UIDevice.currentDevice().name,
+                                UIDevice.currentDevice().model,
+                                UIDevice.currentDevice().systemVersion)
+        Log.application.info(infoString)
+    }
+}
 
