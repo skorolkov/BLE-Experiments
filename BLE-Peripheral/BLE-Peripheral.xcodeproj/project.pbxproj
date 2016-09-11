@@ -870,12 +870,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A60F0D691C9C617F0025E3E2 /* Build configuration list for PBXNativeTarget "BLE-Peripheral" */;
 			buildPhases = (
-				F17CA485FB570B2D561B9273 /* 📦 Check Pods Manifest.lock */,
+				F17CA485FB570B2D561B9273 /* [CP] Check Pods Manifest.lock */,
 				A60F0D311C9C617E0025E3E2 /* Sources */,
 				A60F0D321C9C617E0025E3E2 /* Frameworks */,
 				A60F0D331C9C617E0025E3E2 /* Resources */,
-				58F296D75CDE5413EEE2B6CC /* 📦 Embed Pods Frameworks */,
-				AAF95C5859CB03BC85A00C0C /* 📦 Copy Pods Resources */,
+				58F296D75CDE5413EEE2B6CC /* [CP] Embed Pods Frameworks */,
+				AAF95C5859CB03BC85A00C0C /* [CP] Copy Pods Resources */,
 				A62DCCB61CC2DF1F00BB624B /* ShellScript */,
 			);
 			buildRules = (
@@ -891,12 +891,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A60F0D6C1C9C617F0025E3E2 /* Build configuration list for PBXNativeTarget "BLE-PeripheralTests" */;
 			buildPhases = (
-				1BA757302202B629AA37CF01 /* 📦 Check Pods Manifest.lock */,
+				1BA757302202B629AA37CF01 /* [CP] Check Pods Manifest.lock */,
 				A60F0D5C1C9C617E0025E3E2 /* Sources */,
 				A60F0D5D1C9C617E0025E3E2 /* Frameworks */,
 				A60F0D5E1C9C617E0025E3E2 /* Resources */,
-				6094A5B4963780545B5D9B63 /* 📦 Embed Pods Frameworks */,
-				EBC26D458CDBD10FDAC35859 /* 📦 Copy Pods Resources */,
+				6094A5B4963780545B5D9B63 /* [CP] Embed Pods Frameworks */,
+				EBC26D458CDBD10FDAC35859 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -967,14 +967,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1BA757302202B629AA37CF01 /* 📦 Check Pods Manifest.lock */ = {
+		1BA757302202B629AA37CF01 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -982,14 +982,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		58F296D75CDE5413EEE2B6CC /* 📦 Embed Pods Frameworks */ = {
+		58F296D75CDE5413EEE2B6CC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -997,14 +997,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6094A5B4963780545B5D9B63 /* 📦 Embed Pods Frameworks */ = {
+		6094A5B4963780545B5D9B63 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1025,14 +1025,14 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\"/../ \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
-		AAF95C5859CB03BC85A00C0C /* 📦 Copy Pods Resources */ = {
+		AAF95C5859CB03BC85A00C0C /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1040,14 +1040,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		EBC26D458CDBD10FDAC35859 /* 📦 Copy Pods Resources */ = {
+		EBC26D458CDBD10FDAC35859 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1055,14 +1055,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F17CA485FB570B2D561B9273 /* 📦 Check Pods Manifest.lock */ = {
+		F17CA485FB570B2D561B9273 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1316,7 +1316,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "BLE-PeripheralTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.d03.BLE-PeripheralTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BLE-PeripheralTests/BLE-PeripheralTests-Bridging-Header.h";
@@ -1332,7 +1332,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "BLE-PeripheralTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(FRAMEWORK_SEARCH_PATHS)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.d03.BLE-PeripheralTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "BLE-PeripheralTests/BLE-PeripheralTests-Bridging-Header.h";

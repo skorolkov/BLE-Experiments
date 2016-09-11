@@ -920,12 +920,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A6913E4F1C9FFC7100316658 /* Build configuration list for PBXNativeTarget "BLE-Central-OSX" */;
 			buildPhases = (
-				BD372AC17B863C782D150498 /* 📦 Check Pods Manifest.lock */,
+				BD372AC17B863C782D150498 /* [CP] Check Pods Manifest.lock */,
 				A6913E181C9FFC7100316658 /* Sources */,
 				A6913E191C9FFC7100316658 /* Frameworks */,
 				A6913E1A1C9FFC7100316658 /* Resources */,
-				DF3354F89C6345870CFD2096 /* 📦 Embed Pods Frameworks */,
-				5825C26087B9C3BFC5294611 /* 📦 Copy Pods Resources */,
+				DF3354F89C6345870CFD2096 /* [CP] Embed Pods Frameworks */,
+				5825C26087B9C3BFC5294611 /* [CP] Copy Pods Resources */,
 				A62DCCB71CC2DF2C00BB624B /* ShellScript */,
 			);
 			buildRules = (
@@ -941,12 +941,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A6913E521C9FFC7100316658 /* Build configuration list for PBXNativeTarget "BLE-Central-OSXTests" */;
 			buildPhases = (
-				516077335F5A4B4234186E75 /* 📦 Check Pods Manifest.lock */,
+				516077335F5A4B4234186E75 /* [CP] Check Pods Manifest.lock */,
 				A6913E421C9FFC7100316658 /* Sources */,
 				A6913E431C9FFC7100316658 /* Frameworks */,
 				A6913E441C9FFC7100316658 /* Resources */,
-				E4CE1FA1B6BF90FCD88AF89F /* 📦 Embed Pods Frameworks */,
-				6BF10D0DD8D89E4C4AED84DF /* 📦 Copy Pods Resources */,
+				E4CE1FA1B6BF90FCD88AF89F /* [CP] Embed Pods Frameworks */,
+				6BF10D0DD8D89E4C4AED84DF /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1017,14 +1017,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		516077335F5A4B4234186E75 /* 📦 Check Pods Manifest.lock */ = {
+		516077335F5A4B4234186E75 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1032,14 +1032,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		5825C26087B9C3BFC5294611 /* 📦 Copy Pods Resources */ = {
+		5825C26087B9C3BFC5294611 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1047,14 +1047,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		6BF10D0DD8D89E4C4AED84DF /* 📦 Copy Pods Resources */ = {
+		6BF10D0DD8D89E4C4AED84DF /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1075,14 +1075,14 @@
 			shellPath = /bin/sh;
 			shellScript = "TAGS=\"TODO:|FIXME:\"\necho \"searching ${SRCROOT} for ${TAGS}\"\nfind \"${SRCROOT}\"/../ \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
 		};
-		BD372AC17B863C782D150498 /* 📦 Check Pods Manifest.lock */ = {
+		BD372AC17B863C782D150498 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1090,14 +1090,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		DF3354F89C6345870CFD2096 /* 📦 Embed Pods Frameworks */ = {
+		DF3354F89C6345870CFD2096 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1105,14 +1105,14 @@
 			shellScript = "\"${SRCROOT}/../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E4CE1FA1B6BF90FCD88AF89F /* 📦 Embed Pods Frameworks */ = {
+		E4CE1FA1B6BF90FCD88AF89F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
