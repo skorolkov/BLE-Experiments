@@ -133,10 +133,8 @@ class BTPeripheralScanSignalProvider {
                     return
                 }
                 
-                Log.bluetooth.info("BTPeripheralScanSignalProvider: scan completed, " +
-                    "discovered \(scanningOperation.discoveryResults.count) peripherals")
-                Log.bluetooth.verbose("BTPeripheralScanSignalProvider: discovery results: " +
-                    "\(scanningOperation.discoveryResults.count)")
+                Log.bluetooth.info("BTPeripheralScanSignalProvider: scan completed, discovered \(scanningOperation.discoveryResults.count) peripherals")
+                Log.bluetooth.verbose("BTPeripheralScanSignalProvider: discovery results: \(scanningOperation.discoveryResults.count)")
                 
                 for discoveryResult in scanningOperation.discoveryResults {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(discoveryResult.peripheral)

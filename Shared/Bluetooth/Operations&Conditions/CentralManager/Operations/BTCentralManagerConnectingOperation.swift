@@ -56,6 +56,9 @@ extension BTCentralManagerConnectingOperation: BTCentralManagerHandlerProtocol {
     
     func centralManager(central: BTCentralManagerAPIType,
                         didConnectPeripheral peripheral: BTPeripheralAPIType) {
+        guard peripheral.identifier == self.peripheral.identifier else {
+            return
+        }
         
         updatedPeripheral = peripheral
         

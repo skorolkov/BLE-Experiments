@@ -8,35 +8,39 @@
 
 import Foundation
 import CoreBluetooth
-import CocoaLumberjack
+import XCGLogger
 
 class BTPeripheralManagerLoggingHandler: BTPeripheralManagerBlockHandler {
     
-    override init() {
+    //MARK: Private Properties
+    private let logger: XCGLogger
+    
+    init(logger: XCGLogger) {
+        self.logger = logger
         super.init()
         
         self.didUpdateStateBlock = { (peripheral: BTPeripheralManagerAPIType) in
-            DDLogVerbose("PeripheralManager: did update state = \(peripheral.state)")
+            logger.verbose("PeripheralManager: did update state = \(peripheral.state)")
         }
         
         self.didAddServiceBlock = {
             (peripheral: BTPeripheralManagerAPIType, addedService: CBService, error: NSError?) in
-            DDLogVerbose("PeripheralManager: did add service \(addedService) with error = \(error)")
+            logger.verbose("PeripheralManager: did add service \(addedService) with error = \(error)")
         }
         
         self.didStartAdvertisingBlock = {
             (peripheral: BTPeripheralManagerAPIType, error: NSError?) in
-            DDLogVerbose("PeripheralManager: did start advertising with error = \(error)")
+            logger.verbose("PeripheralManager: did start advertising with error = \(error)")
         }
         
         self.didReceiveReadRequestBlock  = {
             (peripheral: BTPeripheralManagerAPIType, receivedReadRequest: CBATTRequest) in
-            DDLogVerbose("PeripheralManager: did receive read request = \(receivedReadRequest)")
+            logger.verbose("PeripheralManager: did receive read request = \(receivedReadRequest)")
         }
         
         self.didReceiveWriteRequestsBlock = {
             (peripheral: BTPeripheralManagerAPIType, receivedWriteRequests: [CBATTRequest]) in
-            DDLogVerbose("PeripheralManager: did receive write requests = \(receivedWriteRequests)")
+            logger.verbose("PeripheralManager: did receive write requests = \(receivedWriteRequests)")
         }
     }
 }

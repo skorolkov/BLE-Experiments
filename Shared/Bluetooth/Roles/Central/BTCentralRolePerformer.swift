@@ -9,7 +9,6 @@
 import Foundation
 import CoreBluetooth
 import Operations
-import CocoaLumberjack
 import ReactiveCocoa
 
 class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
@@ -71,7 +70,7 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         
         centralManager.addHandler(self)
         
-        centralManager.addHandler(BTCentralManagerLoggingHandler())
+        centralManager.addHandler(BTCentralManagerLoggingHandler(logger: Log.bluetooth))
     }
     
     // MARK: Internal Methods
@@ -103,8 +102,13 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     }
     
     func removeNotUsedModelPeripherals() {
-        let usedModelPeripherals = modelPeripherals.filter {
-            $0.state == .Connected || $0.state == .CharacteristicDiscovered
+        let usedModelPeripherals: [BTPeripheral] = modelPeripherals.filter { (peripheral) -> Bool in
+            switch peripheral.state {
+            case .Connected, .CharacteristicDiscovered:
+                return true
+            default:
+                return false
+            }
         }
         
         modelPeripherals = usedModelPeripherals
@@ -250,7 +254,7 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     func centralManager(central: BTCentralManagerAPIType,
                         didConnectPeripheral peripheral: BTPeripheralAPIType) {
         peripheral.addHandler(self)
-        peripheral.addHandler(BTPeripheralLoggingHandler())
+        peripheral.addHandler(BTPeripheralLoggingHandler(logger: Log.bluetooth))
         
         updateManagedPeripheral(peripheral)
     }
@@ -305,7 +309,7 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
     func peripheral(peripheral: BTPeripheralAPIType,
                     didUpdateValueForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
-        updateModelPeripheral(peripheral, withCharacteristic: characteristic)
+        updateModelPeripheral(peripheral, withCharacteristic: characteristic, updateType: .Value)
     }
     
     func peripheral(peripheral: BTPeripheralAPIType,
@@ -318,32 +322,66 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
         peripheral: BTPeripheralAPIType,
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
-        updateModelPeripheral(peripheral, withCharacteristic: characteristic)
+        updateModelPeripheral(peripheral, withCharacteristic: characteristic, updateType: .NotifyState)
     }
 }
 
 // MARK: Supporting Methods
 
 private extension BTCentralRolePerformer {
+    enum ModelCharacteristicUpdateType {
+        case Value
+        case NotifyState
+        
+        func updatedModelCharacteristic(from existingCharacteristic: BTCharacteristic?,
+                                             withNewCharacteristic newCharacteristic: BTCharacteristic) -> BTCharacteristic {
+            let UUID = newCharacteristic.UUID
+            let properties = newCharacteristic.properties
+            var isNotifying: Bool
+            var value: NSData?
+            
+            switch self {
+            case .Value:
+                isNotifying = existingCharacteristic?.isNotifying ?? newCharacteristic.isNotifying
+                value = newCharacteristic.value
+            case .NotifyState:
+                isNotifying = newCharacteristic.isNotifying
+                value = existingCharacteristic?.value
+            }
+            
+            return BTCharacteristic(UUIDString: UUID.UUIDString,
+                                    properties: properties,
+                                    isNotifying: isNotifying,
+                                    value: value)
+        }
+    }
+    
     func updateModelPeripheral(
             peripheral: BTPeripheralAPIType,
-            withCharacteristic characteristic: CBCharacteristic) {
+            withCharacteristic characteristic: CBCharacteristic,
+            updateType: ModelCharacteristicUpdateType) {
 
         let modelCharacteristic = BTCharacteristic(coreBluetoothCharacteristic: characteristic)
-
+        
         if let index = modelPeripherals.indexOf({ $0.identifierString == peripheral.identifier.UUIDString }) {
             let previousModelPeripheral = modelPeripherals[index]
+            let newModelCharacteristic = updateType.updatedModelCharacteristic(
+                from: previousModelPeripheral.characteristics.first,
+                withNewCharacteristic: modelCharacteristic)
             let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
                                                   name: peripheral.name,
                                                   state: previousModelPeripheral.state,
-                                                  characteristics: [modelCharacteristic])
+                                                  characteristics: [newModelCharacteristic])
             modelPeripherals[index] = newModelPeripheral
         }
         else {
+            let newModelCharacteristic = updateType.updatedModelCharacteristic(
+                from: nil,
+                withNewCharacteristic: modelCharacteristic)
             let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
                                                   name: peripheral.name,
                                                   state: .Unknown,
-                                                  characteristics: [modelCharacteristic])
+                                                  characteristics: [newModelCharacteristic])
             modelPeripherals.append(newModelPeripheral)
         }
     }

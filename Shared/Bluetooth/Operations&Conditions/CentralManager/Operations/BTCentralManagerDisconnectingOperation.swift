@@ -55,6 +55,10 @@ extension BTCentralManagerDisconnectingOperation: BTCentralManagerHandlerProtoco
     func centralManager(central: BTCentralManagerAPIType,
                         didDisconnectPeripheral peripheral: BTPeripheralAPIType,
                                                 error: NSError?) {
+        guard peripheral.identifier == self.peripheral.identifier else {
+            return
+        }
+        
         updatedPeripheral = peripheral
         
         let btError: ErrorType? = (error != nil) ?

@@ -23,7 +23,8 @@ class BTPeripheralSetNotifyValueOperation: BTPeripheralOperation {
     init(centralManager: BTCentralManagerAPIType,
          peripheral: BTPeripheralAPIType,
          characterictic: CBCharacteristic,
-         notificationEnabled: Bool) {
+         notificationEnabled: Bool,
+         mutuallyExclusiveCondition: OperationCondition = MutuallyExclusive<BTPeripheralSetNotifyValueOperation>()) {
         
         self.notificationEnabled = notificationEnabled
         self.characterictic = characterictic
@@ -33,6 +34,7 @@ class BTPeripheralSetNotifyValueOperation: BTPeripheralOperation {
         
         addCondition(BTCentralManagerPoweredOnCondition(centralManager: centralManager))
         addCondition(BTPeripheralConnectedCondition(peripheral: peripheral))
+        addCondition(mutuallyExclusiveCondition)
     }
     
     override func execute() {

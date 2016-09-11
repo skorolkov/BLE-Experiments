@@ -53,26 +53,19 @@ class BTCharacteristicSetNotifyValueSignalProvider {
                 
                 if operation.finished && errors.count > 0 {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
-                    Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: " +
-                        "failed to set notify value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
-                        "for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
+                    Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: failed to set notify value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
                 guard let setNotifyOperation = operation as? BTPeripheralSetNotifyValueOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: " +
-                        "failed to set notify value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
-                        "for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
+                    Log.bluetooth.error("BTCharacteristicSetNotifyValueSignalProvider: failed to set notify value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id: \(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
-                Log.bluetooth.info("BTCharacteristicSetNotifyValueSignalProvider: update notify state for characteristic: " +
-                    "\(setNotifyOperation.updatedCharacteristic)")
+                Log.bluetooth.info("BTCharacteristicSetNotifyValueSignalProvider: update notify state for characteristic: \(setNotifyOperation.updatedCharacteristic)")
                 
                 if let updatedCharacteristic = setNotifyOperation.updatedCharacteristic {
                     

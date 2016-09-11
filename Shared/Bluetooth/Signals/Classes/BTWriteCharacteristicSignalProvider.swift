@@ -58,20 +58,14 @@ class BTWriteCharacteristicSignalProvider {
                 
                 if operation.finished && errors.count > 0 {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
-                    Log.bluetooth.error("BTWriteCharacteristicSignalProvider: " +
-                        "failed to write value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
-                        "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
+                    Log.bluetooth.error("BTWriteCharacteristicSignalProvider: failed to write value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
                 guard let writeOperation = operation as? BTPeripheralWriteValueOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTWriteCharacteristicSignalProvider: " +
-                        "failed to write value for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier.UUIDString), " +
-                        "for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
+                    Log.bluetooth.error("BTWriteCharacteristicSignalProvider: failed to write value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -79,8 +73,7 @@ class BTWriteCharacteristicSignalProvider {
                 let characterictic = writeOperation.updatedCharacteristic ?? strongSelf.characterictic
 
                 
-                Log.bluetooth.info("BTWriteCharacteristicSignalProvider: write value=\(strongSelf.valueToWrite)"
-                    + " for characteristic with id=\(characterictic.UUID)")
+                Log.bluetooth.info("BTWriteCharacteristicSignalProvider: write value=\(strongSelf.valueToWrite) for characteristic with id=\(characterictic.UUID)")
                 
                 let previousPeripheralModel = strongSelf.centralRolePerformer.modelPeripheralWithIdentifier(
                     strongSelf.peripheral.identifier.UUIDString)

@@ -51,26 +51,20 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
                 
                 if operation.finished && errors.count > 0 {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
-                    Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: " +
-                        "failed to discover characteristic for peripheral " +
-                        "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
+                    Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: failed to discover characteristic for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
                 guard let discoverOperation = operation as? BTPeripheralCharacteristicDiscoveryOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: " +
-                        "failed to discover characteristic for peripheral " +
-                            "with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
+                    Log.bluetooth.error("BTPeripheralCharacteristicDiscoverySignalProvider: failed to discover characteristic for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
-                Log.bluetooth.info("BTPeripheralCharacteristicDiscoverySignalProvider: " +
-                    "discover characteristic completed for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString)")
-                Log.bluetooth.verbose("BTPeripheralCharacteristicDiscoverySignalProvider: " +
-                    "discovered services: \(discoverOperation.updatedPeripheral?.services)")
+                Log.bluetooth.info("BTPeripheralCharacteristicDiscoverySignalProvider: discover characteristic completed for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString)")
+                Log.bluetooth.verbose("BTPeripheralCharacteristicDiscoverySignalProvider: discovered services: \(discoverOperation.updatedPeripheral?.services)")
                 
                 if let discoveredPeripheral = discoverOperation.updatedPeripheral {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(discoveredPeripheral)

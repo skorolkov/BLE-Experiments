@@ -14,26 +14,43 @@ class BTHandlersContainer<Handler: NSObjectProtocol>: BTHandlerContainerProtocol
     
     private(set) var handlers: [Handler] = []
     
+    // MARK: Private Properies
+    
+    private let accessQueue: dispatch_queue_t
+    
+    // MARK: Initialization
+
+    init() {
+        accessQueue = dispatch_queue_create("BTHandlerContainer SynchronizedAccess",
+                                            DISPATCH_QUEUE_SERIAL)
+    }
+    
     // MARK: BTHandlerContainerProtocol
     
     func addHandler(handlerToAdd: Handler) {
-        guard indexOfHandler(handlerToAdd) == nil else {
-            return
+        dispatch_async(accessQueue) {
+            guard self.indexOfHandler(handlerToAdd) == nil else {
+                return
+            }
+            
+            self.handlers.append(handlerToAdd)
         }
-        
-        handlers.append(handlerToAdd)
     }
     
     func removeHandler(handlerToRemove: Handler) {
-        guard let index = indexOfHandler(handlerToRemove) else {
-            return
+        dispatch_async(accessQueue) {
+            guard let index = self.indexOfHandler(handlerToRemove) else {
+                return
+            }
+            
+            self.handlers.removeAtIndex(index)
         }
-        
-        handlers.removeAtIndex(index)
     }
 
     func removeAllHandlers() {
-        handlers.removeAll()
+        dispatch_async(accessQueue) {
+            self.handlers.removeAll()
+        }
     }
     
     private func indexOfHandler(handlerToFind: Handler) -> Int? {

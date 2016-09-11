@@ -43,15 +43,18 @@ class BTPeripheralWriteValueOperation: BTPeripheralOperation {
     override func execute() {
         guard !cancelled else { return }
         
-        centralManager?.addHandler(self)
-        peripheral?.addHandler(self)
-        
-        peripheral?.writeValue(valueToWrite,
-            forCharacteristic: charactericticToWrite,
-            type: writeType)
-        
         if writeType == .WithoutResponse {
-            removeHandlerAndFinish()
+            peripheral?.writeValue(valueToWrite,
+                                   forCharacteristic: charactericticToWrite,
+                                   type: .WithoutResponse)
+            finish()
+        } else {
+            centralManager?.addHandler(self)
+            peripheral?.addHandler(self)
+            
+            peripheral?.writeValue(valueToWrite,
+                                   forCharacteristic: charactericticToWrite,
+                                   type: writeType)
         }
     }
 }

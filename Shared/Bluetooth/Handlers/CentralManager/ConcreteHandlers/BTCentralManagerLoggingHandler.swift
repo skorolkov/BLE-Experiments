@@ -7,33 +7,37 @@
 //
 
 import Foundation
-import CocoaLumberjack
+import XCGLogger
 
 class BTCentralManagerLoggingHandler: BTCentalManagerBlockHandler {
     
-    override init() {
+    //MARK: Private Properties
+    private let logger: XCGLogger
+    
+    init(logger: XCGLogger) {
+        self.logger = logger
         super.init { (central: BTCentralManagerAPIType) -> Void in
-            DDLogVerbose("CentralManager: did update state = \(central.state)")
+            logger.verbose("CentralManager: did update state = \(central.state)")
         }
         
         self.willRestoreStateBlock = {
             (central: BTCentralManagerAPIType, willRestoreStateWithDict: [String : AnyObject]) in
-            DDLogVerbose("CentralManager: will restore state = \(central.state)")
+            logger.verbose("CentralManager: will restore state = \(central.state)")
         }
         
         self.didConnectPeripheralBlock = {
             (central: BTCentralManagerAPIType, peripheral: BTPeripheralAPIType) in
-            DDLogVerbose("CentralManager: did connect peripheral = \(peripheral)")
+            logger.verbose("CentralManager: did connect peripheral = \(peripheral)")
         }
         
         self.didDisconnectPeripheralBlock = {
             (central: BTCentralManagerAPIType, peripheral: BTPeripheralAPIType, error: NSError?) in
-            DDLogVerbose("CentralManager: did disconnect peripheral = \(peripheral) with error = \(error)")
+            logger.verbose("CentralManager: did disconnect peripheral = \(peripheral) with error = \(error)")
         }
         
         self.failToConnectToPeripheralBlock = {
             (central: BTCentralManagerAPIType, peripheral: BTPeripheralAPIType, error: NSError?) in
-            DDLogVerbose("CentralManager: did fail to connect peripheral = \(peripheral) with error = \(error)")
+            logger.verbose("CentralManager: did fail to connect peripheral = \(peripheral) with error = \(error)")
         }
         
         self.didDiscoverPeripheralBlock = {
@@ -41,7 +45,7 @@ class BTCentralManagerLoggingHandler: BTCentalManagerBlockHandler {
              discoveredPeripheral: BTPeripheralAPIType,
              advertisementData: [String : AnyObject],
              RSSI: NSNumber) in
-            DDLogVerbose("CentralManager: did discover peripheral = \(discoveredPeripheral)")
+            logger.verbose("CentralManager: did discover peripheral = \(discoveredPeripheral)")
         }
     }
 }

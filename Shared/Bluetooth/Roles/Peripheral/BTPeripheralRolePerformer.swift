@@ -8,7 +8,6 @@
 
 import Foundation
 import CoreBluetooth
-import CocoaLumberjack
 import Operations
 
 class BTPeripheralRolePerformer: NSObject {
@@ -51,7 +50,7 @@ class BTPeripheralRolePerformer: NSObject {
         super.init()
         
         peripheralManager.addHandler(self)
-        peripheralManager.addHandler(BTPeripheralManagerLoggingHandler())
+        peripheralManager.addHandler(BTPeripheralManagerLoggingHandler(logger: Log.bluetooth))
     }
     
     convenience override init() {
