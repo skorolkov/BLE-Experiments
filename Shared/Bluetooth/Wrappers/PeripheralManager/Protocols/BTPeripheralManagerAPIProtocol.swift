@@ -13,7 +13,7 @@ import CoreBluetooth
     
     // MARK: State
     
-    var state: CBPeripheralManagerState { get }
+    var managerState: BTManagerState { get }
     
     // MARK: Advertising state
     

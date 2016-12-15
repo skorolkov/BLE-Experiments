@@ -14,7 +14,7 @@ protocol BTPeripheralProviding {
         
     var peripherals: AnyProperty<[BTPeripheral]> { get }
     
-    var centralManagerState: AnyProperty<CBCentralManagerState> { get }
+    var centralManagerState: AnyProperty<BTManagerState> { get }
     
     var isScanningForPeripherals: AnyProperty<Bool> { get }
 }

@@ -107,6 +107,7 @@
 		A6F470D51D298FA8000C5C44 /* BTPrototypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F470D41D298FA8000C5C44 /* BTPrototypes.swift */; };
 		A6F470DC1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F470DB1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift */; };
 		A8FA98826C2CB32006B9DA5E /* Pods_BLE_Central_OSXTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */; };
+		F25F7E2A1E028F5F005687D4 /* BTManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25F7E291E028F5F005687D4 /* BTManagerState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -228,6 +229,7 @@
 		A6F470D41D298FA8000C5C44 /* BTPrototypes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTPrototypes.swift; sourceTree = "<group>"; };
 		A6F470DB1D29A3E8000C5C44 /* BTPeripheralProxy+Description.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "BTPeripheralProxy+Description.swift"; sourceTree = "<group>"; };
 		B7D411D08D5980F5D7C8747B /* Pods-BLE-Central-OSX.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Central-OSX.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Central-OSX/Pods-BLE-Central-OSX.debug.xcconfig"; sourceTree = "<group>"; };
+		F25F7E291E028F5F005687D4 /* BTManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTManagerState.swift; sourceTree = "<group>"; };
 		FA1D41251FB76942BC1C476A /* Pods_BLE_Central_OSXTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Central_OSXTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -773,6 +775,7 @@
 			isa = PBXGroup;
 			children = (
 				A6A4C1D51D25C88000A7304A /* CentralManager */,
+				F25F7E281E028F5F005687D4 /* ManagerState */,
 				A6A4C1DD1D25C88000A7304A /* Peripheral */,
 				A6A4C1E51D25C88000A7304A /* PeripheralManager */,
 			);
@@ -911,6 +914,14 @@
 				3321BA4F4228C7D61B8F37B0 /* Pods-BLE-Central-OSXTests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		F25F7E281E028F5F005687D4 /* ManagerState */ = {
+			isa = PBXGroup;
+			children = (
+				F25F7E291E028F5F005687D4 /* BTManagerState.swift */,
+			);
+			path = ManagerState;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1162,6 +1173,7 @@
 				A6A4C2101D25C88100A7304A /* BTPeripheralManagerPoweredOnCondition.swift in Sources */,
 				A6A4C22C1D25C88100A7304A /* PeriphralFullAPIProtocol.swift in Sources */,
 				A63C7E591D2C505F00D549ED /* BTRetrievePeripheralSignalProvider.swift in Sources */,
+				F25F7E2A1E028F5F005687D4 /* BTManagerState.swift in Sources */,
 				A6A4C20D1D25C88100A7304A /* BTPeripheralSetNotifyValueOperation.swift in Sources */,
 				A655A8AE1D2D2855008CB325 /* BTCentralManagerPeripheralWrappingProtocol.swift in Sources */,
 				A6A4C22E1D25C88100A7304A /* BTPeripheralManagerAPIType.swift in Sources */,
@@ -1343,6 +1355,7 @@
 				GCC_PREFIX_HEADER = "BLE-Central-OSX/BLE-Central-OSX-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Central-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.d503.BLE-Central-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;
@@ -1359,6 +1372,7 @@
 				GCC_PREFIX_HEADER = "BLE-Central-OSX/BLE-Central-OSX-Prefix.pch";
 				INFOPLIST_FILE = "BLE-Central-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.d503.BLE-Central-OSX";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 2.3;

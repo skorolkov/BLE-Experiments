@@ -65,9 +65,9 @@ extension BTPeripheralWriteValueOperation: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
         
-        if central.state != .PoweredOn {
+        if central.managerState != .PoweredOn {
             let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
-                                                          realState: central.state)
+                                                          realState: central.managerState)
             removeHandlerAndFinish(error)
         }
     }

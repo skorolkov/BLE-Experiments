@@ -22,14 +22,14 @@ class BTCentralManagerPoweredOnCondition: BTBaseCondition {
         self.centralManager = centralManager
         super.init(mutuallyExclusive: false)
     }
-        
+    
     override func evaluate(operation: Operation, completion: OperationConditionResult -> Void) {
-        if centralManager.state == .PoweredOn {
+        if centralManager.managerState == .PoweredOn {
             completion(.Satisfied)
         }
         else {
             let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
-                                                      realState: centralManager.state)
+                                                      realState: centralManager.managerState)
             completion(.Failed(error))
         }
     }
@@ -48,7 +48,7 @@ class BTCentralManagerPoweredOnWaitingOperation: BTCentralManagerOperation {
     override func execute() {
         guard !cancelled else { return }
         
-        guard centralManager?.state != .PoweredOn else {
+        guard centralManager?.managerState != .PoweredOn else {
             finish()
             return
         }
@@ -60,7 +60,7 @@ class BTCentralManagerPoweredOnWaitingOperation: BTCentralManagerOperation {
 extension BTCentralManagerPoweredOnWaitingOperation: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
-        if central.state == .PoweredOn {
+        if central.managerState == .PoweredOn {
             centralManager?.removeHandler(self)
             finish()
         }

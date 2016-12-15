@@ -114,6 +114,23 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         modelPeripherals = usedModelPeripherals
     }
     
+    func removeNotUsedModelPeripheral(withId peripheralId: String) {
+        let peripheralsToSave: [BTPeripheral] = modelPeripherals.filter { (peripheral) -> Bool in
+            if peripheral.identifierString == peripheralId {
+                switch peripheral.state {
+                case .Connected, .CharacteristicDiscovered:
+                    return true
+                default:
+                    return false
+                }
+            }
+            
+            return true
+        }
+        
+        modelPeripherals = peripheralsToSave
+    }
+    
     func setScanningForPeripheralsInProgress(scanningInProgress: Bool) {
         self.scanningForPeripherals = scanningInProgress
     }
@@ -244,7 +261,7 @@ extension BTCentralRolePerformer: BTCentralManagerPeripheralWrappingProtocol {
 extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
-        peripheralNotifier.centralManagerStateToUpdate.value = central.state
+        peripheralNotifier.centralManagerStateToUpdate.value = central.managerState
     }
     
     func centralManager(central: BTCentralManagerAPIType,

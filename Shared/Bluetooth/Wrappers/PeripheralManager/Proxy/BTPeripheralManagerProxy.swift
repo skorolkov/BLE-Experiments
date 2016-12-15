@@ -33,8 +33,8 @@ extension BTPeripheralManagerProxy: BTPeripheralManagerAPIProtocol {
     
     // MARK: State
     
-    var state: CBPeripheralManagerState {
-        return peripheralManager.state
+    var managerState: BTManagerState {
+        return peripheralManager.managerState
     }
     
     // MARK: Advertising state

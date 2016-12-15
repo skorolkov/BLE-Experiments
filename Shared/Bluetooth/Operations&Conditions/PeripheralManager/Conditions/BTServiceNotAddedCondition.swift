@@ -22,7 +22,7 @@ class BTServiceNotAddedCondition: BTBaseCondition {
         self.peripheralRolePerformer = peripheralRolePerformer
         super.init(mutuallyExclusive: false)
     }
-    
+        
     override func evaluate(operation: Operation, completion: OperationConditionResult -> Void) {
         if peripheralRolePerformer.servicesAdded {
             completion(.Failed(BTServiceAlreadyAddedError()))

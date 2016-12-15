@@ -53,8 +53,8 @@ import CoreBluetooth
 extension BTCentralManagerProxy: BTCentralManagerAPIProtocol {
     // MARK: State
     
-    var state: CBCentralManagerState {
-        return centralManager.state
+    var managerState: BTManagerState {
+        return centralManager.managerState
     }
     
     // MARK: Scan for peripherals

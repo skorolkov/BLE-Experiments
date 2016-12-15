@@ -98,6 +98,7 @@
 		A6913EBF1CA0319400316658 /* PeripheralViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A6913EBD1CA0319400316658 /* PeripheralViewController.xib */; };
 		BAB184674DC6C5EB1B2520B7 /* Pods_BLE_PeripheralTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */; };
 		CC7887120CF479825D00F2E4 /* Pods_BLE_Peripheral.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */; };
+		F25F7E2D1E0296F8005687D4 /* BTManagerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25F7E2C1E0296F8005687D4 /* BTManagerState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		B6BBA2B2011C9354FAF62089 /* Pods-BLE-Peripheral.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-Peripheral.release.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-Peripheral/Pods-BLE-Peripheral.release.xcconfig"; sourceTree = "<group>"; };
 		CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_PeripheralTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE7D2020CC4416E83F1508AB /* Pods_BLE_Peripheral.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BLE_Peripheral.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25F7E2C1E0296F8005687D4 /* BTManagerState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BTManagerState.swift; sourceTree = "<group>"; };
 		F64767FA37CEB82970A330D8 /* Pods-BLE-PeripheralTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLE-PeripheralTests.debug.xcconfig"; path = "../Pods/Target Support Files/Pods-BLE-PeripheralTests/Pods-BLE-PeripheralTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -712,6 +714,7 @@
 			isa = PBXGroup;
 			children = (
 				A655A9121D2D36B6008CB325 /* CentralManager */,
+				F25F7E2B1E0296F8005687D4 /* ManagerState */,
 				A655A91B1D2D36B6008CB325 /* Peripheral */,
 				A655A9231D2D36B6008CB325 /* PeripheralManager */,
 			);
@@ -861,6 +864,14 @@
 				CE928A25A997D990509B5CEB /* Pods_BLE_PeripheralTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F25F7E2B1E0296F8005687D4 /* ManagerState */ = {
+			isa = PBXGroup;
+			children = (
+				F25F7E2C1E0296F8005687D4 /* BTManagerState.swift */,
+			);
+			path = ManagerState;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1112,6 +1123,7 @@
 				A655A9671D2D36B6008CB325 /* BTPeripheralManagerPoweredOnCondition.swift in Sources */,
 				A655A9821D2D36B6008CB325 /* BTCentralManagerProxy.swift in Sources */,
 				A655A96C1D2D36B6008CB325 /* BTCentralRolePerformer.swift in Sources */,
+				F25F7E2D1E0296F8005687D4 /* BTManagerState.swift in Sources */,
 				A60F0D441C9C617E0025E3E2 /* Config.swift in Sources */,
 				A655A96E1D2D36B6008CB325 /* BTCharacteristicSetNotifyValueSignalProvider.swift in Sources */,
 				A655A9551D2D36B6008CB325 /* BTPeripheralManagerBlockHandler.swift in Sources */,

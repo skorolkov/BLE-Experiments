@@ -21,11 +21,11 @@ class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProv
     
     var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
     
-    var centralManagerState: AnyProperty<CBCentralManagerState> {
+    var centralManagerState: AnyProperty<BTManagerState> {
         return AnyProperty(centralManagerStateToUpdate)
     }
     
-    var centralManagerStateToUpdate: MutableProperty<CBCentralManagerState> = MutableProperty(.Unknown)
+    var centralManagerStateToUpdate: MutableProperty<BTManagerState> = MutableProperty(.Unknown)
     
     var isScanningForPeripherals: AnyProperty<Bool> {
         return AnyProperty(scanningForPeripheralsToUpdate)

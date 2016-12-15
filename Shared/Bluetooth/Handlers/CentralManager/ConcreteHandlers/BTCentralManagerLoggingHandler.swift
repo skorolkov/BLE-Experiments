@@ -17,12 +17,12 @@ class BTCentralManagerLoggingHandler: BTCentalManagerBlockHandler {
     init(logger: XCGLogger) {
         self.logger = logger
         super.init { (central: BTCentralManagerAPIType) -> Void in
-            logger.verbose("CentralManager: did update state = \(central.state)")
+            logger.verbose("CentralManager: did update state = \(central.managerState)")
         }
         
         self.willRestoreStateBlock = {
             (central: BTCentralManagerAPIType, willRestoreStateWithDict: [String : AnyObject]) in
-            logger.verbose("CentralManager: will restore state = \(central.state)")
+            logger.verbose("CentralManager: will restore state = \(central.managerState)")
         }
         
         self.didConnectPeripheralBlock = {

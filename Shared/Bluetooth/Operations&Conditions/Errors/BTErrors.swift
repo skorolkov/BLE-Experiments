@@ -23,10 +23,10 @@ class BTError: ErrorType, CustomStringConvertible, CustomDebugStringConvertible 
 
 final class BTCentralManagerStateInvalidError: BTError {
     
-    let expectedState: CBCentralManagerState
-    let realState: CBCentralManagerState
+    let expectedState: BTManagerState
+    let realState: BTManagerState
     
-    init(withExpectedState expectedState: CBCentralManagerState, realState: CBCentralManagerState) {
+    init(withExpectedState expectedState: BTManagerState, realState: BTManagerState) {
         self.expectedState = expectedState
         self.realState = realState
     }
@@ -39,10 +39,10 @@ final class BTCentralManagerStateInvalidError: BTError {
 
 final class BTPeripheralManagerStateInvalidError: BTError {
     
-    let expectedState: CBPeripheralManagerState
-    let realState: CBPeripheralManagerState
+    let expectedState: BTManagerState
+    let realState: BTManagerState
     
-    init(withExpectedState expectedState: CBPeripheralManagerState, realState: CBPeripheralManagerState) {
+    init(withExpectedState expectedState: BTManagerState, realState: BTManagerState) {
         self.expectedState = expectedState
         self.realState = realState
     }

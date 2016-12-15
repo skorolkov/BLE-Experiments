@@ -11,8 +11,7 @@ import CoreBluetooth
 @objc protocol BTCentralManagerAPIProtocol: class {
     
     // MARK: State
-    
-    var state: CBCentralManagerState { get }
+    var managerState: BTManagerState { get }
     
     // MARK: Scan for peripherals
     

@@ -23,12 +23,12 @@ class BTPeripheralManagerPoweredOnCondition: BTBaseCondition {
     }
     
     override func evaluate(operation: Operation, completion: OperationConditionResult -> Void) {
-        if peripheralManager.state == .PoweredOn {
+        if peripheralManager.managerState == .PoweredOn {
             completion(.Satisfied)
         }
         else {
             let error = BTPeripheralManagerStateInvalidError(withExpectedState: .PoweredOn,
-                realState: peripheralManager.state)
+                realState: peripheralManager.managerState)
             completion(.Failed(error))
         }
     }
@@ -48,7 +48,7 @@ class BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerOperation
     override func execute() {
         guard !cancelled else { return }
         
-        guard peripheralManager?.state != .PoweredOn else {
+        guard peripheralManager?.managerState != .PoweredOn else {
             finish()
             return
         }
@@ -60,7 +60,7 @@ class BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerOperation
 extension BTPeripheralManagerPoweredOnWaitingOperation: BTPeripheralManagerHandlerProtocol {
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
-        if peripheral.state == .PoweredOn {
+        if peripheral.managerState == .PoweredOn {
             removeHandlerAndFinish()
         }
     }

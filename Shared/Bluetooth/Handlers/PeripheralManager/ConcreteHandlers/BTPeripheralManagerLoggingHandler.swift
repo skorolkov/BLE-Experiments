@@ -20,7 +20,7 @@ class BTPeripheralManagerLoggingHandler: BTPeripheralManagerBlockHandler {
         super.init()
         
         self.didUpdateStateBlock = { (peripheral: BTPeripheralManagerAPIType) in
-            logger.verbose("PeripheralManager: did update state = \(peripheral.state)")
+            logger.verbose("PeripheralManager: did update state = \(peripheral.managerState)")
         }
         
         self.didAddServiceBlock = {
