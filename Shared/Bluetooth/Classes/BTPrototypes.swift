@@ -8,11 +8,11 @@
 
 import CoreBluetooth
 
-struct BTCharacteristicPrototype {
+public struct BTCharacteristicPrototype {
     let UUID: CBUUID
 }
 
-struct BTServicePrototype {
+public struct BTServicePrototype {
     let UUID: CBUUID
     let characteristicPrototypes: [BTCharacteristicPrototype]
 }

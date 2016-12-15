@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-enum BTPeripheralState {
+public enum BTPeripheralState {
     case Unknown
     case Disconnected(error: NSError?)
     case Scanned(advertisementData: [String : AnyObject], RSSI: NSNumber)
@@ -21,7 +21,7 @@ enum BTPeripheralState {
 
 extension BTPeripheralState: Equatable {}
 
-func ==(left: BTPeripheralState, right: BTPeripheralState) -> Bool {
+public func ==(left: BTPeripheralState, right: BTPeripheralState) -> Bool {
     switch (left, right) {
     case (.Unknown, .Unknown),
          (.Retrieved, .Retrieved),
@@ -38,14 +38,14 @@ func ==(left: BTPeripheralState, right: BTPeripheralState) -> Bool {
     }
 }
 
-struct BTPeripheral {
-    let identifierString: String
-    let name: String?
-    let state: BTPeripheralState
+public struct BTPeripheral {
+    public let identifierString: String
+    public let name: String?
+    public let state: BTPeripheralState
     
-    let characteristics: [BTCharacteristic]
+    public let characteristics: [BTCharacteristic]
     
-    init(identifierString: String,
+    public init(identifierString: String,
          name: String?,
          state: BTPeripheralState,
          characteristics: [BTCharacteristic] = []) {
@@ -55,7 +55,7 @@ struct BTPeripheral {
         self.characteristics = characteristics
     }
     
-    init(peripheral: BTPeripheralAPIType, state: BTPeripheralState) {
+    public init(peripheral: BTPeripheralAPIType, state: BTPeripheralState) {
         self.identifierString = peripheral.identifier.UUIDString
         self.name = peripheral.name
         self.state = state
@@ -65,7 +65,7 @@ struct BTPeripheral {
 
 extension BTPeripheral: Equatable {}
 
-func ==(left: BTPeripheral, right: BTPeripheral) -> Bool {
+public func ==(left: BTPeripheral, right: BTPeripheral) -> Bool {
     return (left.identifierString == right.identifierString &&
         left.name == right.name &&
         left.state == right.state)

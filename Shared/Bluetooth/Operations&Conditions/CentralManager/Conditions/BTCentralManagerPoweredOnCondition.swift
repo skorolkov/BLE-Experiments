@@ -28,7 +28,7 @@ class BTCentralManagerPoweredOnCondition: BTBaseCondition {
             completion(.Satisfied)
         }
         else {
-            let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
+            let error = BTCentralManagerStateInvalidError(expectedState: .PoweredOn,
                                                       realState: centralManager.managerState)
             completion(.Failed(error))
         }

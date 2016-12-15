@@ -11,18 +11,22 @@ import CoreBluetooth
 import Operations
 import ReactiveCocoa
 
-class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
+public final class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     
     // MARK: Singleton
+    public static let sharedInstance = BTCentralRolePerformer()
     
-    static let sharedInstance = BTCentralRolePerformer()
+    // MARK: Public Properties
     
-    // MARK: Signals
+    public let peripheralDataProvider: BTPeripheralDataProvider = BTPeripheralDataProvider()
+    
+    // MARK: Internal Properties
+    
+    let operationQueue: OperationQueue
+    
+    // MARK: Private Properties
     
     typealias BTPeripheralNotifier = protocol<BTPeripheralUpdating, NSObjectProtocol>
-    
-    private(set) var peripheralDataProvider: BTPeripheralDataProvider = BTPeripheralDataProvider()
-    
     private var peripheralNotifier: BTPeripheralNotifier {
         return peripheralDataProvider
     }
@@ -39,16 +43,10 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         }
     }
     
-    // MARK: Operations
-    
-    private(set) var operationQueue: OperationQueue
-    
     // MARK: Central Manager
-    
     private var centralManager: BTCentralManagerAPIWithHadlerProtocol!
     
     // MARK: Initializers
-    
     override init() {
         
         // WARNING: the same dispatch_queue used for OperationQueue and for CBCentralManager
@@ -73,8 +71,138 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         centralManager.addHandler(BTCentralManagerLoggingHandler(logger: Log.bluetooth))
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
+    public func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral? {
+        guard let index = modelPeripherals.indexOf({ $0.identifierString == identifierString }) else {
+            return nil
+        }
+        
+        return modelPeripherals[index]
+    }
     
+    public func removeNotUsedModelPeripheral(withId peripheralId: String) {
+        let peripheralsToSave: [BTPeripheral] = modelPeripherals.filter { (peripheral) -> Bool in
+            if peripheral.identifierString == peripheralId {
+                switch peripheral.state {
+                case .Connected, .CharacteristicDiscovered:
+                    return true
+                default:
+                    return false
+                }
+            }
+            
+            return true
+        }
+        
+        modelPeripherals = peripheralsToSave
+    }
+    
+    public func peripheralWithIdentifier(identifierString: String) -> BTPeripheralAPIType? {
+        guard let index = managedPeripherals.indexOf({ $0.identifier.UUIDString == identifierString }) else {
+            return nil
+        }
+        
+        return managedPeripherals[index]
+    }
+    
+    // MARK: Public Signal Providers
+    public func scanSignalProvider(withServices serviceUUIDs: [CBUUID]? = nil,
+                                         options: [String : AnyObject]? = nil,
+                                         allowDuplicatePeripheralIds: Bool = false,
+                                         cleanNotUsedPeripherals: Bool = true,
+                                         timeout: NSTimeInterval = 10,
+                                         validatePeripheralPredicate: BTPeripheralScanValidationPredicate? = nil,
+                                         stopScanningCondition: BTPeripheralScanStopBlock) -> BTPeripheralScanSignalProvider {
+        
+        return BTPeripheralScanSignalProvider(
+            centralManager: centralManager,
+            serviceUUIDs: serviceUUIDs,
+            options: options,
+            allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
+            cleanNotUsedPeripherals: cleanNotUsedPeripherals,
+            timeout: timeout,
+            validatePeripheralPredicate: validatePeripheralPredicate,
+            stopScanningCondition: stopScanningCondition,
+            centralRolePerformer: self)
+    }
+    
+    public func retrievePeripheralWithUUIDs(periphralUUIDs: [NSUUID]) -> BTRetrievePeripheralSignalProvider {
+        return BTRetrievePeripheralSignalProvider(
+            centralManager: self.centralManager,
+            periphralUUIDs: periphralUUIDs,
+            centralRolePerformer: self)
+    }
+    
+    public func connectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType,
+                                             options: [String : AnyObject]? = nil) -> BTPeripheralConnectSignalProvider {
+        return BTPeripheralConnectSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            options: options,
+            centralRolePerformer: self)
+    }
+    
+    public func retrieveConnectedPeripheralWithServiceUUIDs(serviceUUIDs: [CBUUID]) -> BTRetrieveConnectedPeripheralSignalProvider {
+        return BTRetrieveConnectedPeripheralSignalProvider(
+            centralManager: self.centralManager,
+            serviceUUIDs: serviceUUIDs,
+            centralRolePerformer: self)
+    }
+    
+    public func disconnectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheralDisconnectSignalProvider {
+        return BTPeripheralDisconnectSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            centralRolePerformer: self)
+    }
+    
+    public func discoverCharacteristicsSignalProviderWithPeripheral(
+        peripheral: BTPeripheralAPIType,
+        servicePrototypes: [BTServicePrototype]) -> BTPeripheralCharacteristicDiscoverySignalProvider {
+        return BTPeripheralCharacteristicDiscoverySignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            servicePrototypes: servicePrototypes,
+            centralRolePerformer: self)
+    }
+    
+    public func notificationsEnabledValueUpdateSignalProvider(
+        notificationsEnabled: Bool,
+        peripheral: BTPeripheralAPIType,
+        characteristic: CBCharacteristic) -> BTCharacteristicSetNotifyValueSignalProvider {
+        return BTCharacteristicSetNotifyValueSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            characterictic: characteristic,
+            notificationsEnabled: notificationsEnabled,
+            centralRolePerformer: self)
+    }
+    
+    public func readValueForCharacteristic(
+        characteristic: CBCharacteristic,
+        peripheral: BTPeripheralAPIType) -> BTReadCharacteristicSignalProvider {
+        return BTReadCharacteristicSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            characterictic: characteristic,
+            centralRolePerformer: self)
+    }
+    
+    public func writeValue(
+        value: NSData,
+        forCharacteristic characteristic: CBCharacteristic,
+                          writeType: CBCharacteristicWriteType = .WithResponse,
+                          peripheral: BTPeripheralAPIType) -> BTWriteCharacteristicSignalProvider {
+        return BTWriteCharacteristicSignalProvider(
+            centralManager: centralManager,
+            peripheral: peripheral,
+            valueToWrite: value,
+            charactericticToWrite: characteristic,
+            writeType: writeType,
+            centralRolePerformer: self)
+    }
+    
+    // MARK: Internal Methods
     func updateManagedPeripheral(peripheral: BTPeripheralAPIType) {
         if let index = managedPeripherals.indexOf( { $0.identifier.isEqual(peripheral.identifier) } ) {
             managedPeripherals[index] = peripheral
@@ -93,14 +221,6 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         }
     }
     
-    func modelPeripheralWithIdentifier(identifierString: String) -> BTPeripheral? {
-        guard let index = modelPeripherals.indexOf({ $0.identifierString == identifierString }) else {
-            return nil
-        }
-        
-        return modelPeripherals[index]
-    }
-    
     func removeNotUsedModelPeripherals() {
         let usedModelPeripherals: [BTPeripheral] = modelPeripherals.filter { (peripheral) -> Bool in
             switch peripheral.state {
@@ -114,134 +234,11 @@ class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         modelPeripherals = usedModelPeripherals
     }
     
-    func removeNotUsedModelPeripheral(withId peripheralId: String) {
-        let peripheralsToSave: [BTPeripheral] = modelPeripherals.filter { (peripheral) -> Bool in
-            if peripheral.identifierString == peripheralId {
-                switch peripheral.state {
-                case .Connected, .CharacteristicDiscovered:
-                    return true
-                default:
-                    return false
-                }
-            }
-            
-            return true
-        }
-        
-        modelPeripherals = peripheralsToSave
-    }
-    
     func setScanningForPeripheralsInProgress(scanningInProgress: Bool) {
         self.scanningForPeripherals = scanningInProgress
     }
-    
-    // MARK: Get Peripheral
-    
-    func peripheralWithIdentifier(identifierString: String) -> BTPeripheralAPIType? {
-        guard let index = managedPeripherals.indexOf({ $0.identifier.UUIDString == identifierString }) else {
-            return nil
-        }
-        
-        return managedPeripherals[index]
-    }
 
-    // MARK: Get Signal Providers
     
-    func scanSignalProvider(withServices serviceUUIDs: [CBUUID]? = nil,
-                                         options: [String : AnyObject]? = nil,
-                                         allowDuplicatePeripheralIds: Bool = false,
-                                         cleanNotUsedPeripherals: Bool = true,
-                                         timeout: NSTimeInterval = 10,
-                                         validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
-                                         stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock) -> BTPeripheralScanSignalProvider {
-        
-        return BTPeripheralScanSignalProvider(
-            centralManager: centralManager,
-            serviceUUIDs: serviceUUIDs,
-            options: options,
-            allowDuplicatePeripheralIds: allowDuplicatePeripheralIds,
-            cleanNotUsedPeripherals: cleanNotUsedPeripherals,
-            timeout: timeout,
-            validatePeripheralPredicate: validatePeripheralPredicate,
-            stopScanningCondition: stopScanningCondition,
-            centralRolePerformer: self)
-    }
-    
-    func retrievePeripheralWithUUIDs(periphralUUIDs: [NSUUID]) -> BTRetrievePeripheralSignalProvider {
-        return BTRetrievePeripheralSignalProvider(
-            centralManager: self.centralManager,
-            periphralUUIDs: periphralUUIDs,
-            centralRolePerformer: self)
-    }
-    
-    func connectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType,
-                                             options: [String : AnyObject]? = nil) -> BTPeripheralConnectSignalProvider {
-        return BTPeripheralConnectSignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            options: options,
-            centralRolePerformer: self)
-    }
-    
-    func retrieveConnectedPeripheralWithServiceUUIDs(serviceUUIDs: [CBUUID]) -> BTRetrieveConnectedPeripheralSignalProvider {
-        return BTRetrieveConnectedPeripheralSignalProvider(
-            centralManager: self.centralManager,
-            serviceUUIDs: serviceUUIDs,
-            centralRolePerformer: self)
-    }
-    
-    func disconnectSignalProviderWithPeripheral(peripheral: BTPeripheralAPIType) -> BTPeripheralDisconnectSignalProvider {
-        return BTPeripheralDisconnectSignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            centralRolePerformer: self)
-    }
-    
-    func discoverCharacteristicsSignalProviderWithPeripheral(
-        peripheral: BTPeripheralAPIType,
-        servicePrototypes: [BTServicePrototype]) -> BTPeripheralCharacteristicDiscoverySignalProvider {
-        return BTPeripheralCharacteristicDiscoverySignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            servicePrototypes: servicePrototypes,
-            centralRolePerformer: self)
-    }
-    
-    func notificationsEnabledValueUpdateSignalProvider(
-        notificationsEnabled: Bool,
-        peripheral: BTPeripheralAPIType,
-        characteristic: CBCharacteristic) -> BTCharacteristicSetNotifyValueSignalProvider {
-        return BTCharacteristicSetNotifyValueSignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            characterictic: characteristic,
-            notificationsEnabled: notificationsEnabled,
-            centralRolePerformer: self)
-    }
-    
-    func readValueForCharacteristic(
-        characteristic: CBCharacteristic,
-        peripheral: BTPeripheralAPIType) -> BTReadCharacteristicSignalProvider {
-        return BTReadCharacteristicSignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            characterictic: characteristic,
-            centralRolePerformer: self)
-    }
-    
-    func writeValue(
-        value: NSData,
-        forCharacteristic characteristic: CBCharacteristic,
-                          writeType: CBCharacteristicWriteType = .WithResponse,
-                          peripheral: BTPeripheralAPIType) -> BTWriteCharacteristicSignalProvider {
-        return BTWriteCharacteristicSignalProvider(
-            centralManager: centralManager,
-            peripheral: peripheral,
-            valueToWrite: value,
-            charactericticToWrite: characteristic,
-            writeType: writeType,
-            centralRolePerformer: self)
-    }
 }
 
 // MARK: BTCentralManagerPeripheralWrappingProtocol
@@ -302,7 +299,7 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
 
 extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
     
-    func peripheralDidUpdateName(peripheral: BTPeripheralAPIType) {
+    public func peripheralDidUpdateName(peripheral: BTPeripheralAPIType) {
         if let index = modelPeripherals.indexOf( { $0.identifierString == peripheral.identifier.UUIDString } ) {
             let previousModelPeripheral = modelPeripherals[index]
             let newModelPeripheral = BTPeripheral(identifierString: peripheral.identifier.UUIDString,
@@ -312,30 +309,30 @@ extension BTCentralRolePerformer: BTPeripheralHandlerProtocol {
         }
     }
     
-    func peripheral(peripheral: BTPeripheralAPIType,
+    public func peripheral(peripheral: BTPeripheralAPIType,
                     didDiscoverServices error: NSError?) {
         // Nothing to do here
     }
     
-    func peripheral(peripheral: BTPeripheralAPIType,
+    public func peripheral(peripheral: BTPeripheralAPIType,
                     didDiscoverCharacteristicsForService service: CBService,
                                                          error: NSError?) {
         // Nothing to do here
     }
     
-    func peripheral(peripheral: BTPeripheralAPIType,
+    public func peripheral(peripheral: BTPeripheralAPIType,
                     didUpdateValueForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {
         updateModelPeripheral(peripheral, withCharacteristic: characteristic, updateType: .Value)
     }
     
-    func peripheral(peripheral: BTPeripheralAPIType,
+    public func peripheral(peripheral: BTPeripheralAPIType,
                     didWriteValueForCharacteristic characteristic: CBCharacteristic,
                                                    error: NSError?) {
         // Nothing to do here
     }
     
-    func peripheral(
+    public func peripheral(
         peripheral: BTPeripheralAPIType,
         didUpdateNotificationStateForCharacteristic characteristic: CBCharacteristic,
                                                     error: NSError?) {

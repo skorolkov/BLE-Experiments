@@ -11,7 +11,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Operations
 
-class BTReadCharacteristicSignalProvider {
+public final class BTReadCharacteristicSignalProvider {
     
     // MARK: Privare Properties
     
@@ -32,9 +32,9 @@ class BTReadCharacteristicSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
 
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func read() -> SignalProducer<BTPeripheral?, BTError> {
+    public func read() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             
             let operation = BTPeripheralReadValueOperation(

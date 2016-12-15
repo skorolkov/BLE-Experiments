@@ -14,7 +14,7 @@ import CoreBluetooth
 }
 
 extension CBPeripheral: PeriphralFullAPIProtocol {
-    func coreBluetoothPeripheral() -> CBPeripheral {
+    public func coreBluetoothPeripheral() -> CBPeripheral {
         return self
     }
 }

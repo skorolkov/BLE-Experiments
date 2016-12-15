@@ -10,7 +10,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Result
 
-protocol BTPeripheralProviding {
+public protocol BTPeripheralProviding {
         
     var peripherals: AnyProperty<[BTPeripheral]> { get }
     

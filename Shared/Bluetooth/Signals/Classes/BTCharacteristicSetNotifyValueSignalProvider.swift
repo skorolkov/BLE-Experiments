@@ -11,7 +11,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Operations
 
-class BTCharacteristicSetNotifyValueSignalProvider {
+public final class BTCharacteristicSetNotifyValueSignalProvider {
     
     // MARK: Privare Properties
     
@@ -35,9 +35,9 @@ class BTCharacteristicSetNotifyValueSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func setNotifyValue() -> SignalProducer<BTPeripheral?, BTError> {
+    public func setNotifyValue() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             let operation = BTPeripheralSetNotifyValueOperation(
                 centralManager: self.centralManager,

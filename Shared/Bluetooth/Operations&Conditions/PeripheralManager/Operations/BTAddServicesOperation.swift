@@ -50,7 +50,7 @@ extension BTAddServicesOperation: BTPeripheralManagerHandlerProtocol {
     
     func peripheralManagerDidUpdateState(peripheral: BTPeripheralManagerAPIType) {
         if peripheral.managerState != .Resetting || peripheral.managerState != .PoweredOn {
-            let error = BTPeripheralManagerStateInvalidError(withExpectedState: .PoweredOn,
+            let error = BTPeripheralManagerStateInvalidError(expectedState: .PoweredOn,
                                                              realState: peripheral.managerState)
             removeHandlerAndFinish(error)
         }

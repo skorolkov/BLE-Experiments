@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import Result
 
-class BTRetrievePeripheralSignalProvider {
+public final class BTRetrievePeripheralSignalProvider {
     
     // MARK: Privare Properties
     
@@ -28,9 +28,9 @@ class BTRetrievePeripheralSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func retrieve() -> SignalProducer<[BTPeripheral], NoError> {
+    public func retrieve() -> SignalProducer<[BTPeripheral], NoError> {
         return SignalProducer { observer, disposable in
             let peripherals = self.centralManager.retrievePeripheralsWithIdentifiers(self.periphralUUIDs)
             let peripheralProxies = peripherals.map { BTPeripheralProxy(peripheral: $0) }

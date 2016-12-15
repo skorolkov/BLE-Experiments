@@ -11,7 +11,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Operations
 
-class BTWriteCharacteristicSignalProvider {
+public final class BTWriteCharacteristicSignalProvider {
     
     // MARK: Privare Properties
     
@@ -38,9 +38,9 @@ class BTWriteCharacteristicSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func write() -> SignalProducer<BTPeripheral?, BTError> {
+    public func write() -> SignalProducer<BTPeripheral?, BTError> {
         return SignalProducer { observer, disposable in
             
             let operation = BTPeripheralWriteValueOperation(

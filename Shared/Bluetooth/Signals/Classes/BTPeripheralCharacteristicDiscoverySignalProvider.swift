@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import Operations
 
-class BTPeripheralCharacteristicDiscoverySignalProvider {
+public final class BTPeripheralCharacteristicDiscoverySignalProvider {
     
     // MARK: Private Properties
     
@@ -32,9 +32,9 @@ class BTPeripheralCharacteristicDiscoverySignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func discover() -> SignalProducer<[BTPeripheral], BTError> {
+    public func discover() -> SignalProducer<[BTPeripheral], BTError> {
         
         return SignalProducer { observer, disposable in
             

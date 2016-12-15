@@ -28,7 +28,7 @@ class BTPeripheralConnectedCondition: BTBaseCondition {
             completion(.Satisfied)
         }
         else {
-            let error = BTPeripheralStateInvalidError(withExpectedState: .Connected,
+            let error = BTPeripheralStateInvalidError(expectedState: .Connected,
                                                       realState: peripheral.state)
             completion(.Failed(error))
         }

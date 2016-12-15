@@ -27,7 +27,7 @@ class BTPeripheralManagerPoweredOnCondition: BTBaseCondition {
             completion(.Satisfied)
         }
         else {
-            let error = BTPeripheralManagerStateInvalidError(withExpectedState: .PoweredOn,
+            let error = BTPeripheralManagerStateInvalidError(expectedState: .PoweredOn,
                 realState: peripheralManager.managerState)
             completion(.Failed(error))
         }

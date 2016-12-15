@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-@objc enum BTManagerState: Int {
+@objc public enum BTManagerState: Int {
     case Unknown
     case Resetting
     case Unsupported
@@ -23,7 +23,7 @@ import CoreBluetooth
     #else
     @available(OSX, unavailable)
     @available(iOS 10, tvOS 10, *)
-    init(_ state: CBManagerState) {
+    public init(_ state: CBManagerState) {
         switch state {
         case .Unknown: self = .Unknown
         case .Resetting: self = .Resetting
@@ -35,7 +35,7 @@ import CoreBluetooth
     }
     #endif
     
-    init(_ state: CBCentralManagerState) {
+    public init(_ state: CBCentralManagerState) {
         switch state {
         case .Unknown: self = .Unknown
         case .Resetting: self = .Resetting
@@ -46,7 +46,7 @@ import CoreBluetooth
         }
     }
     
-    init(_ state: CBPeripheralManagerState) {
+    public init(_ state: CBPeripheralManagerState) {
         switch state {
         case .Unknown: self = .Unknown
         case .Resetting: self = .Resetting
@@ -59,7 +59,7 @@ import CoreBluetooth
 }
 
 extension BTManagerState: CustomStringConvertible {
-    var description: String {
+    public var description: String {
         switch self {
         case .Unknown:
             return "BTManagerState.Unknown"
@@ -78,7 +78,7 @@ extension BTManagerState: CustomStringConvertible {
 }
 
 extension BTManagerState: CustomDebugStringConvertible {
-    var debugDescription: String {
+    public var debugDescription: String {
         return description
     }
 }

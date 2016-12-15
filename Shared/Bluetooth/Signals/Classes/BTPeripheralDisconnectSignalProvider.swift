@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import Operations
 
-class BTPeripheralDisconnectSignalProvider {
+public final class BTPeripheralDisconnectSignalProvider {
     
     // MARK: Privare Properties
     
@@ -28,9 +28,9 @@ class BTPeripheralDisconnectSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func disconnect() -> SignalProducer<BTPeripheral?, BTError> {
+    public func disconnect() -> SignalProducer<BTPeripheral?, BTError> {
         
         return SignalProducer { observer, disposable in
             let disconnectOperation = BTCentralManagerDisconnectingOperation(

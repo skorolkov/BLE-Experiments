@@ -9,25 +9,27 @@
 import CoreBluetooth
 import Operations
 
-typealias BTPeripheralScanResult = (
+public typealias BTPeripheralScanResult = (
     peripheral: BTPeripheralAPIType,
     advertisementData: [String : AnyObject],
     RSSI: NSNumber)
 
+public typealias BTPeripheralScanValidationPredicate = (discoveryResult: BTPeripheralScanResult) -> Bool
+
+public typealias BTPeripheralScanStopBlock = (discoveryResults: [BTPeripheralScanResult]) -> Bool
+
 class BTCentralManagerScanningOperation: BTCentralManagerOperation {
     
     typealias BTScanningResultBlock = (discoveryResults: [BTPeripheralScanResult]) -> Void
-    typealias BTScanningStopBlock = (discoveryResults: [BTPeripheralScanResult]) -> Bool
-    typealias BTScanningValidPeripheralPredicate = (discoveryResult: BTPeripheralScanResult) -> Bool
-
+    
     // MARK: Private Properties
     
     private let serviceUUIDs: [CBUUID]?
     private let options: [String : AnyObject]?
     private let allowDuplicatePeripheralIds: Bool
-    private let validatePeripheralPredicate: BTScanningValidPeripheralPredicate?
+    private let validatePeripheralPredicate: BTPeripheralScanValidationPredicate?
     private let intermediateScanResultBlock: BTScanningResultBlock?
-    private let stopScanningCondition: BTScanningStopBlock
+    private let stopScanningCondition: BTPeripheralScanStopBlock
     
     private(set) var discoveryResults: [BTPeripheralScanResult] = []
     
@@ -38,9 +40,9 @@ class BTCentralManagerScanningOperation: BTCentralManagerOperation {
          options: [String : AnyObject]? = nil,
          allowDuplicatePeripheralIds: Bool = false,
          timeout: NSTimeInterval = 10,
-         validatePeripheralPredicate: BTScanningValidPeripheralPredicate? = nil,
+         validatePeripheralPredicate: BTPeripheralScanValidationPredicate? = nil,
          intermediateScanResultBlock: BTScanningResultBlock? = nil,
-         stopScanningCondition: BTScanningStopBlock,
+         stopScanningCondition: BTPeripheralScanStopBlock,
          mutuallyExclusiveCondition: Condition = MutuallyExclusive<BTCentralManagerScanningOperation>()) {
         self.serviceUUIDs = serviceUUIDs
         self.options = options
@@ -77,7 +79,7 @@ extension BTCentralManagerScanningOperation: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
         if central.managerState != .PoweredOn {
-            let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
+            let error = BTCentralManagerStateInvalidError(expectedState: .PoweredOn,
                                                           realState: central.managerState)
             removeHandlerAndFinish(error)
         }

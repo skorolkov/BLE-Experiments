@@ -6,4 +6,4 @@
 //
 //
 
-typealias BTPeripheralAPIType = BTPeripheralAPIWithHandlerProtocol
+public typealias BTPeripheralAPIType = BTPeripheralAPIWithHandlerProtocol

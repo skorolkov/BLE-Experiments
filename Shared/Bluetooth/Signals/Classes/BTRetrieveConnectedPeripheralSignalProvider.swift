@@ -11,7 +11,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Result
 
-class BTRetrieveConnectedPeripheralSignalProvider {
+public final class BTRetrieveConnectedPeripheralSignalProvider {
     
     // MARK: Privare Properties
     
@@ -29,9 +29,9 @@ class BTRetrieveConnectedPeripheralSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func retrieveСonnected() -> SignalProducer<[BTPeripheral], NoError> {
+    public func retrieveСonnected() -> SignalProducer<[BTPeripheral], NoError> {
         return SignalProducer { observer, disposable in
             let peripherals = self.centralManager.retrieveConnectedPeripheralsWithServices(self.serviceUUIDs)
             let peripheralProxies = peripherals.map { BTPeripheralProxy(peripheral: $0) }

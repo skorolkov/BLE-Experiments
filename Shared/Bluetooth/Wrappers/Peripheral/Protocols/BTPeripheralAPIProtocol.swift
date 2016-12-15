@@ -8,7 +8,7 @@
 
 import CoreBluetooth
 
-@objc protocol BTPeripheralAPIProtocol: class {
+@objc public protocol BTPeripheralAPIProtocol: class {
 
     var identifier: NSUUID { get }
     

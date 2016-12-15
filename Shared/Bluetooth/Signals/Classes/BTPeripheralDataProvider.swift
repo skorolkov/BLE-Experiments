@@ -11,25 +11,23 @@ import CoreBluetooth
 import ReactiveCocoa
 import Result
 
-class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProviding {
+public final class BTPeripheralDataProvider: NSObject, BTPeripheralUpdating, BTPeripheralProviding {
     
-    // MARK: Internal Properties
-    
-    var peripherals: AnyProperty<[BTPeripheral]> {
+    // MARK: Public Properties
+    public var peripherals: AnyProperty<[BTPeripheral]> {
         return AnyProperty(peripheralsToUpdate)
     }
-    
-    var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
-    
-    var centralManagerState: AnyProperty<BTManagerState> {
+    public var centralManagerState: AnyProperty<BTManagerState> {
         return AnyProperty(centralManagerStateToUpdate)
     }
-    
-    var centralManagerStateToUpdate: MutableProperty<BTManagerState> = MutableProperty(.Unknown)
-    
-    var isScanningForPeripherals: AnyProperty<Bool> {
+    public var isScanningForPeripherals: AnyProperty<Bool> {
         return AnyProperty(scanningForPeripheralsToUpdate)
     }
+    
+    //MARK: Internal Properties
+    var peripheralsToUpdate: MutableProperty<[BTPeripheral]> = MutableProperty([])
+    
+    var centralManagerStateToUpdate: MutableProperty<BTManagerState> = MutableProperty(.Unknown)
     
     var scanningForPeripheralsToUpdate: MutableProperty<Bool> = MutableProperty(false)
     

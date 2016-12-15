@@ -48,7 +48,7 @@ extension BTCentralManagerConnectingOperation: BTCentralManagerHandlerProtocol {
     
     func centralManagerDidUpdateState(central: BTCentralManagerAPIType) {
         if central.managerState != .PoweredOn {
-            let error = BTCentralManagerStateInvalidError(withExpectedState: .PoweredOn,
+            let error = BTCentralManagerStateInvalidError(expectedState: .PoweredOn,
                                                           realState: central.managerState)
             removeHandlerAndFinish(error)
         }

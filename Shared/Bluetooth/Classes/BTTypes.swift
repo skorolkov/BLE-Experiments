@@ -8,7 +8,7 @@
 
 import CoreBluetooth
 
-struct BTCharacteristic {
+public struct BTCharacteristic {
     let UUID: CBUUID
     let properties: CBCharacteristicProperties
     let isNotifying: Bool
@@ -41,13 +41,13 @@ struct BTCharacteristic {
 
 extension BTCharacteristic: Equatable {}
 
-func ==(left: BTCharacteristic, right: BTCharacteristic) -> Bool {
+public func ==(left: BTCharacteristic, right: BTCharacteristic) -> Bool {
     return (left.UUID == right.UUID &&
         left.properties == right.properties &&
         left.value == right.value)
 }
 
-struct BTService {
+public struct BTService {
     let UUID: CBUUID
     let characteristics: [BTCharacteristic]
     

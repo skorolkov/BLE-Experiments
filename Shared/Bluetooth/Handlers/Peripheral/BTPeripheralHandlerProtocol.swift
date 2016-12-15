@@ -9,7 +9,7 @@
 import Foundation
 import CoreBluetooth
 
-@objc protocol BTPeripheralHandlerProtocol: NSObjectProtocol {
+@objc public protocol BTPeripheralHandlerProtocol: NSObjectProtocol {
 
     // MARK: Peripheral's name updated
     

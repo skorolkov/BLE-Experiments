@@ -11,7 +11,7 @@ import CoreBluetooth
 import ReactiveCocoa
 import Operations
 
-class BTPeripheralScanSignalProvider {
+public final class BTPeripheralScanSignalProvider {
     
     // MARK: Private Properties
 
@@ -21,8 +21,8 @@ class BTPeripheralScanSignalProvider {
     private let allowDuplicatePeripheralIds: Bool
     private let cleanNotUsedPeripherals: Bool
     private let timeout: NSTimeInterval
-    private let validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate?
-    private let stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock
+    private let validatePeripheralPredicate: BTPeripheralScanValidationPredicate?
+    private let stopScanningCondition: BTPeripheralScanStopBlock
     
     private let centralRolePerformer: BTCentralRolePerforming
     
@@ -36,8 +36,8 @@ class BTPeripheralScanSignalProvider {
          allowDuplicatePeripheralIds: Bool = false,
          cleanNotUsedPeripherals: Bool = true,
          timeout: NSTimeInterval = 10,
-         validatePeripheralPredicate: BTCentralManagerScanningOperation.BTScanningValidPeripheralPredicate? = nil,
-         stopScanningCondition: BTCentralManagerScanningOperation.BTScanningStopBlock,
+         validatePeripheralPredicate: BTPeripheralScanValidationPredicate? = nil,
+         stopScanningCondition: BTPeripheralScanStopBlock,
          centralRolePerformer: BTCentralRolePerforming) {
         
         self.centralManager = centralManager
@@ -51,9 +51,9 @@ class BTPeripheralScanSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func scan() -> SignalProducer<[BTPeripheral], BTError> {
+    public func scan() -> SignalProducer<[BTPeripheral], BTError> {
         
         return SignalProducer { observer, disposable in
             let startScanningOperation = BTCentralManagerScanningOperation(
@@ -165,7 +165,7 @@ class BTPeripheralScanSignalProvider {
         }
     }
     
-    func stopScan() {
+    public func stopScan() {
         if let op = scanOperation where !op.finished {
             op.cancel()
             scanOperation = nil

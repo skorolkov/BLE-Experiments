@@ -8,7 +8,7 @@
 
 import Foundation
 
-@objc protocol BTPeripheralAPIWithHandlerProtocol: BTPeripheralAPIProtocol {
+@objc public protocol BTPeripheralAPIWithHandlerProtocol: BTPeripheralAPIProtocol {
     
     // MARK: Add handler
     

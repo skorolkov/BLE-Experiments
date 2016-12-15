@@ -10,7 +10,7 @@ import Foundation
 import ReactiveCocoa
 import Operations
 
-class BTPeripheralConnectSignalProvider {
+public final class BTPeripheralConnectSignalProvider {
     
     // MARK: Privare Properties
     
@@ -31,9 +31,9 @@ class BTPeripheralConnectSignalProvider {
         self.centralRolePerformer = centralRolePerformer
     }
     
-    // MARK: Internal Methods
+    // MARK: Public Methods
     
-    func connect() -> SignalProducer<BTPeripheral?, BTError> {
+    public func connect() -> SignalProducer<BTPeripheral?, BTError> {
         
         return SignalProducer { observer, disposable in
             let connectOperation = BTCentralManagerConnectingOperation(
