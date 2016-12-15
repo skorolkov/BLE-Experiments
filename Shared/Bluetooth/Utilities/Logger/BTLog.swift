@@ -10,5 +10,5 @@ import Foundation
 import XCGLogger
 
 public final class BTLog {
-    static var defaultLog: XCGLogger = XCGLogger()
+    public static var defaultLog: XCGLogger = XCGLogger()
 }

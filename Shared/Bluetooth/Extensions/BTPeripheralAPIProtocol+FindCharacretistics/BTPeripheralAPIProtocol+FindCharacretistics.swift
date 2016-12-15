@@ -10,7 +10,7 @@ import Foundation
 import CoreBluetooth
 
 extension BTPeripheralAPIProtocol {
-    func characteristicWithUUIDString(UUIDString: String,
+    public func characteristicWithUUIDString(UUIDString: String,
                                       properties: CBCharacteristicProperties) -> CBCharacteristic? {
         
         guard let services = self.services else {

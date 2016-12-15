@@ -9,10 +9,19 @@
 import CoreBluetooth
 
 public struct BTCharacteristicPrototype {
-    let UUID: CBUUID
+    public let UUID: CBUUID
+    
+    public init(UUID: CBUUID) {
+        self.UUID = UUID
+    }
 }
 
 public struct BTServicePrototype {
-    let UUID: CBUUID
-    let characteristicPrototypes: [BTCharacteristicPrototype]
+    public let UUID: CBUUID
+    public let characteristicPrototypes: [BTCharacteristicPrototype]
+    
+    public init(UUID: CBUUID, characteristicPrototypes: [BTCharacteristicPrototype]) {
+        self.UUID = UUID
+        self.characteristicPrototypes = characteristicPrototypes
+    }
 }

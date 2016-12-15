@@ -9,10 +9,10 @@
 import CoreBluetooth
 
 public struct BTCharacteristic {
-    let UUID: CBUUID
-    let properties: CBCharacteristicProperties
-    let isNotifying: Bool
-    let value: NSData?
+    public let UUID: CBUUID
+    public let properties: CBCharacteristicProperties
+    public let isNotifying: Bool
+    public let value: NSData?
     
     init(UUIDString: String,
          properties: CBCharacteristicProperties,
@@ -48,8 +48,8 @@ public func ==(left: BTCharacteristic, right: BTCharacteristic) -> Bool {
 }
 
 public struct BTService {
-    let UUID: CBUUID
-    let characteristics: [BTCharacteristic]
+    public let UUID: CBUUID
+    public let characteristics: [BTCharacteristic]
     
     init(UUIDString: String, characteristics: [BTCharacteristic]) {
         self.UUID = CBUUID(string: UUIDString)
