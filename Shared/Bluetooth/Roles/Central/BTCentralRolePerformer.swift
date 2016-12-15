@@ -10,6 +10,7 @@ import Foundation
 import CoreBluetooth
 import Operations
 import ReactiveCocoa
+import XCGLogger
 
 public final class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
     
@@ -68,7 +69,7 @@ public final class BTCentralRolePerformer: NSObject, BTCentralRolePerforming {
         
         centralManager.addHandler(self)
         
-        centralManager.addHandler(BTCentralManagerLoggingHandler(logger: Log.bluetooth))
+        centralManager.addHandler(BTCentralManagerLoggingHandler(logger: BTLog.defaultLog))
     }
     
     // MARK: Public Methods
@@ -268,7 +269,7 @@ extension BTCentralRolePerformer: BTCentralManagerHandlerProtocol {
     func centralManager(central: BTCentralManagerAPIType,
                         didConnectPeripheral peripheral: BTPeripheralAPIType) {
         peripheral.addHandler(self)
-        peripheral.addHandler(BTPeripheralLoggingHandler(logger: Log.bluetooth))
+        peripheral.addHandler(BTPeripheralLoggingHandler(logger: BTLog.defaultLog))
         
         updateManagedPeripheral(peripheral)
     }

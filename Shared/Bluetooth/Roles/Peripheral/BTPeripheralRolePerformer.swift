@@ -50,7 +50,7 @@ class BTPeripheralRolePerformer: NSObject {
         super.init()
         
         peripheralManager.addHandler(self)
-        peripheralManager.addHandler(BTPeripheralManagerLoggingHandler(logger: Log.bluetooth))
+        peripheralManager.addHandler(BTPeripheralManagerLoggingHandler(logger: BTLog.defaultLog))
     }
     
     convenience override init() {
@@ -87,8 +87,8 @@ class BTPeripheralRolePerformer: NSObject {
         
         startAdvertisingOperation.addObserver(DidFinishObserver { (operation, errors) in
             
-            Log.bluetooth.info("BTPeripheralRolePerformer: advertisement started")
-            Log.bluetooth.verbose("BTPeripheralRolePerformer: advertisement start operation finished: " +
+            BTLog.defaultLog.info("BTPeripheralRolePerformer: advertisement started")
+            BTLog.defaultLog.verbose("BTPeripheralRolePerformer: advertisement start operation finished: " +
                 "\(operation.finished) with errors: \(errors)")
             
             completion?(rolePerformer: self,
@@ -103,7 +103,7 @@ class BTPeripheralRolePerformer: NSObject {
     func stopAdevertising() {
         if peripheralManager.isAdvertising {
             peripheralManager.stopAdvertising()
-            Log.bluetooth.info("BTPeripheralRolePerformer: advertisement stopped")
+            BTLog.defaultLog.info("BTPeripheralRolePerformer: advertisement stopped")
         }
     }
 }
@@ -141,10 +141,10 @@ private extension BTPeripheralRolePerformer {
             
             if operation.finished && errors.isEmpty {
                 weakSelf?.servicesAdded = true
-                Log.bluetooth.info("BTPeripheralRolePerformer: services added")
+                BTLog.defaultLog.info("BTPeripheralRolePerformer: services added")
             }
             
-            Log.bluetooth.verbose("BTPeripheralRolePerformer: services add operation finished=" +
+            BTLog.defaultLog.verbose("BTPeripheralRolePerformer: services add operation finished=" +
                 "\(operation.finished), cancelled=\(operation.cancelled) with errors: \(errors)")
             })
         

@@ -45,7 +45,7 @@ public final class BTPeripheralDisconnectSignalProvider {
                 
                 guard let disconnectOperation = operation as? BTCentralManagerDisconnectingOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
+                    BTLog.defaultLog.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
@@ -58,12 +58,12 @@ public final class BTPeripheralDisconnectSignalProvider {
                 
                 if errors.count > 0 && disconnectError == nil  {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
-                    Log.bluetooth.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
+                    BTLog.defaultLog.error("BTPeripheralDisconnectSignalProvider: failed to disconnect from peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
-                Log.bluetooth.info("BTPeripheralDisconnectSignalProvider: disconnect completed, disconnected peripheral: \(disconnectOperation.updatedPeripheral)")
+                BTLog.defaultLog.info("BTPeripheralDisconnectSignalProvider: disconnect completed, disconnected peripheral: \(disconnectOperation.updatedPeripheral)")
                 
                 if let disconnectedPeripheral = disconnectOperation.updatedPeripheral {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(disconnectedPeripheral)

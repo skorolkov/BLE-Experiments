@@ -118,7 +118,7 @@ public final class BTPeripheralScanSignalProvider {
                     
                     if timeoutErrorIndex == nil {
                         let error = BTOperationError(code: .OperationFailed(errors: errors))
-                        Log.bluetooth.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
+                        BTLog.defaultLog.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
                         strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                         observer.sendFailed(error)
                         return
@@ -127,14 +127,14 @@ public final class BTPeripheralScanSignalProvider {
                 
                 guard let scanningOperation = operation as? BTCentralManagerScanningOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
+                    BTLog.defaultLog.error("BTPeripheralScanSignalProvider: scanning, error: \(error)")
                     strongSelf.centralRolePerformer.setScanningForPeripheralsInProgress(false)
                     observer.sendFailed(error)
                     return
                 }
                 
-                Log.bluetooth.info("BTPeripheralScanSignalProvider: scan completed, discovered \(scanningOperation.discoveryResults.count) peripherals")
-                Log.bluetooth.verbose("BTPeripheralScanSignalProvider: discovery results: \(scanningOperation.discoveryResults.count)")
+                BTLog.defaultLog.info("BTPeripheralScanSignalProvider: scan completed, discovered \(scanningOperation.discoveryResults.count) peripherals")
+                BTLog.defaultLog.verbose("BTPeripheralScanSignalProvider: discovery results: \(scanningOperation.discoveryResults.count)")
                 
                 for discoveryResult in scanningOperation.discoveryResults {
                     strongSelf.centralRolePerformer.updateManagedPeripheral(discoveryResult.peripheral)

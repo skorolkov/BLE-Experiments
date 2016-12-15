@@ -50,19 +50,19 @@ public final class BTReadCharacteristicSignalProvider {
                 
                 if operation.finished && errors.count > 0 {
                     let error = BTOperationError(code: .OperationFailed(errors: errors))
-                    Log.bluetooth.error("BTReadCharacteristicSignalProvider: failed to read value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID.UUIDString) error: \(error)")
+                    BTLog.defaultLog.error("BTReadCharacteristicSignalProvider: failed to read value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID.UUIDString) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
                 guard let readOperation = operation as? BTPeripheralReadValueOperation else {
                     let error = BTOperationError(code: .OperationTypeMismatch)
-                    Log.bluetooth.error("BTReadCharacteristicSignalProvider: failed to read value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
+                    BTLog.defaultLog.error("BTReadCharacteristicSignalProvider: failed to read value for peripheral with id=\(strongSelf.peripheral.identifier.UUIDString), for characteristic id=\(strongSelf.characterictic.UUID) error: \(error)")
                     observer.sendFailed(error)
                     return
                 }
                 
-                Log.bluetooth.info("BTReadCharacteristicSignalProvider: read value=\(readOperation.value) for characteristic with id=\(strongSelf.characterictic.UUID)")
+                BTLog.defaultLog.info("BTReadCharacteristicSignalProvider: read value=\(readOperation.value) for characteristic with id=\(strongSelf.characterictic.UUID)")
                     
                 if let updatedCharacteristic = readOperation.updatedCharacteristic {
                     

@@ -19,5 +19,6 @@ extension Config {
         ]
         
         Log.setLogLevel(.Verbose, toLoggers: loggers)
+        BTLog.defaultLog = Log.bluetooth
     }
 }
