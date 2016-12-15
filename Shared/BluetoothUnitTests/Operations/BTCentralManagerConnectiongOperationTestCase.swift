@@ -28,7 +28,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
     func testCentralManagerIsPoweredOff() {
         
         let centralManager = BTStubSuccessConnectionCentralManager()
-        centralManager.state = .PoweredOff
+        centralManager.managerState = .PoweredOff
         
         let peripheral = BTBaseStubPeripheral(identifier: identifier)
 
@@ -54,7 +54,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
     func testSuccessConnectionOperation() {
         
         let centralManager = BTStubSuccessConnectionCentralManager()
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let peripheral = BTBaseStubPeripheral(identifier: identifier)
         
@@ -88,7 +88,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
     func testFailedConnectionOperation() {
         
         let centralManager = BTStubFailedConnectionCentralManager()
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let peripheral = BTBaseStubPeripheral(identifier: identifier)
         
@@ -122,7 +122,7 @@ class BTCentralManagerConnectiongOperationTestCase: BTBaseOperationTestCase {
     func testConnectionCancellation() {
         
         let centralManager = BTStubSuccessConnectionCentralManager()
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let peripheral = BTBaseStubPeripheral(identifier: identifier)
         

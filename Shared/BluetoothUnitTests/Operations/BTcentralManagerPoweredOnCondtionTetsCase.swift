@@ -41,7 +41,7 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
     func testConditionEvaluationSuccess() {
         
         let centralManager = BTStubPoweredSwitchCentralManager()
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let condition = BTCentralManagerPoweredOnCondition(centralManager: centralManager)
         
@@ -75,7 +75,10 @@ class BTcentralManagerPoweredOnCondtionTetsCase: BTBaseOperationTestCase {
         
         operationQueue.addOperation(operation)
         
-        centralManager.state = .PoweredOn
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.1 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+            centralManager.managerState = .PoweredOn
+        }
         
         waitForExpectationsWithTimeout(1, handler: nil)
     }

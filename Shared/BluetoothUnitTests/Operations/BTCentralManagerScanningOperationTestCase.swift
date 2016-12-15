@@ -26,7 +26,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
 
     func testCentralManagerIsPoweredOff() {
         
-        centralManager.state = .PoweredOff
+        centralManager.managerState = .PoweredOff
         
         let operation = BTCentralManagerScanningOperation(
             centralManager: centralManager,
@@ -51,7 +51,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
     
     func testScanningOperation() {
         
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
             centralManager: centralManager,
@@ -84,7 +84,7 @@ class BTCentralManagerScanningOperationTestCase: BTBaseOperationTestCase {
     
     func testScanningCancellation() {
         
-        centralManager.state = .PoweredOn
+        centralManager.managerState = .PoweredOn
         
         let operation = BTCentralManagerScanningOperation(
             centralManager: centralManager,

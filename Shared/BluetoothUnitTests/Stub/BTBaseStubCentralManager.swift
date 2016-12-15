@@ -24,7 +24,13 @@ import CoreBluetooth
     
     // MARK: State
     
-    var state: CBCentralManagerState = .Unknown
+    var managerState: BTManagerState = .Unknown {
+        didSet {
+            for handler in handlerContainer.handlers {
+                handler.centralManagerDidUpdateState(self)
+            }
+        }
+    }
     
     // MARK: Scan for peripherals
     
